@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4EFF20C022EB553300D76638 /* CompilerToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B622EB553100D76638 /* CompilerToggleView.swift */; };
+		4EFF20C122EB553300D76638 /* ReadOnlyEditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B722EB553200D76638 /* ReadOnlyEditorViewWrapper.swift */; };
+		4EFF20C222EB553300D76638 /* AssemblyLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B822EB553200D76638 /* AssemblyLexer.swift */; };
+		4EFF20C322EB553300D76638 /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */; };
+		4EFF20C422EB553300D76638 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BA22EB553200D76638 /* ViewModel.swift */; };
+		4EFF20C522EB553300D76638 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BB22EB553200D76638 /* DocumentController.swift */; };
+		4EFF20C622EB553300D76638 /* CompilerSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */; };
+		4EFF20C722EB553300D76638 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BD22EB553200D76638 /* Preferences.swift */; };
+		4EFF20C822EB553300D76638 /* CLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BE22EB553200D76638 /* CLexer.swift */; };
+		4EFF20C922EB553300D76638 /* SwiftLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BF22EB553200D76638 /* SwiftLexer.swift */; };
+		4EFF20CB22EB556200D76638 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20CA22EB556200D76638 /* Source.swift */; };
 		82032BB022E938D2008A3233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82032BAF22E938D2008A3233 /* AppDelegate.swift */; };
 		82032BB222E938D2008A3233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82032BB122E938D2008A3233 /* SceneDelegate.swift */; };
 		82032BB422E938D2008A3233 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82032BB322E938D2008A3233 /* ContentView.swift */; };
@@ -15,16 +26,8 @@
 		82032BBC22E938D3008A3233 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82032BBA22E938D3008A3233 /* LaunchScreen.storyboard */; };
 		82032BC622E938E6008A3233 /* GodBolt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AF54F022E8D8E300550E9D /* GodBolt.framework */; };
 		82032BC722E938E6008A3233 /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AF54B922E8D8C100550E9D /* SavannaKit.framework */; };
-		820BF5AA22E917CA001D65E9 /* ReadOnlyEditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BF5A922E917CA001D65E9 /* ReadOnlyEditorViewWrapper.swift */; };
-		820BF5AC22E9268B001D65E9 /* CLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BF5AB22E9268B001D65E9 /* CLexer.swift */; };
-		820BF5AE22E927EF001D65E9 /* AssemblyLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BF5AD22E927EF001D65E9 /* AssemblyLexer.swift */; };
 		822797A622E9392E00794FAC /* SavannaKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82AF54B922E8D8C100550E9D /* SavannaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		822797A722E9392E00794FAC /* GodBolt.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82AF54F022E8D8E300550E9D /* GodBolt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		822797B022EA5AC200794FAC /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822797AF22EA5AC200794FAC /* DocumentController.swift */; };
-		822797B422EA6FE100794FAC /* CompilerToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82935C7122E92D4400E4A39F /* CompilerToggleView.swift */; };
-		822797B522EA6FF100794FAC /* CompilerSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BF5A722E90FB1001D65E9 /* CompilerSelectorView.swift */; };
-		822797B722EA7D8600794FAC /* SwiftLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822797B622EA7D8600794FAC /* SwiftLexer.swift */; };
-		822797BA22EA8A3200794FAC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822797B822EA876500794FAC /* Preferences.swift */; };
 		82AF548422E8D89300550E9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF548322E8D89300550E9D /* AppDelegate.swift */; };
 		82AF548622E8D89300550E9D /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF548522E8D89300550E9D /* Document.swift */; };
 		82AF548822E8D89300550E9D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF548722E8D89300550E9D /* ContentView.swift */; };
@@ -60,9 +63,6 @@
 		82AF54FF22E8D9A500550E9D /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF54FE22E8D9A500550E9D /* Language.swift */; };
 		82AF550122E8D9E100550E9D /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF550022E8D9E100550E9D /* Response.swift */; };
 		82AF550322E8DA5300550E9D /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF550222E8DA5300550E9D /* Client.swift */; };
-		82AF550522E8DE1200550E9D /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF550422E8DE1200550E9D /* Source.swift */; };
-		82AF550722E8E31200550E9D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF550622E8E31200550E9D /* ViewModel.swift */; };
-		82AF550922E8E41F00550E9D /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF550822E8E41F00550E9D /* EditorViewWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +137,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4EFF20B622EB553100D76638 /* CompilerToggleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilerToggleView.swift; sourceTree = "<group>"; };
+		4EFF20B722EB553200D76638 /* ReadOnlyEditorViewWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadOnlyEditorViewWrapper.swift; sourceTree = "<group>"; };
+		4EFF20B822EB553200D76638 /* AssemblyLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyLexer.swift; sourceTree = "<group>"; };
+		4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewWrapper.swift; sourceTree = "<group>"; };
+		4EFF20BA22EB553200D76638 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		4EFF20BB22EB553200D76638 /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
+		4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilerSelectorView.swift; sourceTree = "<group>"; };
+		4EFF20BD22EB553200D76638 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		4EFF20BE22EB553200D76638 /* CLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLexer.swift; sourceTree = "<group>"; };
+		4EFF20BF22EB553200D76638 /* SwiftLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLexer.swift; sourceTree = "<group>"; };
+		4EFF20CA22EB556200D76638 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		82032BAD22E938D2008A3233 /* Compiler Explorer iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Compiler Explorer iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82032BAF22E938D2008A3233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82032BB122E938D2008A3233 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,14 +156,6 @@
 		82032BB822E938D3008A3233 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		82032BBB22E938D3008A3233 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82032BBD22E938D3008A3233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		820BF5A722E90FB1001D65E9 /* CompilerSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompilerSelectorView.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/CompilerSelectorView.swift"; sourceTree = "<group>"; };
-		820BF5A922E917CA001D65E9 /* ReadOnlyEditorViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadOnlyEditorViewWrapper.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/ReadOnlyEditorViewWrapper.swift"; sourceTree = "<group>"; };
-		820BF5AB22E9268B001D65E9 /* CLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CLexer.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/CLexer.swift"; sourceTree = "<group>"; };
-		820BF5AD22E927EF001D65E9 /* AssemblyLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AssemblyLexer.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/AssemblyLexer.swift"; sourceTree = "<group>"; };
-		822797AF22EA5AC200794FAC /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentController.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/DocumentController.swift"; sourceTree = "<group>"; };
-		822797B622EA7D8600794FAC /* SwiftLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftLexer.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/SwiftLexer.swift"; sourceTree = "<group>"; };
-		822797B822EA876500794FAC /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Preferences.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/Preferences.swift"; sourceTree = "<group>"; };
-		82935C7122E92D4400E4A39F /* CompilerToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompilerToggleView.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/CompilerToggleView.swift"; sourceTree = "<group>"; };
 		82AF548022E8D89300550E9D /* Compiler Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Compiler Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AF548322E8D89300550E9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82AF548522E8D89300550E9D /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -195,9 +198,6 @@
 		82AF54FE22E8D9A500550E9D /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		82AF550022E8D9E100550E9D /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		82AF550222E8DA5300550E9D /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		82AF550422E8DE1200550E9D /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Source.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/GodBolt/Source.swift"; sourceTree = "<group>"; };
-		82AF550622E8E31200550E9D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/ViewModel.swift"; sourceTree = "<group>"; };
-		82AF550822E8E41F00550E9D /* EditorViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorViewWrapper.swift; path = "../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/Compiler Explorer/EditorViewWrapper.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,17 +311,17 @@
 			children = (
 				82AF548322E8D89300550E9D /* AppDelegate.swift */,
 				82AF548522E8D89300550E9D /* Document.swift */,
-				822797AF22EA5AC200794FAC /* DocumentController.swift */,
-				82AF550622E8E31200550E9D /* ViewModel.swift */,
-				822797B822EA876500794FAC /* Preferences.swift */,
-				820BF5A722E90FB1001D65E9 /* CompilerSelectorView.swift */,
-				82935C7122E92D4400E4A39F /* CompilerToggleView.swift */,
+				4EFF20BF22EB553200D76638 /* SwiftLexer.swift */,
+				4EFF20BE22EB553200D76638 /* CLexer.swift */,
+				4EFF20B822EB553200D76638 /* AssemblyLexer.swift */,
+				4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */,
+				4EFF20B622EB553100D76638 /* CompilerToggleView.swift */,
+				4EFF20BB22EB553200D76638 /* DocumentController.swift */,
+				4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */,
+				4EFF20BD22EB553200D76638 /* Preferences.swift */,
+				4EFF20B722EB553200D76638 /* ReadOnlyEditorViewWrapper.swift */,
+				4EFF20BA22EB553200D76638 /* ViewModel.swift */,
 				82AF548722E8D89300550E9D /* ContentView.swift */,
-				82AF550822E8E41F00550E9D /* EditorViewWrapper.swift */,
-				820BF5A922E917CA001D65E9 /* ReadOnlyEditorViewWrapper.swift */,
-				820BF5AB22E9268B001D65E9 /* CLexer.swift */,
-				822797B622EA7D8600794FAC /* SwiftLexer.swift */,
-				820BF5AD22E927EF001D65E9 /* AssemblyLexer.swift */,
 				82AF548922E8D89400550E9D /* Assets.xcassets */,
 				82AF548E22E8D89400550E9D /* Main.storyboard */,
 				82AF549122E8D89400550E9D /* Info.plist */,
@@ -414,7 +414,7 @@
 				82AF54FC22E8D92100550E9D /* Compiler.swift */,
 				82AF54FE22E8D9A500550E9D /* Language.swift */,
 				82AF550022E8D9E100550E9D /* Response.swift */,
-				82AF550422E8DE1200550E9D /* Source.swift */,
+				4EFF20CA22EB556200D76638 /* Source.swift */,
 				82AF550222E8DA5300550E9D /* Client.swift */,
 				82AF54F322E8D8E300550E9D /* Info.plist */,
 			);
@@ -678,19 +678,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82AF550922E8E41F00550E9D /* EditorViewWrapper.swift in Sources */,
-				822797B422EA6FE100794FAC /* CompilerToggleView.swift in Sources */,
-				822797B522EA6FF100794FAC /* CompilerSelectorView.swift in Sources */,
-				820BF5AC22E9268B001D65E9 /* CLexer.swift in Sources */,
+				4EFF20C022EB553300D76638 /* CompilerToggleView.swift in Sources */,
+				4EFF20C922EB553300D76638 /* SwiftLexer.swift in Sources */,
+				4EFF20C622EB553300D76638 /* CompilerSelectorView.swift in Sources */,
 				82AF548622E8D89300550E9D /* Document.swift in Sources */,
 				82AF548422E8D89300550E9D /* AppDelegate.swift in Sources */,
-				820BF5AA22E917CA001D65E9 /* ReadOnlyEditorViewWrapper.swift in Sources */,
-				82AF550722E8E31200550E9D /* ViewModel.swift in Sources */,
-				822797B722EA7D8600794FAC /* SwiftLexer.swift in Sources */,
-				822797BA22EA8A3200794FAC /* Preferences.swift in Sources */,
-				822797B022EA5AC200794FAC /* DocumentController.swift in Sources */,
-				820BF5AE22E927EF001D65E9 /* AssemblyLexer.swift in Sources */,
+				4EFF20C722EB553300D76638 /* Preferences.swift in Sources */,
+				4EFF20C122EB553300D76638 /* ReadOnlyEditorViewWrapper.swift in Sources */,
+				4EFF20C422EB553300D76638 /* ViewModel.swift in Sources */,
+				4EFF20C822EB553300D76638 /* CLexer.swift in Sources */,
+				4EFF20C522EB553300D76638 /* DocumentController.swift in Sources */,
+				4EFF20C222EB553300D76638 /* AssemblyLexer.swift in Sources */,
 				82AF548822E8D89300550E9D /* ContentView.swift in Sources */,
+				4EFF20C322EB553300D76638 /* EditorViewWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,7 +741,7 @@
 				82AF54FD22E8D92100550E9D /* Compiler.swift in Sources */,
 				82AF550122E8D9E100550E9D /* Response.swift in Sources */,
 				82AF550322E8DA5300550E9D /* Client.swift in Sources */,
-				82AF550522E8DE1200550E9D /* Source.swift in Sources */,
+				4EFF20CB22EB556200D76638 /* Source.swift in Sources */,
 				82AF54FF22E8D9A500550E9D /* Language.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
