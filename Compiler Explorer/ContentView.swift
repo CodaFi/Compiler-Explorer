@@ -1,25 +1,41 @@
-//
-//  ContentView.swift
-//  Compiler Explorer
-//
-//  Created by Robert Widmann on 7/24/19.
-//  Copyright © 2019 CodaFi. All rights reserved.
-//
+///
+///  ContentView.swift
+///
+///
+///  Created by Robert Widmann on 7/24/19.
+///
+/// This project is released under the MIT license, a copy of which is
+/// available in the repository.
 
 import SwiftUI
+import SavannaKit
+import Combine
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello World")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
+  @EnvironmentObject var viewModel: ViewModel
 
-
-#if DEBUG
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+  var body: some View {
+    VStack {
+      CompilerSelectorView(
+        compilers: self.$viewModel.availableCompilers,
+        selectedCompiler: self.$viewModel.selectedCompiler,
+        compilerOptions: self.$viewModel.compilerOptions,
+        syntax: self.$viewModel.syntax,
+        labels: self.$viewModel.labels,
+        directives: self.$viewModel.directives,
+        comments: self.$viewModel.comments,
+        demangle: self.$viewModel.demangle,
+        trim: self.$viewModel.trim)
+      // FIXME: Do I really have to force this to work?
+      // Even in death, NSSplitView.  Even in death.
+      HSplitView {
+        EditorViewWrapper(text: self.$viewModel.documentTextValue,
+                          language: self.$viewModel.language,
+                          onTextChange: self.viewModel.textDidChange)
+          .layoutPriority(2.0)
+        ReadOnlyEditorViewWrapper(text: self.$viewModel.compiledTextValue)
+          .layoutPriority(1.0)
+      }
     }
+  }
 }
-#endif
