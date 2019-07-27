@@ -9,6 +9,7 @@
 import AppKit
 
 final class DocumentController: NSDocumentController {
+
   override func addDocument(_ document: NSDocument) {
     guard self.documents.count == 1 else {
       return super.addDocument(document)
@@ -75,6 +76,25 @@ final class DocumentController: NSDocumentController {
       return nil
     }
     return doc
+  }
+
+  func openDocument(pasteboard: String, type: String, display displayDocument: Bool) {
+    let transientDoc = self.transientDocumentToReplace()
+    if let transientDoc = transientDoc {
+      transientDoc.markTransient(false)
+    }
+
+    let doc = Document()
+    doc.read(from: pasteboard, ofType: type)
+    if let transientDoc = transientDoc{
+      self.replaceTransientDocument(transientDoc, with: doc)
+    }
+    self.addDocument(doc)
+    doc.updateChangeCount(.changeReadOtherContents)
+    if displayDocument {
+      doc.makeWindowControllers()
+      doc.showWindows()
+    }
   }
   
   override func openDocument(withContentsOf url: URL, display displayDocument: Bool, completionHandler: @escaping (NSDocument?, Bool, Error?) -> Void) {

@@ -83,6 +83,13 @@ final class Document: NSDocument {
     self.undoManager?.enableUndoRegistration()
   }
 
+  func read(from string: String, ofType typeName: String) {
+     self.undoManager?.disableUndoRegistration()
+     // wewlad
+     self.viewModel.readString(string, ofType: typeName)
+     self.undoManager?.enableUndoRegistration()
+   }
+
   override func updateChangeCount(_ change: NSDocument.ChangeType) {
     // When a document is changed, it is no longer transient.
     self.transient = false
