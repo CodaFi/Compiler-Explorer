@@ -23,9 +23,9 @@ struct ContentView: View {
         EditorViewWrapper(text: self.$viewModel.documentTextValue,
                           language: self.$viewModel.language,
                           onTextChange: self.viewModel.textDidChange)
-          .layoutPriority(2.0)
+          .frame(width: 400, alignment: .leading)
         ReadOnlyEditorViewWrapper(text: self.$viewModel.compiledTextValue)
-          .layoutPriority(1.0)
+          .frame(width: 400, alignment: .leading)
       }
     }
   }

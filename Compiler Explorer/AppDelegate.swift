@@ -85,6 +85,10 @@ extension AppDelegate {
     guard let firstSession = session.sessions.first else {
       return
     }
-    self.documentController.openDocument(pasteboard: firstSession.source, type: firstSession.language, display: true)
+
+    self.documentController.openDocument(
+      pasteboard: firstSession.source,
+      type: firstSession.language,
+      session: firstSession.compilers.first)
   }
 }

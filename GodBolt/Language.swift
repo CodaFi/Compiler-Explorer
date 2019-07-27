@@ -6,9 +6,23 @@
 //  Copyright © 2019 CodaFi. All rights reserved.
 //
 
+// N.B. Languages are unique by ID.  The display name is optional.
 public struct Language: Codable, Hashable {
-    public let id: String
-    public let name: String
+  public let id: String
+  public let name: String
+
+  public init(id: String, name: String) {
+    self.id = id
+    self.name = name
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self.id)
+  }
+
+  public static func == (lhs: Language, rhs: Language) -> Bool {
+    return lhs.id == rhs.id
+  }
 }
 
 extension Language {

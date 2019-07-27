@@ -11,6 +11,7 @@
 import GodBolt
 import Combine
 import SwiftUI
+import SavannaKit
 
 final class ViewModel: BindableObject {
   private let client = Client.shared
@@ -114,6 +115,8 @@ final class ViewModel: BindableObject {
     }
   }
 
+  private var textView: SyntaxTextView?
+
   /// The spine of the live-update mechanism.
   private var cancellable: AnyCancellable? = nil
   init() {
@@ -179,24 +182,36 @@ extension ViewModel {
 
   func readData(_ data: Data, ofType typeName: String) {
     let str = String(data: data, encoding: .utf8) ?? ""
-    return self.readString(str, ofType: typeName)
+    return self.readString(str, ofType: typeName, session: nil)
   }
 
   // FIXME: Fold this method into the other one.
-  func readString(_ string: String, ofType typeName: String) {
+  func readString(_ string: String, ofType typeName: String, session: SessionContainer.SessionCompiler?) {
     self.willChange.send()
-    self.documentTextValue = string
-    self.language = fileTypeTable[typeName]
+    self.textView?.text = string
+    self.language = Language(id: typeName, name: "")
     _ = self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
       .sink { values in
         self.availableCompilers = values
+        // Session restoration
+        if let session = session {
+          self.selectedCompiler = self.availableCompilers.firstIndex { compiler in compiler.id == session.id  } ?? 0
+          self.compilerOptions = session.options
+          self.syntax = session.filters.contains(.intel) ? 0 : 1
+          self.labels = session.filters.contains(.labels)
+          self.directives = session.filters.contains(.directives)
+          self.comments = session.filters.contains(.comments)
+          self.demangle = session.filters.contains(.demangle)
+          self.trim = session.filters.contains(.trim)
+        }
       }
   }
 
-  func textDidChange(_ text: String) {
-    self.documentTextValue = text
+  func textDidChange(_ textView: SyntaxTextView) {
+    self.textView = textView
+    self.documentTextValue = textView.text
   }
 }
 

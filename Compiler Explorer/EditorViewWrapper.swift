@@ -16,12 +16,10 @@ import GodBolt
 struct EditorViewWrapper: NSViewRepresentable {
   @Binding var text: String
   @Binding var language: Language?
-  let onTextChange: (String) -> Void
+  let onTextChange: (SyntaxTextView) -> Void
 
   func makeNSView(context: NSViewRepresentableContext<EditorViewWrapper>) -> SyntaxTextView {
-    let syntaxView = SyntaxTextView(frame: .zero, lexer: CLexer()) { view in
-      self.onTextChange(view.text)
-    }
+    let syntaxView = SyntaxTextView(frame: .zero, lexer: CLexer(), didChangeText: self.onTextChange)
     syntaxView.theme = CTheme()
     syntaxView.text = self.text
     return syntaxView

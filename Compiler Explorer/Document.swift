@@ -10,6 +10,7 @@
 
 import Cocoa
 import SwiftUI
+import GodBolt
 
 final class Document: NSDocument {
   private var viewModel = ViewModel()
@@ -25,6 +26,11 @@ final class Document: NSDocument {
     self.undoManager?.disableUndoRegistration()
     self.fileType = NSDocumentController.shared.defaultType
     self.undoManager?.enableUndoRegistration()
+  }
+
+  func emplaceViewModel(from other: Document) {
+    self.viewModel = other.viewModel
+    self.viewModel.willChange.send()
   }
 
   func markTransient(_ transient: Bool = true) {
@@ -51,7 +57,7 @@ final class Document: NSDocument {
     }
 
     let window = NSWindow(
-        contentRect: NSRect(x: 0, y: 0, width: 800, height: 800),
+        contentRect: NSRect(x: 0, y: 0, width: 800, height: 750),
         styleMask: [.titled, .closable, .miniaturizable, .resizable],
         backing: .buffered, defer: false)
     window.center()
@@ -83,10 +89,10 @@ final class Document: NSDocument {
     self.undoManager?.enableUndoRegistration()
   }
 
-  func read(from string: String, ofType typeName: String) {
+  func read(from string: String, ofType typeName: String, session: SessionContainer.SessionCompiler?) {
      self.undoManager?.disableUndoRegistration()
      // wewlad
-     self.viewModel.readString(string, ofType: typeName)
+     self.viewModel.readString(string, ofType: typeName, session: session)
      self.undoManager?.enableUndoRegistration()
    }
 

@@ -64,9 +64,6 @@ struct ShortlinkPanelView_Preview: PreviewProvider {
 final class ShortlinkWindowController: NSWindowController, BindableObject {
   var willChange = PassthroughSubject<Void, Never>()
 
-  // Example: https://godbolt.org/z/wsh6Oh
-  private let shortlinkRegex = try! NSRegularExpression(pattern: "https?://godbolt.org/z/(\\w+$)")
-
   var shortlinkText: String = "" {
     willSet {
       self.willChange.send()
@@ -139,29 +136,15 @@ final class ShortlinkWindowController: NSWindowController, BindableObject {
     self.isValidatingShortlink = true
     defer { self.isValidatingShortlink = false }
 
-    let full = NSRange(location: 0, length: self.shortlinkText.count)
-    guard let match = self.shortlinkRegex.firstMatch(in: self.shortlinkText, range: full) else {
-      return false
-    }
-
-    guard match.numberOfRanges == 2 else {
-      return false
-    }
-
-    let r = match.range(at: 1)
-    let matchStart = self.shortlinkText.index(self.shortlinkText.startIndex,
-                                         offsetBy: r.location)
-    let matchEnd = self.shortlinkText.index(self.shortlinkText.startIndex,
-                                       offsetBy: NSMaxRange(r))
-
-    let substr = String(self.shortlinkText[
-      Range<String.Index>(uncheckedBounds: (matchStart, matchEnd))
-    ])
+    guard let url = URL(string: self.shortlinkText) else { return false }
+    guard let host = url.host, host.contains("godbolt.org") else { return false }
+    guard url.pathComponents.count == 3 else { return false }
+    guard url.path.contains("z") else { return false }
 
     let group = DispatchGroup()
     group.enter()
     self.validationCancellable = Client.shared
-      .requestShortlinkInfo(for: substr)
+      .requestShortlinkInfo(for: url.lastPathComponent)
       .catch { err -> Empty<SessionContainer, Never> in print(err); return Empty<SessionContainer, Never>() }
       .sink(receiveCompletion: { _ in
         group.leave()

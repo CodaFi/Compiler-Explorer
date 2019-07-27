@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import GodBolt
 
 final class DocumentController: NSDocumentController {
 
@@ -78,20 +79,17 @@ final class DocumentController: NSDocumentController {
     return doc
   }
 
-  func openDocument(pasteboard: String, type: String, display displayDocument: Bool) {
-    let transientDoc = self.transientDocumentToReplace()
-    if let transientDoc = transientDoc {
-      transientDoc.markTransient(false)
-    }
-
-    let doc = Document()
-    doc.read(from: pasteboard, ofType: type)
-    if let transientDoc = transientDoc{
-      self.replaceTransientDocument(transientDoc, with: doc)
-    }
-    self.addDocument(doc)
-    doc.updateChangeCount(.changeReadOtherContents)
-    if displayDocument {
+  func openDocument(pasteboard: String, type: String, session: SessionContainer.SessionCompiler?) {
+    if let doc = self.transientDocumentToReplace() {
+      doc.markTransient(false)
+      doc.read(from: pasteboard, ofType: type, session: session)
+      doc.updateChangeCount(.changeReadOtherContents)
+      doc.showWindows()
+    } else {
+      let doc = Document()
+      doc.read(from: pasteboard, ofType: type, session: session)
+      doc.updateChangeCount(.changeReadOtherContents)
+      self.addDocument(doc)
       doc.makeWindowControllers()
       doc.showWindows()
     }
@@ -124,6 +122,7 @@ final class DocumentController: NSDocumentController {
     for controller in allControllers {
       transientDoc.removeWindowController(controller)
     }
+    concreteDocument.emplaceViewModel(from: transientDoc)
   }
 }
 
