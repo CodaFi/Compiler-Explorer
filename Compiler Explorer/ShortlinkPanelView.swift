@@ -17,6 +17,12 @@ struct ShortlinkPanelView: View {
   @EnvironmentObject var viewModel: ShortlinkWindowController
   let action: (NSApplication.ModalResponse) -> Void
 
+  // N.B. Padding in this view is a little strange. Because these "Native"
+  // controls are unknown to SwiftUI, if the padding is placed directly onto
+  // them then they are rendered sans padding when in their first "empty" state.
+  // This causes an unsightly "snap-to" effect when the user types.
+  //
+  // The choice to pad the whole HStack is very deliberate.
   var body: some View {
     VStack {
       VStack(alignment: .leading) {
