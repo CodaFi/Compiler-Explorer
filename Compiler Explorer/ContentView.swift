@@ -23,9 +23,9 @@ struct ContentView: View {
         EditorViewWrapper(text: self.$viewModel.documentTextValue,
                           language: self.$viewModel.language,
                           onTextChange: self.viewModel.textDidChange)
-          .frame(width: 400, alignment: .leading)
+          .frame(minWidth: 400, idealWidth: 400, maxWidth: .infinity)
         ReadOnlyEditorViewWrapper(text: self.$viewModel.compiledTextValue)
-          .frame(width: 400, alignment: .leading)
+          .frame(minWidth: 400, idealWidth: 400, maxWidth: .infinity)
       }
     }
   }
