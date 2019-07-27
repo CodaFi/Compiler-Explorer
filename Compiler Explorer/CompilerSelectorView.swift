@@ -11,17 +11,7 @@ import Combine
 import GodBolt
 
 struct CompilerSelectorView: View {
-  @Binding var compilers: [Compiler]
-  @Binding var selectedCompiler: Int
-  @Binding var compilerOptions: String
-
-  // wewlad
-  @Binding var syntax: Int
-  @Binding var labels: Bool
-  @Binding var directives: Bool
-  @Binding var comments: Bool
-  @Binding var demangle: Bool
-  @Binding var trim: Bool
+  @EnvironmentObject var viewModel: ViewModel
 
   var body: some View {
     VStack {
@@ -29,33 +19,29 @@ struct CompilerSelectorView: View {
         Spacer()
         Text("Compiler:")
           .layoutPriority(1.0)
-        Picker(selection: self.$selectedCompiler, label: Text("Compiler")) {
-          if self.compilers.isEmpty {
+        Picker(selection: self.$viewModel.selectedCompiler, label: Text("Compiler")) {
+          if self.$viewModel.availableCompilers.isEmpty {
             Text("(No Compilers Available)").tag(0)
           } else {
-            ForEach(0..<self.compilers.count) {
-              Text(self.compilers[$0].name).tag($0)
+            ForEach(0..<self.$viewModel.availableCompilers.count) {
+              Text(self.viewModel.availableCompilers[$0].name).tag($0)
             }
           }
         }
-          .disabled(self.compilers.isEmpty)
+          .disabled(self.$viewModel.availableCompilers.isEmpty)
           .layoutPriority(1.0)
         Spacer(minLength: 20)
-        TextField("Compiler Options...", text: self.$compilerOptions)
-          .disabled(self.compilers.isEmpty)
+        TextField("Compiler Options...", text: self.$viewModel.compilerOptions)
+          .disabled(self.$viewModel.availableCompilers.isEmpty)
           .layoutPriority(1.0)
         Spacer()
       }
-        .frame(height: 64, alignment: .leading)
+        .padding(.top, 10)
+        .frame(height: 44, alignment: .leading)
         .pickerStyle(.popUpButton)
-
-      CompilerToggleView(
-        syntax: self.$syntax,
-        labels: self.$labels,
-        directives: self.$directives,
-        comments: self.$comments,
-        demangle: self.$demangle,
-        trim: self.$trim)
+      Divider()
+      CompilerToggleView()
+      .padding(.top, 2)
     }
   }
 }
@@ -71,16 +57,7 @@ struct CompilerSelectorView_Preview: PreviewProvider {
   ]
 
   static var previews: some View {
-    CompilerSelectorView(
-      compilers: .constant(self.compilers),
-      selectedCompiler: .constant(0),
-      compilerOptions: .constant(""),
-      syntax: .constant(0),
-      labels: .constant(true),
-      directives: .constant(true),
-      comments: .constant(true),
-      demangle: .constant(true),
-      trim: .constant(true))
+    CompilerSelectorView()
   }
 }
 #endif

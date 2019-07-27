@@ -16,16 +16,7 @@ struct ContentView: View {
 
   var body: some View {
     VStack {
-      CompilerSelectorView(
-        compilers: self.$viewModel.availableCompilers,
-        selectedCompiler: self.$viewModel.selectedCompiler,
-        compilerOptions: self.$viewModel.compilerOptions,
-        syntax: self.$viewModel.syntax,
-        labels: self.$viewModel.labels,
-        directives: self.$viewModel.directives,
-        comments: self.$viewModel.comments,
-        demangle: self.$viewModel.demangle,
-        trim: self.$viewModel.trim)
+      CompilerSelectorView()
       // FIXME: Do I really have to force this to work?
       // Even in death, NSSplitView.  Even in death.
       HSplitView {

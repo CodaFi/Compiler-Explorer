@@ -10,33 +10,27 @@ import SwiftUI
 import Combine
 
 struct CompilerToggleView: View {
-  // wewlad
-  @Binding var syntax: Int
-  @Binding var labels: Bool
-  @Binding var directives: Bool
-  @Binding var comments: Bool
-  @Binding var demangle: Bool
-  @Binding var trim: Bool
+  @EnvironmentObject var viewModel: ViewModel
 
   var body: some View {
     HStack {
       Spacer()
-      Picker(selection: self.$syntax, label: Text("Syntax")) {
+      Picker(selection: self.$viewModel.syntax, label: Text("Syntax")) {
         // Yes, this is absolutely a value judgement.
         Text("Intel").tag(0)
         Text("AT&T").tag(1)
       }
         .layoutPriority(1.0)
       Spacer(minLength: 22.0)
-      Toggle("Strip Labels", isOn: self.$labels)
+      Toggle("Strip Labels", isOn: self.$viewModel.labels)
         .layoutPriority(1.0)
-      Toggle("Strip Directives", isOn: self.$directives)
+      Toggle("Strip Directives", isOn: self.$viewModel.directives)
         .layoutPriority(1.0)
-      Toggle("Strip Comments", isOn: self.$comments)
+      Toggle("Strip Comments", isOn: self.$viewModel.comments)
         .layoutPriority(1.0)
-      Toggle("Demangle Symbols", isOn: self.$demangle)
+      Toggle("Demangle Symbols", isOn: self.$viewModel.demangle)
         .layoutPriority(1.0)
-      Toggle("Trim Whitespace", isOn: self.$trim)
+      Toggle("Trim Whitespace", isOn: self.$viewModel.trim)
         .layoutPriority(1.0)
       Spacer()
     }
@@ -47,12 +41,7 @@ struct CompilerToggleView: View {
 #if DEBUG
 struct CompilerToggleView_Preview: PreviewProvider {
   static var previews: some View {
-    CompilerToggleView(syntax: .constant(0),
-                       labels: .constant(true),
-                       directives: .constant(true),
-                       comments: .constant(true),
-                       demangle: .constant(true),
-                       trim: .constant(true))
+    CompilerToggleView()
   }
 }
 #endif
