@@ -10,10 +10,19 @@
 
 import Cocoa
 import SwiftUI
+import Combine
+import GodBolt
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
+  override init() {
+    UserDefaults.standard.register(defaults: [
+      "PreviousShortlinks": [String]()
+    ])
+  }
+
   @IBOutlet weak var documentController: DocumentController!
+  let shortlinksController = ShortlinkWindowController()
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     NSApp.servicesProvider = self
@@ -67,28 +76,15 @@ extension AppDelegate {
     }
     (doc as! Document).showPreferences()
   }
-}
 
-// FIXME: Beta bugs mean that this cannot be in Preferences.swift where it
-// belongs without my Xcode barfing.
-//
-// We'll get em' next time.
-final class PreferencesWindowController: NSWindowController {
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-
-  override init(window: NSWindow?) {
-    let window = NSWindow(
-        contentRect: NSRect(x: 0, y: 0, width: 800, height: 800),
-        styleMask: [.titled, .closable, .miniaturizable, .resizable],
-        backing: .buffered, defer: false)
-    window.center()
-
-    window.contentView = NSHostingView(rootView: PreferencesView(onDismiss: {
-      window.sheetParent!.endSheet(window)
-    }))
-    super.init(window: window)
-    self.window = window
+  @IBAction func openShortlink(_ sesnder: AnyObject?) {
+    _ = NSApp.runModal(for: self.shortlinksController.window!)
+    guard let session = self.shortlinksController.takeShortlinkValue() else {
+      return
+    }
+    guard let firstSession = session.sessions.first else {
+      return
+    }
+    self.documentController.openDocument(pasteboard: firstSession.source, type: firstSession.language, display: true)
   }
 }

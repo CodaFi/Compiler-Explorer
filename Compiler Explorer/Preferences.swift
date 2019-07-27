@@ -43,3 +43,22 @@ struct PreferencesView_Preview: PreviewProvider {
 }
 #endif
 
+final class PreferencesWindowController: NSWindowController {
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+
+  override init(window: NSWindow?) {
+    let window = NSWindow(
+        contentRect: NSRect(x: 0, y: 0, width: 800, height: 800),
+        styleMask: [.titled, .closable, .miniaturizable, .resizable],
+        backing: .buffered, defer: false)
+    window.center()
+
+    window.contentView = NSHostingView(rootView: PreferencesView(onDismiss: {
+      window.sheetParent!.endSheet(window)
+    }))
+    super.init(window: window)
+    self.window = window
+  }
+}

@@ -72,6 +72,11 @@
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="URQ-H7-9Cq"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Open Shortlink" keyEquivalent="g" id="K3k-RM-ssD">
+                                            <connections>
+                                                <action selector="openShortlink:" target="Voe-Tx-rLC" id="dXz-Ah-36G"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Open Recent" id="tXI-mr-wws">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
