@@ -60,13 +60,22 @@ public final class Client {
       .eraseToAnyPublisher()
   }
 
-  public func requestShortlinkInfo(for linkID: String) -> AnyPublisher<String?, URLError> {
+  public func requestShortlinkInfo(for linkID: String) -> AnyPublisher<SessionContainer, Error> {
     var request = URLRequest(url: endpointURL(self.defaultHost, "/api/shortlinkinfo/\(linkID)"))
     request.httpMethod = "GET"
     request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
     return self.session.dataTaskPublisher(for: request)
-      .map({ String(data: $0.0, encoding: .utf8) })
-      .eraseToAnyPublisher()
+      .flatMap { (data, response) -> Result<Data, URLError>.Publisher in
+        guard let httpResponse = response as? HTTPURLResponse else {
+          return Result<Data, URLError>.failure(URLError(.badServerResponse)).publisher
+        }
+        guard httpResponse.statusCode == 200 else {
+          return Result<Data, URLError>.failure(URLError(.badServerResponse)).publisher
+        }
+        return Result<Data, URLError>.success(data).publisher
+      }
+        .decode(type: SessionContainer.self, decoder: JSONDecoder())
+        .eraseToAnyPublisher()
   }
 
 //  public func requestShortString(using compiler: Compiler, of source: Source) -> AnyPublisher<Response, Error> {
