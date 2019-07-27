@@ -177,10 +177,15 @@ extension ViewModel {
       }
   }
 
-  // FIXME: Fold this method into the other one.
   func readData(_ data: Data, ofType typeName: String) {
+    let str = String(data: data, encoding: .utf8) ?? ""
+    return self.readString(str, ofType: typeName)
+  }
+
+  // FIXME: Fold this method into the other one.
+  func readString(_ string: String, ofType typeName: String) {
     self.willChange.send()
-    self.documentTextValue = String(data: data, encoding: .utf8) ?? ""
+    self.documentTextValue = string
     self.language = fileTypeTable[typeName]
     _ = self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
@@ -193,7 +198,6 @@ extension ViewModel {
   func textDidChange(_ text: String) {
     self.documentTextValue = text
   }
-
 }
 
 // FIXME: Sync the many many tables in this thing somehow some way.
