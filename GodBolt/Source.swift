@@ -26,7 +26,7 @@ public struct Source: Codable {
         case intel
         case demangle
         case directives
-        case comments
+        case commentOnly
         case labels
         case trim
       }
@@ -57,7 +57,7 @@ extension Source.Options.Filter: Encodable {
     try container.encode(self.contains(.intel), forKey: .intel)
     try container.encode(self.contains(.demangle), forKey: .demangle)
     try container.encode(self.contains(.directives), forKey: .directives)
-    try container.encode(self.contains(.comments), forKey: .comments)
+    try container.encode(self.contains(.comments), forKey: .commentOnly)
     try container.encode(self.contains(.labels), forKey: .labels)
     try container.encode(self.contains(.trim), forKey: .trim)
   }
@@ -77,7 +77,7 @@ extension Source.Options.Filter: Decodable {
     if try values.decode(Bool.self, forKey: .directives) {
       set.formUnion(.directives)
     }
-    if try values.decode(Bool.self, forKey: .comments) {
+    if try values.decode(Bool.self, forKey: .commentOnly) {
       set.formUnion(.comments)
     }
     if try values.decode(Bool.self, forKey: .labels) {
