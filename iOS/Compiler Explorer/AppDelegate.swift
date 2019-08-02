@@ -25,7 +25,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     let window = UIWindow(frame: UIScreen.main.bounds)
-    window.rootViewController = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]))
+    switch UIDevice.current.userInterfaceIdiom {
+    case .pad:
+      window.rootViewController = DocumentBrowserViewController()
+    case .phone:
+      window.rootViewController = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]))
+    default:
+      fatalError()
+    }
     self.window = window
     window.makeKeyAndVisible()
     self.languageCancellable = self.$selectedLanguage.sink { value in

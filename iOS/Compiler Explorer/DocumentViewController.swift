@@ -32,10 +32,21 @@ struct DocumentView: View {
     guard let name = self.viewModel.language?.name else {
       return ""
     }
-    if self.index == 0 {
-      return "\(name) - Input"
-    } else {
-      return "\(name) - Output"
+
+    switch UIDevice.current.userInterfaceIdiom {
+    case .pad:
+      guard !self.viewModel.availableCompilers.isEmpty else {
+        return name
+      }
+      return "\(name) - \(self.viewModel.availableCompilers[self.viewModel.selectedCompiler].name)"
+    case .phone:
+      if self.index == 0 {
+        return "\(name) - Input"
+      } else {
+        return "\(name) - Output"
+      }
+    default:
+      fatalError()
     }
   }
 
@@ -43,8 +54,10 @@ struct DocumentView: View {
     NavigationView {
       ZStack(alignment: .bottom) {
         PageViewController(controllers: self.controllers, currentPage: self.$index)
-        PageControl(numberOfPages: self.controllers.count, currentPage: self.$index)
-          .padding(.bottom, 40)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+          PageControl(numberOfPages: self.controllers.count, currentPage: self.$index)
+            .padding(.bottom, 40)
+        }
       }
       .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
       .navigationBarItems(leading: Button(action: {
@@ -59,7 +72,9 @@ struct DocumentView: View {
         .sheet(isPresented: self.$showSettings) {
           SettingsView().environmentObject(self.viewModel)
       }
-    }.edgesIgnoringSafeArea(.all)
+    }
+      .navigationViewStyle(StackNavigationViewStyle())
+      .edgesIgnoringSafeArea(.bottom)
   }
 }
 

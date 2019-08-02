@@ -18,7 +18,7 @@ struct DocumentTemplateView: View {
     NavigationView {
       List(availableLanguages) { value in
         Button(action: { self.chosen = value }) {
-          HStack {
+         HStack {
             Text(value.name)
             Spacer()
             Image(systemName: "chevron.right")

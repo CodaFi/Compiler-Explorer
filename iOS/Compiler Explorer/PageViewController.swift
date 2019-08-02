@@ -9,6 +9,23 @@
 import SwiftUI
 import UIKit
 
+private func pageViewControllerOptions(for idiom: UIUserInterfaceIdiom) -> UIPageViewController {
+  switch idiom {
+  case .pad:
+    return UIPageViewController(
+      transitionStyle: .pageCurl,
+      navigationOrientation: .horizontal,
+      // OK, this one's the worst API now.
+      options: [ .spineLocation : NSNumber(value: UIPageViewController.SpineLocation.mid.rawValue) ])
+  case .phone:
+        return UIPageViewController(
+      transitionStyle: .scroll,
+      navigationOrientation: .horizontal)
+  default:
+    fatalError()
+  }
+}
+
 struct PageViewController: UIViewControllerRepresentable {
   let controllers: [UIViewController]
   @Binding var currentPage: Int
@@ -23,17 +40,22 @@ struct PageViewController: UIViewControllerRepresentable {
   }
 
   func makeUIViewController(context: Context) -> UIPageViewController {
-    let pageViewController = UIPageViewController(
-      transitionStyle: .scroll,
-      navigationOrientation: .horizontal)
+    let pageViewController = pageViewControllerOptions(for: UIDevice.current.userInterfaceIdiom)
     pageViewController.dataSource = context.coordinator
     pageViewController.delegate = context.coordinator
-
+    pageViewController.isDoubleSided = UIDevice.current.userInterfaceIdiom == .pad
     return pageViewController
   }
 
   func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-    pageViewController.setViewControllers([self.controllers[self.currentPage]], direction: .forward, animated: true)
+    switch UIDevice.current.userInterfaceIdiom {
+    case .pad:
+      pageViewController.setViewControllers(self.controllers, direction: .forward, animated: false)
+    case .phone:
+      pageViewController.setViewControllers([self.controllers[self.currentPage]], direction: .forward, animated: true)
+    default:
+      fatalError()
+    }
   }
 
   class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -43,6 +65,18 @@ struct PageViewController: UIViewControllerRepresentable {
     init(controllers: [UIViewController], currentPage: Binding<Int>) {
       self.controllers = controllers
       self._currentPage = currentPage
+    }
+
+    // FIXME: This is never called? Documentation is a lie.
+    func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewController.SpineLocation {
+      switch UIDevice.current.userInterfaceIdiom {
+      case .pad:
+        return .mid
+      case .phone:
+        return .min
+      default:
+        fatalError()
+      }
     }
 
     func pageViewController(
@@ -75,6 +109,14 @@ struct PageViewController: UIViewControllerRepresentable {
         let index = self.controllers.firstIndex(of: visibleViewController) {
         self.currentPage = index
       }
+    }
+
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+      return self.controllers.count
+    }
+
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+      return 0
     }
   }
 }

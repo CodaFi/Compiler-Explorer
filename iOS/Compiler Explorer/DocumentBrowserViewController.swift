@@ -18,18 +18,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    delegate = self
+    self.delegate = self
 
-    allowsDocumentCreation = true
-    allowsPickingMultipleItems = false
-
-    // Update the style of the UIDocumentBrowserViewController
-    // browserUserInterfaceStyle = .dark
-    // view.tintColor = .white
-
-    // Specify the allowed content types of your application via the Info.plist.
-
-    // Do any additional setup after loading the view.
+    self.allowsDocumentCreation = true
+    self.allowsPickingMultipleItems = false
   }
 
 
@@ -44,6 +36,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
       }
       self.dismisssForLanguageChange(language: value, importHandler: importHandler)
     }
+    controller.modalPresentationStyle = .popover
+
+    // Specify the anchor point for the popover.
+    controller.popoverPresentationController?.sourceView = self.view
     self.present(controller, animated: true, completion: nil)
 	}
 
@@ -83,6 +79,14 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
   func presentDocument(at documentURL: URL, language: Language) {
     let documentViewController = DocumentViewController(document: Document(fileURL: documentURL, language: language))
+    switch UIDevice.current.userInterfaceIdiom {
+    case .pad:
+      documentViewController.modalPresentationStyle = .fullScreen
+    case .phone:
+      documentViewController.modalPresentationStyle = .automatic
+    default:
+      fatalError()
+    }
     present(documentViewController, animated: true, completion: nil)
   }
 }

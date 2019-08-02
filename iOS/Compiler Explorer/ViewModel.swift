@@ -130,6 +130,7 @@ final class ViewModel: ObservableObject, Identifiable {
 
 
 extension ViewModel {
+  // FIXME: This is a useless action.  Remove it.
   func compile() {
     let val = self.selectedCompiler
     self.selectedCompiler = val
