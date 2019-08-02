@@ -42,8 +42,9 @@ struct DocumentView: View {
   var body: some View {
     NavigationView {
       ZStack(alignment: .bottom) {
-        PageViewController(controllers: self.controllers, onUpdate: { self.index = $0 })
+        PageViewController(controllers: self.controllers, currentPage: self.$index)
         PageControl(numberOfPages: self.controllers.count, currentPage: self.$index)
+          .padding(.bottom, 40)
       }
       .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
       .navigationBarItems(leading: Button(action: {
@@ -58,7 +59,7 @@ struct DocumentView: View {
         .sheet(isPresented: self.$showSettings) {
           SettingsView().environmentObject(self.viewModel)
       }
-    }
+    }.edgesIgnoringSafeArea(.all)
   }
 }
 

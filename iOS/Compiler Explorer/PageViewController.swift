@@ -11,15 +11,15 @@ import UIKit
 
 struct PageViewController: UIViewControllerRepresentable {
   let controllers: [UIViewController]
-  let onUpdate: (Int) -> Void
+  @Binding var currentPage: Int
 
-  init(controllers: [UIViewController], onUpdate: @escaping (Int) -> Void) {
+  init(controllers: [UIViewController], currentPage: Binding<Int>) {
     self.controllers = controllers
-    self.onUpdate = onUpdate
+    self._currentPage = currentPage
   }
 
   func makeCoordinator() -> Coordinator {
-    return Coordinator(controllers: self.controllers, onUpdate: self.onUpdate)
+    return Coordinator(controllers: self.controllers, currentPage: self.$currentPage)
   }
 
   func makeUIViewController(context: Context) -> UIPageViewController {
@@ -33,17 +33,16 @@ struct PageViewController: UIViewControllerRepresentable {
   }
 
   func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-    pageViewController.setViewControllers([context.coordinator.controllers[context.coordinator.pageIndex]], direction: .forward, animated: false)
+    pageViewController.setViewControllers([self.controllers[self.currentPage]], direction: .forward, animated: true)
   }
 
   class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     let controllers: [UIViewController]
-    var pageIndex: Int = 0
-    let onUpdate: (Int) -> Void
+    @Binding var currentPage: Int
 
-    init(controllers: [UIViewController], onUpdate: @escaping (Int) -> Void) {
+    init(controllers: [UIViewController], currentPage: Binding<Int>) {
       self.controllers = controllers
-      self.onUpdate = onUpdate
+      self._currentPage = currentPage
     }
 
     func pageViewController(
@@ -74,8 +73,7 @@ struct PageViewController: UIViewControllerRepresentable {
       if completed,
         let visibleViewController = pageViewController.viewControllers?.first,
         let index = self.controllers.firstIndex(of: visibleViewController) {
-        self.pageIndex = index
-        self.onUpdate(index)
+        self.currentPage = index
       }
     }
   }
@@ -84,7 +82,7 @@ struct PageViewController: UIViewControllerRepresentable {
 #if DEBUG
 struct PageViewController_Previews: PreviewProvider {
   static var previews: some View {
-    PageViewController(controllers: [ ], onUpdate: { _ in })
+    PageViewController(controllers: [ ], currentPage: .constant(0))
   }
 }
 #endif
