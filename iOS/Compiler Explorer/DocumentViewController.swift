@@ -30,7 +30,9 @@ struct DocumentView: View {
   var body: some View {
     NavigationView {
       PageViewController(controllers: [
-        EditorViewController(text: self.viewModel.documentTextValue, language: self.viewModel.language, onTextChange: self.viewModel.textDidChange),
+        EditorViewController(text: self.viewModel.documentTextValue.value,
+                             language: self.viewModel.language,
+                             onTextChange: self.viewModel.textDidChange),
         ReadOnlyEditorViewController(vm: self.viewModel),
       ], onUpdate: { self.index = $0 })
         .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
@@ -74,9 +76,8 @@ final class DocumentViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func loadView() {
-    let view = UIView()
-    view.backgroundColor = UIColor.white
+  override func viewDidLoad() {
+    super.viewDidLoad()
     self.hostingController = UIHostingController(rootView: AnyView(DocumentView().environmentObject(self.viewModel)))
     addChild(self.hostingController!)
     view.addSubview(self.hostingController!.view)
@@ -91,7 +92,6 @@ final class DocumentViewController: UIViewController {
     ])
 
     self.hostingController!.didMove(toParent: self)
-    self.view = view
   }
 
   override func viewWillAppear(_ animated: Bool) {

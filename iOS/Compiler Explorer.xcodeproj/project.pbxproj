@@ -51,7 +51,6 @@
 		8292ADAC22EE3C5500B1A165 /* CLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADA922EE3C5500B1A165 /* CLexer.swift */; };
 		8292ADAD22EE3C5500B1A165 /* AssemblyLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADAA22EE3C5500B1A165 /* AssemblyLexer.swift */; };
 		8292ADAE22EE3C5500B1A165 /* SwiftLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */; };
-		82B22B3E22EE4FDE008258AA /* ResponsiveTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B22B3D22EE4FDE008258AA /* ResponsiveTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,7 +133,6 @@
 		8292ADA922EE3C5500B1A165 /* CLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLexer.swift; sourceTree = "<group>"; };
 		8292ADAA22EE3C5500B1A165 /* AssemblyLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyLexer.swift; sourceTree = "<group>"; };
 		8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLexer.swift; sourceTree = "<group>"; };
-		82B22B3D22EE4FDE008258AA /* ResponsiveTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ResponsiveTextField.swift; path = "../../../../../../../System/Volumes/Data/Users/cfi/Desktop/Compiler Explorer/iOS/Compiler Explorer/Compiler Explorer/ResponsiveTextField.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,7 +191,6 @@
 				8292ACBB22ECB20800B1A165 /* DocumentViewController.swift */,
 				8264179422F3D11600DF79F4 /* SettingsView.swift */,
 				82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */,
-				82B22B3D22EE4FDE008258AA /* ResponsiveTextField.swift */,
 				8292ACBD22ECB20800B1A165 /* Document.swift */,
 				8292ACCF22ECB36000B1A165 /* PageViewController.swift */,
 				8292ACD122ECB44000B1A165 /* ViewModel.swift */,
@@ -439,7 +436,6 @@
 				8292ACD022ECB36000B1A165 /* PageViewController.swift in Sources */,
 				82219CC922EE49C50034FA46 /* DocumentTemplateView.swift in Sources */,
 				8292ACBA22ECB20800B1A165 /* DocumentBrowserViewController.swift in Sources */,
-				82B22B3E22EE4FDE008258AA /* ResponsiveTextField.swift in Sources */,
 				8292ADA722EE39F500B1A165 /* ReadOnlyEditorViewWrapper.swift in Sources */,
 				8292ACD422ECB5AA00B1A165 /* EditorViewWrapper.swift in Sources */,
 				8264179522F3D11600DF79F4 /* SettingsView.swift in Sources */,

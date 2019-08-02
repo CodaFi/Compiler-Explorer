@@ -15,6 +15,7 @@ import SavannaKit
 
 final class ReadOnlyEditorViewController: UIViewController {
   let viewModel: ViewModel
+  private var compiledTextCancellable: AnyCancellable? = nil
 
   init(vm: ViewModel) {
     self.viewModel = vm
@@ -30,9 +31,13 @@ final class ReadOnlyEditorViewController: UIViewController {
     let syntaxView = SyntaxTextView(frame: .zero, lexer: AssemblyLexer()) { _ in }
     syntaxView.contentTextView.isEditable = false
     syntaxView.theme = AssemblyTheme()
-    self.viewModel.registerCompileCallback { value in
+    self.compiledTextCancellable = self.viewModel.compiledTextValue.sink { value in
       syntaxView.text = value
     }
     self.view = syntaxView
+  }
+
+  deinit {
+    self.compiledTextCancellable?.cancel()
   }
 }
