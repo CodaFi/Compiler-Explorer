@@ -16,8 +16,6 @@ import SavannaKit
 final class ViewModel: ObservableObject, Identifiable {
   private let client = Client.shared
 
-  var objectWillChange = PassthroughSubject<Void, Never>()
-
   /// The text value of the document.  Specifically does not call willChange
   /// because SavannaKit sends its "text did change" message quite frequently
   /// and we don't want to re-render more than necessary.
@@ -54,18 +52,11 @@ final class ViewModel: ObservableObject, Identifiable {
 
   /// An index into the `availableCompilers` array describing the currently
   /// selected compiler.
-  @Published var selectedCompiler: Int = 0 {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var selectedCompiler: Int = 0
+  
 
   /// The user-provided options that the remote compiler consumes.
-  @Published var compilerOptions: String = "" {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var compilerOptions: String = ""
 
   /// An index describing the assembly syntax variant used to render the
   /// compiled code.
@@ -73,47 +64,23 @@ final class ViewModel: ObservableObject, Identifiable {
   /// 0 - Intel
   /// 1 - AT&T
   /// n - Crash
-  @Published var syntax: Int = 0 {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var syntax: Int = 0
 
   /// Whether to strip labels from the compiled code.
-  @Published var labels: Bool = true {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var labels: Bool = true
 
   /// Whether to strip directives from the compiled code.
-  @Published var directives: Bool = true {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var directives: Bool = true
 
   /// Whether to strip comment-only lines from the compiled code.
-  @Published var comments: Bool = false {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var comments: Bool = false
 
   /// Whether to demangle symbols in the compiled code.  Also works with Swift
   /// symbols.
-  @Published var demangle: Bool = false {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var demangle: Bool = false
 
   /// Whether to trim whitespace in the compiled code.
-  @Published var trim: Bool = false {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var trim: Bool = false
 
   private var textView: SyntaxTextView?
 

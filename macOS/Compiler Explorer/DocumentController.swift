@@ -102,7 +102,7 @@ final class DocumentController: NSDocumentController {
     }
     super.openDocument(withContentsOf: url, display: displayDocument) { doc, val, err in
       if let transientDoc = transientDoc, let doc = doc {
-        self.replaceTransientDocument(transientDoc, with: doc as! Document)
+        try! doc.read(from: url, ofType: url.pathExtension)
         if displayDocument {
           doc.makeWindowControllers()
           doc.showWindows()
@@ -111,19 +111,6 @@ final class DocumentController: NSDocumentController {
       }
       completionHandler(doc, val, err)
     }
-  }
-
-  func replaceTransientDocument(_ transientDoc: Document, with concreteDocument: Document) {
-    var allControllers = [NSWindowController]()
-    for controller in transientDoc.windowControllers {
-      concreteDocument.addWindowController(controller)
-      allControllers.append(controller)
-    }
-
-    for controller in allControllers {
-      transientDoc.removeWindowController(controller)
-    }
-    concreteDocument.emplaceViewModel(from: transientDoc)
   }
 }
 

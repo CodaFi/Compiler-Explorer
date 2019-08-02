@@ -28,11 +28,6 @@ final class Document: NSDocument {
     self.undoManager?.enableUndoRegistration()
   }
 
-  func emplaceViewModel(from other: Document) {
-    self.viewModel = other.viewModel
-    self.viewModel.objectWillChange.send()
-  }
-
   func markTransient(_ transient: Bool = true) {
     self.transient = transient
   }

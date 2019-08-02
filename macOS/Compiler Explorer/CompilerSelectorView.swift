@@ -17,17 +17,16 @@ struct CompilerSelectorView: View {
     VStack {
       HStack {
         Spacer()
-        Text("Compiler:")
-          .layoutPriority(1.0)
         Picker(selection: self.$viewModel.selectedCompiler, label: Text("Compiler")) {
           if self.$viewModel.availableCompilers.isEmpty {
             Text("(No Compilers Available)").tag(0)
           } else {
-            ForEach(0..<self.$viewModel.availableCompilers.count) {
+            ForEach(0..<self.viewModel.availableCompilers.count) {
               Text(self.viewModel.availableCompilers[$0].name).tag($0)
             }
           }
         }
+          .fixedSize()
           .disabled(self.$viewModel.availableCompilers.isEmpty)
           .layoutPriority(1.0)
         Spacer(minLength: 20)

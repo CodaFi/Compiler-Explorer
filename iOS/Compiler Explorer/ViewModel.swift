@@ -14,9 +14,7 @@ import SavannaKit
 final class ViewModel: ObservableObject, Identifiable {
   private let client = Client.shared
 
-  var objectWillChange = PassthroughSubject<Void, Never>()
-
-  /// The text value of the document.  Specifically does not call willChange
+  /// The text value of the document.  Specifically written as a subject
   /// because SavannaKit sends its "text did change" message quite frequently
   /// and we don't want to re-render more than necessary.
   var documentTextValue = CurrentValueSubject<String, Never>("")

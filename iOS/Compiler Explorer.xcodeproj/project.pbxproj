@@ -15,7 +15,6 @@
 		8292ACBE22ECB20800B1A165 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACBD22ECB20800B1A165 /* Document.swift */; };
 		8292ACC322ECB20800B1A165 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8292ACC222ECB20800B1A165 /* Assets.xcassets */; };
 		8292ACC622ECB20800B1A165 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8292ACC422ECB20800B1A165 /* LaunchScreen.storyboard */; };
-		8292ACD022ECB36000B1A165 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACCF22ECB36000B1A165 /* PageViewController.swift */; };
 		8292ACD222ECB44000B1A165 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACD122ECB44000B1A165 /* ViewModel.swift */; };
 		8292ACD422ECB5AA00B1A165 /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACD322ECB5AA00B1A165 /* EditorViewWrapper.swift */; };
 		8292ACE122ECB5E100B1A165 /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */; };
@@ -51,6 +50,8 @@
 		8292ADAC22EE3C5500B1A165 /* CLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADA922EE3C5500B1A165 /* CLexer.swift */; };
 		8292ADAD22EE3C5500B1A165 /* AssemblyLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADAA22EE3C5500B1A165 /* AssemblyLexer.swift */; };
 		8292ADAE22EE3C5500B1A165 /* SwiftLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */; };
+		82AE1FAF22F4A21100FFD730 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE1FAE22F4A21100FFD730 /* PageControl.swift */; };
+		82D6596922F4A55E0059963C /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6596822F4A55E0059963C /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +98,6 @@
 		8292ACC222ECB20800B1A165 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8292ACC522ECB20800B1A165 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8292ACC722ECB20800B1A165 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8292ACCF22ECB36000B1A165 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		8292ACD122ECB44000B1A165 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		8292ACD322ECB5AA00B1A165 /* EditorViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewWrapper.swift; sourceTree = "<group>"; };
 		8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SavannaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +133,8 @@
 		8292ADA922EE3C5500B1A165 /* CLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLexer.swift; sourceTree = "<group>"; };
 		8292ADAA22EE3C5500B1A165 /* AssemblyLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyLexer.swift; sourceTree = "<group>"; };
 		8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLexer.swift; sourceTree = "<group>"; };
+		82AE1FAE22F4A21100FFD730 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		82D6596822F4A55E0059963C /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +194,8 @@
 				8264179422F3D11600DF79F4 /* SettingsView.swift */,
 				82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */,
 				8292ACBD22ECB20800B1A165 /* Document.swift */,
-				8292ACCF22ECB36000B1A165 /* PageViewController.swift */,
+				82AE1FAE22F4A21100FFD730 /* PageControl.swift */,
+				82D6596822F4A55E0059963C /* PageViewController.swift */,
 				8292ACD122ECB44000B1A165 /* ViewModel.swift */,
 				8292ACD322ECB5AA00B1A165 /* EditorViewWrapper.swift */,
 				8292ADA622EE39F500B1A165 /* ReadOnlyEditorViewWrapper.swift */,
@@ -433,12 +436,13 @@
 			files = (
 				8292ACBE22ECB20800B1A165 /* Document.swift in Sources */,
 				8292ACBC22ECB20800B1A165 /* DocumentViewController.swift in Sources */,
-				8292ACD022ECB36000B1A165 /* PageViewController.swift in Sources */,
+				82D6596922F4A55E0059963C /* PageViewController.swift in Sources */,
 				82219CC922EE49C50034FA46 /* DocumentTemplateView.swift in Sources */,
 				8292ACBA22ECB20800B1A165 /* DocumentBrowserViewController.swift in Sources */,
 				8292ADA722EE39F500B1A165 /* ReadOnlyEditorViewWrapper.swift in Sources */,
 				8292ACD422ECB5AA00B1A165 /* EditorViewWrapper.swift in Sources */,
 				8264179522F3D11600DF79F4 /* SettingsView.swift in Sources */,
+				82AE1FAF22F4A21100FFD730 /* PageControl.swift in Sources */,
 				8292ACB822ECB20800B1A165 /* AppDelegate.swift in Sources */,
 				8292ACD222ECB44000B1A165 /* ViewModel.swift in Sources */,
 			);

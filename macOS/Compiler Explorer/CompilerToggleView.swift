@@ -14,26 +14,23 @@ struct CompilerToggleView: View {
 
   var body: some View {
     HStack {
-      Spacer()
       Picker(selection: self.$viewModel.syntax, label: Text("Syntax")) {
         // Yes, this is absolutely a value judgement.
         Text("Intel").tag(0)
         Text("AT&T").tag(1)
       }
-        .layoutPriority(1.0)
-      Spacer(minLength: 22.0)
-      Toggle("Strip Labels", isOn: self.$viewModel.labels)
-        .layoutPriority(1.0)
-      Toggle("Strip Directives", isOn: self.$viewModel.directives)
-        .layoutPriority(1.0)
-      Toggle("Strip Comments", isOn: self.$viewModel.comments)
-        .layoutPriority(1.0)
-      Toggle("Demangle Symbols", isOn: self.$viewModel.demangle)
-        .layoutPriority(1.0)
-      Toggle("Trim Whitespace", isOn: self.$viewModel.trim)
-        .layoutPriority(1.0)
-      Spacer()
+        .padding([ .leading ], 22.0)
+        .fixedSize()
+      HStack {
+        Toggle("Strip Labels", isOn: self.$viewModel.labels)
+        Toggle("Strip Directives", isOn: self.$viewModel.directives)
+        Toggle("Strip Comments", isOn: self.$viewModel.comments)
+        Toggle("Demangle Symbols", isOn: self.$viewModel.demangle)
+        Toggle("Trim Whitespace", isOn: self.$viewModel.trim)
+      }
+      .padding([ .leading, .trailing ], 22.0)
     }
+      .disabled(self.$viewModel.availableCompilers.isEmpty)
       .toggleStyle(DefaultToggleStyle())
   }
 }

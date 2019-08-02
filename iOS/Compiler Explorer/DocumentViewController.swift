@@ -12,9 +12,21 @@ import GodBolt
 import SavannaKit
 
 struct DocumentView: View {
-  @EnvironmentObject var viewModel: ViewModel
+  var viewModel: ViewModel
   @State var showSettings = false
   @State var index: Int = 0
+  var controllers: [UIViewController] = []
+
+  init(viewModel: ViewModel) {
+    self.viewModel = viewModel
+
+    self.controllers = [
+      EditorViewController(text: self.viewModel.documentTextValue.value,
+                           language: self.viewModel.language,
+                           onTextChange: self.viewModel.textDidChange),
+      ReadOnlyEditorViewController(vm: self.viewModel),
+    ]
+  }
 
   var navigationTitle: String {
     guard let name = self.viewModel.language?.name else {
@@ -29,22 +41,20 @@ struct DocumentView: View {
 
   var body: some View {
     NavigationView {
-      PageViewController(controllers: [
-        EditorViewController(text: self.viewModel.documentTextValue.value,
-                             language: self.viewModel.language,
-                             onTextChange: self.viewModel.textDidChange),
-        ReadOnlyEditorViewController(vm: self.viewModel),
-      ], onUpdate: { self.index = $0 })
-        .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
-        .navigationBarItems(leading: Button(action: {
-          self.showSettings = true
+      ZStack(alignment: .bottom) {
+        PageViewController(controllers: self.controllers, onUpdate: { self.index = $0 })
+        PageControl(numberOfPages: self.controllers.count, currentPage: self.$index)
+      }
+      .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
+      .navigationBarItems(leading: Button(action: {
+        self.showSettings = true
+      }) {
+        Image(systemName: "slider.horizontal.3")
+        }, trailing: Button(action: {
+          self.viewModel.compile()
         }) {
-          Image(systemName: "slider.horizontal.3")
-          }, trailing: Button(action: {
-            self.viewModel.compile()
-          }) {
-            Image(systemName: "play.fill")
-        })
+          Image(systemName: "play.fill")
+      })
         .sheet(isPresented: self.$showSettings) {
           SettingsView().environmentObject(self.viewModel)
       }
@@ -55,7 +65,7 @@ struct DocumentView: View {
 #if DEBUG
 struct DocumentView_Previews: PreviewProvider {
   static var previews: some View {
-    DocumentView()
+    DocumentView(viewModel: ViewModel())
   }
 }
 #endif
@@ -78,7 +88,7 @@ final class DocumentViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.hostingController = UIHostingController(rootView: AnyView(DocumentView().environmentObject(self.viewModel)))
+    self.hostingController = UIHostingController(rootView: AnyView(DocumentView(viewModel: self.viewModel)))
     addChild(self.hostingController!)
     view.addSubview(self.hostingController!.view)
 

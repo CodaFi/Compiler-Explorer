@@ -12,14 +12,8 @@ import Combine
 import GodBolt
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, ObservableObject, Identifiable {
-  var objectWillChange = PassthroughSubject<Void, Never>()
-
   var languageCancellable: AnyCancellable? = nil
-  @Published var selectedLanguage: Language? = nil {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var selectedLanguage: Language? = nil
 
   override func viewDidLoad() {
     super.viewDidLoad()
