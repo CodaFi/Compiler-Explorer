@@ -63,17 +63,29 @@ class LineNumberLayoutManager: NSLayoutManager {
 			return paraNumber
 		}
 	}
-	
-	override func processEditing(for textStorage: NSTextStorage, edited editMask: NSTextStorageEditActions, range newCharRange: NSRange, changeInLength delta: Int, invalidatedRange invalidatedCharRange: NSRange) {
-		super.processEditing(for: textStorage, edited: editMask, range: newCharRange, changeInLength: delta, invalidatedRange: invalidatedCharRange)
-		if invalidatedCharRange.location < lastParaLocation {
-			//  When the backing store is edited ahead the cached paragraph location, invalidate the cache and force a complete
-			//  recalculation.  We cannot be much smarter than this because we don't know how many paragraphs have been deleted
-			//  since the text has already been removed from the backing store.
-			lastParaLocation = 0
-			lastParaNumber = 0
-		}
-	}
+  #if os(macOS)
+  override func processEditing(for textStorage: NSTextStorage, edited editMask: NSTextStorageEditActions, range newCharRange: NSRange, changeInLength delta: Int, invalidatedRange invalidatedCharRange: NSRange) {
+        super.processEditing(for: textStorage, edited: editMask, range: newCharRange, changeInLength: delta, invalidatedRange: invalidatedCharRange)
+    if invalidatedCharRange.location < lastParaLocation {
+      //  When the backing store is edited ahead the cached paragraph location, invalidate the cache and force a complete
+      //  recalculation.  We cannot be much smarter than this because we don't know how many paragraphs have been deleted
+      //  since the text has already been removed from the backing store.
+      lastParaLocation = 0
+      lastParaNumber = 0
+    }
+  }
+  #else
+  override func processEditing(for textStorage: NSTextStorage, edited editMask: NSTextStorage.EditActions, range newCharRange: NSRange, changeInLength delta: Int, invalidatedRange invalidatedCharRange: NSRange) {
+        super.processEditing(for: textStorage, edited: editMask, range: newCharRange, changeInLength: delta, invalidatedRange: invalidatedCharRange)
+    if invalidatedCharRange.location < lastParaLocation {
+      //  When the backing store is edited ahead the cached paragraph location, invalidate the cache and force a complete
+      //  recalculation.  We cannot be much smarter than this because we don't know how many paragraphs have been deleted
+      //  since the text has already been removed from the backing store.
+      lastParaLocation = 0
+      lastParaNumber = 0
+    }
+  }
+  #endif
 	
 	var gutterWidth: CGFloat = 0.0
 	

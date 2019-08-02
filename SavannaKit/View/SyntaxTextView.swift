@@ -97,13 +97,18 @@ open class SyntaxTextView: PlatformView {
     setup()
   }
 
-  public override init(frame frameRect: NSRect) {
-    fatalError("Creating SyntaxTextView from Interface Builder not supported")
-  }
-
   public required init?(coder aDecoder: NSCoder) {
     fatalError("Creating SyntaxTextView from Interface Builder not supported")
   }
+  #if os(macOS)
+  public override init(frame frameRect: NSRect) {
+    fatalError("Creating SyntaxTextView from Interface Builder not supported")
+  }
+  #else
+  public override init(frame: CGRect) {
+    fatalError("Creating SyntaxTextView from Interface Builder not supported")
+  }
+  #endif
 
   private static func createInnerTextView() -> InnerTextView {
     let textStorage = NSTextStorage()
@@ -213,7 +218,7 @@ open class SyntaxTextView: PlatformView {
     textViewSelectedRangeObserver = contentTextView.observe(\UITextView.selectedTextRange) { [weak self] (textView, value) in
 
       if let `self` = self {
-        self.delegate?.didChangeSelectedRange(self, selectedRange: self.contentTextView.selectedRange)
+        self.callbacks.didChangeSelectedRange(self, self.contentTextView.selectedRange)
       }
 
     }

@@ -184,7 +184,7 @@ extension SyntaxTextView: UITextViewDelegate {
 
   public func textViewDidBeginEditing(_ textView: UITextView) {
     // pass the message up to our own delegate
-    delegate?.textViewDidBeginEditing(self)
+    self.callbacks.textViewDidBeginEditing(self)
   }
 
   open func textViewDidChange(_ textView: UITextView) {
@@ -198,11 +198,8 @@ extension SyntaxTextView: UITextViewDelegate {
     self.invalidateCachedTokens()
     self.textView.invalidateCachedParagraphs()
     textView.setNeedsDisplay()
-    colorTextView(lexerForSource: self.lexer)
-
-    if let delegate = delegate {
-      delegate.didChangeText(self)
-    }
+    self.colorTextView(self.lexer)
+    self.callbacks.didChangeText(self)
   }
 
   open func textViewDidChangeSelection(_ textView: UITextView) {

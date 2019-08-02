@@ -7,7 +7,7 @@
 //
 
 // N.B. Languages are unique by ID.  The display name is optional.
-public struct Language: Codable, Hashable {
+public struct Language: Codable, Hashable, Identifiable {
   public let id: String
   public let name: String
 
