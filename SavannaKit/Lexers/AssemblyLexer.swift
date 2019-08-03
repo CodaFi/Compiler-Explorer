@@ -32,6 +32,8 @@ public class AssemblyLexer: Lexer {
         type = .directive
       } else if word.contains(":") {
         type = .operand
+      } else if word.starts(with: "%") || word.starts(with: "!") {
+        type = .llvmOperand
       } else {
         type = .plainText
       }
@@ -48,6 +50,7 @@ enum AssemblyTokenType {
   case operand
   case directive
   case plainText
+  case llvmOperand
 }
 
 struct AssemblyToken: Token {
@@ -74,7 +77,78 @@ private let commonOperandsSet: Set<String> = [
 
 private let commonOpcodeSet: Set<String> = [
   "mov", "add", "sub", "lea", "ret", "jmp", "div", "mul",
-  "jsr", "ldx", "lda", "ldy", "rts", "cmp", "setl", "push", "pop", 
+  "jsr", "ldx", "lda", "ldy", "rts", "cmp", "setl", "push", "pop",
+
+  // LLVM
+  "fneg",
+  "add",
+  "fadd",
+  "sub",
+  "fsub",
+  "mul",
+  "fmul",
+  "udiv",
+  "sdiv",
+  "fdiv",
+  "urem",
+  "srem",
+  "frem",
+  "shl",
+  "lshr",
+  "ashr",
+  "and",
+  "or",
+  "xor",
+  "icmp",
+  "fcmp",
+  "phi",
+  "call",
+  "trunc",
+  "zext",
+  "sext",
+  "fptrunc",
+  "fpext",
+  "uitofp",
+  "sitofp",
+  "fptoui",
+  "fptosi",
+  "inttoptr",
+  "ptrtoint",
+  "bitcast",
+  "addrspacecast",
+  "select",
+  "va_arg",
+  "landingpad",
+  "personality",
+  "cleanup",
+  "catch",
+  "filter",
+  "ret",
+  "br",
+  "switch",
+  "indirectbr",
+  "invoke",
+  "resume",
+  "unreachable",
+  "cleanupret",
+  "catchswitch",
+  "catchret",
+  "catchpad",
+  "cleanuppad",
+  "callbr",
+  "alloca",
+  "load",
+  "store",
+  "fence",
+  "cmpxchg",
+  "atomicrmw",
+  "getelementptr",
+  "extractelement",
+  "insertelement",
+  "shufflevector",
+  "extractvalue",
+  "insertvalue",
+  "blockaddress",
 ]
 
 public class AssemblyTheme: SyntaxColorTheme {
@@ -117,6 +191,8 @@ public class AssemblyTheme: SyntaxColorTheme {
       attributes[.foregroundColor] = PlatformColor.yellow
     case .operand:
       attributes[.foregroundColor] = PlatformColor.green
+    case .llvmOperand:
+      attributes[.foregroundColor] = PlatformColor.red
     case .directive:
       attributes[.foregroundColor] = PlatformColor.lightGray
     case .plainText:
