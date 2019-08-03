@@ -10,13 +10,6 @@ import UIKit
 import GodBolt
 
 class Document: UIDocument {
-  let language: Language
-
-  init(fileURL url: URL, language: Language) {
-    self.language = language
-    super.init(fileURL: url)
-  }
-
   override func contents(forType typeName: String) throws -> Any {
       // Encode your document with an instance of NSData or NSFileWrapper
       return Data()

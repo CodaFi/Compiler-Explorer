@@ -11,19 +11,28 @@ import GodBolt
 
 struct DocumentTemplateView: View {
   @Binding var chosen: Language?
+  @State var selection: Int? = nil
+  @EnvironmentObject var shortlinkModel: ShortlinkViewModel
 
-  @Environment(\.presentationMode) var presentationMode
+
+  private func viewForValue(_ value: Int) -> some View {
+    if value != 0 {
+      return AnyView(Button(action: { self.chosen = availableLanguages[value-1] }) {
+        HStack {
+          Text(availableLanguages[value-1]!.name)
+          Spacer()
+          Image(systemName: "chevron.right")
+        }
+      })
+    } else {
+      return AnyView(NavigationLink("Go To Link...", destination: ShortlinkPanelView().environmentObject(self.shortlinkModel)))
+    }
+  }
 
   var body: some View {
     NavigationView {
-      List(availableLanguages) { value in
-        Button(action: { self.chosen = value }) {
-         HStack {
-            Text(value.name)
-            Spacer()
-            Image(systemName: "chevron.right")
-          }
-        }
+      List(0..<availableLanguages.count+1) { value in
+        self.viewForValue(value)
       }
         .navigationBarTitle("New Workspace")
     }
@@ -31,7 +40,7 @@ struct DocumentTemplateView: View {
 }
 
 
-private let availableLanguages: [Language] = [
+private let availableLanguages: [Language?] = [
   .c,
   .fortran,
   .cpp,

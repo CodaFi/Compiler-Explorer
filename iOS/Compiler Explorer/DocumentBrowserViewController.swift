@@ -29,7 +29,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
 	func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
 
-    let controller = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]))
+    let controller = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]).environmentObject(ShortlinkViewModel()))
     self.languageCancellable = self.$selectedLanguage.sink { value in
       guard let value = value else {
         return importHandler(nil, .none)
@@ -37,19 +37,24 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
       self.dismisssForLanguageChange(language: value, importHandler: importHandler)
     }
     controller.modalPresentationStyle = .popover
-
-    // Specify the anchor point for the popover.
     controller.popoverPresentationController?.sourceView = self.view
     self.present(controller, animated: true, completion: nil)
 	}
 
+  private func resetLanguageState() {
+    self.presentedViewController?.dismiss(animated: true)
+    self.languageCancellable?.cancel()
+    self.languageCancellable = nil
+    self.selectedLanguage = nil
+  }
 
   func dismisssForLanguageChange(language: Language, importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
-    self.presentedViewController?.dismiss(animated: true)
-    let newName = "temp" + language.id
+    self.resetLanguageState()
+
+    let newName = "temp.\(ExtensionManager.fileExtension(for: language))"
 
     let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(newName)
-    let doc = Document(fileURL: url, language: language)
+    let doc = Document(fileURL: url)
     doc.save(to: url, for: .forCreating) { (_) in
       doc.close(completionHandler: { (_) in
         importHandler(url, .move)
@@ -78,7 +83,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
   // MARK: Document Presentation
 
   func presentDocument(at documentURL: URL, language: Language) {
-    let documentViewController = DocumentViewController(document: Document(fileURL: documentURL, language: language))
+    let documentViewController = DocumentViewController(document: Document(fileURL: documentURL))
     switch UIDevice.current.userInterfaceIdiom {
     case .pad:
       documentViewController.modalPresentationStyle = .fullScreen

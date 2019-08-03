@@ -130,18 +130,32 @@ final class ViewModel: ObservableObject, Identifiable {
 
 
 extension ViewModel {
-  // FIXME: This is a useless action.  Remove it.
-  func compile() {
-    let val = self.selectedCompiler
-    self.selectedCompiler = val
-  }
-
   func textDidChange(_ textView: SyntaxTextView) {
     self.documentTextValue.send(textView.text)
   }
 
-  func updateLanguage(_ lang: Language) {
-    self.language = lang
+  func loadSession(_ session: SessionContainer.Session, compiler: SessionContainer.SessionCompiler) {
+    self.objectWillChange.send()
+    self.documentTextValue.send(session.source)
+    self.language = fileTypeTable[session.language]
+    _ = self.client.requestCompilers(for: self.language)
+      .catch { error in Empty() }
+      .receive(on: DispatchQueue.main)
+      .sink { values in
+        self.availableCompilers = values
+        self.selectedCompiler = self.availableCompilers.firstIndex { ac in ac.id == compiler.id  } ?? 0
+        self.compilerOptions = compiler.options
+        self.syntax = compiler.filters.contains(.intel) ? 0 : 1
+        self.labels = compiler.filters.contains(.labels)
+        self.directives = compiler.filters.contains(.directives)
+        self.comments = compiler.filters.contains(.comments)
+        self.demangle = compiler.filters.contains(.demangle)
+        self.trim = compiler.filters.contains(.trim)
+      }
+  }
+
+  func updateLanguage(from url: URL) {
+    self.language = fileTypeTable[url.pathExtension]
     _ = self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
@@ -150,3 +164,26 @@ extension ViewModel {
     }
   }
 }
+
+// FIXME: Sync the many many tables in this thing somehow some way.
+private let fileTypeTable: [String: Language] = [
+  "c": Language.c, "m": Language.c,
+  "f90": Language.fortran, "f95": Language.fortran, "f03": Language.fortran,
+  "cpp": Language.cpp, "cc": Language.cpp, "cxx": Language.cpp, "h": Language.cpp, "hpp": Language.cpp, "mm": Language.cpp,
+  "asm": Language.assembly, "s": Language.assembly,
+  "cuda": Language.cuda,
+  "llvm": Language.llvm, "ll": Language.llvm, "ir": Language.llvm,
+  "d": Language.d,
+  "go": Language.go,
+  "rs": Language.rust,
+  "icl": Language.clean, "dcl": Language.clean, "abc": Language.clean,
+  "pas": Language.pascal,
+  "hs": Language.haskell,
+  "ada": Language.ada,
+  "ml": Language.ocaml, "mli": Language.ocaml,
+  "swift": Language.swift,
+  "zig": Language.zig,
+]
+
+
+

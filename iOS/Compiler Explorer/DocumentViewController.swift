@@ -16,9 +16,12 @@ struct DocumentView: View {
   @State var showSettings = false
   @State var index: Int = 0
   var controllers: [UIViewController] = []
+  @Environment(\.presentationMode) var presentationMode
+  let onDismiss: () -> Void
 
-  init(viewModel: ViewModel) {
+  init(viewModel: ViewModel, onDismiss: @escaping () -> Void) {
     self.viewModel = viewModel
+    self.onDismiss = onDismiss
 
     self.controllers = [
       EditorViewController(text: self.viewModel.documentTextValue.value,
@@ -65,10 +68,8 @@ struct DocumentView: View {
       }) {
         Image(systemName: "slider.horizontal.3")
         }, trailing: Button(action: {
-          self.viewModel.compile()
-        }) {
-          Image(systemName: "play.fill")
-      })
+          self.onDismiss()
+        }) { Text("Done") })
         .sheet(isPresented: self.$showSettings) {
           SettingsView().environmentObject(self.viewModel)
       }
@@ -81,7 +82,7 @@ struct DocumentView: View {
 #if DEBUG
 struct DocumentView_Previews: PreviewProvider {
   static var previews: some View {
-    DocumentView(viewModel: ViewModel())
+    DocumentView(viewModel: ViewModel(), onDismiss: {})
   }
 }
 #endif
@@ -95,16 +96,20 @@ final class DocumentViewController: UIViewController {
     self.viewModel = ViewModel()
     self.document = document
     super.init(nibName: nil, bundle: nil)
-    self.viewModel.updateLanguage(self.document.language)
+    self.viewModel.updateLanguage(from: self.document.fileURL)
   }
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
+  func loadSession(_ session: SessionContainer.Session, compiler: SessionContainer.SessionCompiler) {
+    self.viewModel.loadSession(session, compiler: compiler)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.hostingController = UIHostingController(rootView: AnyView(DocumentView(viewModel: self.viewModel)))
+    self.hostingController = UIHostingController(rootView: AnyView(DocumentView(viewModel: self.viewModel) { self.dismissDocumentViewController() }))
     addChild(self.hostingController!)
     view.addSubview(self.hostingController!.view)
 
@@ -133,7 +138,9 @@ final class DocumentViewController: UIViewController {
     })
   }
 
-  @IBAction func dismissDocumentViewController() {
+  
+
+  func dismissDocumentViewController() {
     dismiss(animated: true) {
       self.document.close(completionHandler: nil)
     }

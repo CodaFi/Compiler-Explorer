@@ -17,39 +17,51 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
   var window: UIWindow?
 
   var languageCancellable: AnyCancellable? = nil
-  @Published var selectedLanguage: Language? = nil {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
+  @Published var selectedLanguage: Language? = nil
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     let window = UIWindow(frame: UIScreen.main.bounds)
+    self.window = window
+    window.makeKeyAndVisible()
     switch UIDevice.current.userInterfaceIdiom {
     case .pad:
       window.rootViewController = DocumentBrowserViewController()
+      self.languageCancellable = self.$selectedLanguage.sink { lang in
+        guard let lang = lang else {
+          return
+        }
+        self.dismisssForLanguageChange(language: lang)
+      }
     case .phone:
-      window.rootViewController = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]))
+      let vm = ShortlinkViewModel()
+      window.rootViewController = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]).environmentObject(vm))
+      self.languageCancellable = self.$selectedLanguage
+        .combineLatest(vm.shortlinkValue)
+        .receive(on: DispatchQueue.main)
+        .sink { values in
+        switch values {
+        case (.none, .none):
+          return
+        case let (.none, .some(session)):
+          self.dismisssForSessionChange(session: session)
+        case let (.some(lang), .none):
+          self.dismisssForLanguageChange(language: lang)
+        case (.some(_), .some(_)):
+          fatalError("Wat?")
+        }
+      }
     default:
       fatalError()
-    }
-    self.window = window
-    window.makeKeyAndVisible()
-    self.languageCancellable = self.$selectedLanguage.sink { value in
-      guard let value = value else {
-        return
-      }
-      self.dismisssForLanguageChange(language: value)
     }
     return true
   }
 
   func dismisssForLanguageChange(language: Language) {
     window?.rootViewController?.presentedViewController?.dismiss(animated: true)
-    let newName = "temp" + language.id
+    let newName = "temp.\(ExtensionManager.fileExtension(for: language))"
 
     let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(newName)
-    let doc = Document(fileURL: url, language: language)
+    let doc = Document(fileURL: url)
     doc.save(to: url, for: .forCreating) { (_) in
       doc.close(completionHandler: { (_) in
       })
@@ -59,25 +71,27 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
     window?.rootViewController?.present(documentViewController, animated: true, completion: nil)
   }
 
+  func dismisssForSessionChange(session: SessionContainer) {
+    window?.rootViewController?.presentedViewController?.dismiss(animated: true)
+    guard let session = session.sessions.first else {
+      // FIXME: Error handling
+      return
+    }
+    guard let compiler = session.compilers.first else {
+      // FIXME: Error handling
+      return
+    }
+    let newName = "temp.\(session.language)"
 
-  func applicationWillResignActive(_ application: UIApplication) {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(newName)
+    let doc = Document(fileURL: url)
+    doc.save(to: url, for: .forCreating) { (_) in
+      doc.close(completionHandler: { (_) in
+      })
+    }
+
+    let documentViewController = DocumentViewController(document: doc)
+    window?.rootViewController?.present(documentViewController, animated: true, completion: nil)
+    documentViewController.loadSession(session, compiler: compiler)
   }
-
-  func applicationDidEnterBackground(_ application: UIApplication) {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-  }
-
-  func applicationWillEnterForeground(_ application: UIApplication) {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-  }
-
-  func applicationDidBecomeActive(_ application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-  }
-
-
-
 }
-

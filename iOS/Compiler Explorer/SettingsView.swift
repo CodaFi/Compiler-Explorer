@@ -20,8 +20,8 @@ struct SettingsView: View {
         }
         Section(header: Text("Compiler")) {
           Picker(selection: self.$viewModel.selectedCompiler, label: Text("Compiler")) {
-            ForEach(0..<self.viewModel.availableCompilers.count) { idx in
-              Text(self.viewModel.availableCompilers[idx].name).tag(idx)
+            ForEach(self.viewModel.availableCompilers, id: \.name) { compiler in
+              Text(compiler.name).tag(compiler.name)
             }
           }
         }

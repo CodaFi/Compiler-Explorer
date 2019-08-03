@@ -67,7 +67,6 @@ struct PageViewController: UIViewControllerRepresentable {
       self._currentPage = currentPage
     }
 
-    // FIXME: This is never called? Documentation is a lie.
     func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewController.SpineLocation {
       switch UIDevice.current.userInterfaceIdiom {
       case .pad:
