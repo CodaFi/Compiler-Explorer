@@ -27,12 +27,14 @@ struct CompilerSelectorView: View {
           }
         }
           .fixedSize()
-          .disabled(self.$viewModel.availableCompilers.isEmpty)
           .layoutPriority(1.0)
         Spacer(minLength: 20)
         TextField("Compiler Options...", text: self.$viewModel.compilerOptions)
-          .disabled(self.$viewModel.availableCompilers.isEmpty)
           .layoutPriority(1.0)
+        if !self.viewModel.liveCompile {
+          Button("Go!", action: self.viewModel.recompile)
+            .frame(width: 50)
+        }
         Spacer()
       }
         .padding(.top, 10)
@@ -42,6 +44,7 @@ struct CompilerSelectorView: View {
       CompilerToggleView()
       .padding(.top, 2)
     }
+    .disabled(self.$viewModel.availableCompilers.isEmpty)
   }
 }
 

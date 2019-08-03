@@ -13,52 +13,55 @@ import SwiftUI
 import Combine
 
 struct PreferencesView: View {
-  @State private var isLive: Bool = true
+  @EnvironmentObject var viewModel: ViewModel
   let onDismiss: () -> Void
 
-  // FIXME: Open Questions:
-  // - Why can't I make a default button in SwiftUI?
-  // - Right-align the done button?
-  // - This definitely shouldn't be a sheet?
-  //
-  // Oh well, it isn't hooked up to anything yet.
+  // FIXME: This definitely shouldn't be a sheet?
   var body: some View {
     VStack {
       GroupBox(label: Text("Preferences")) {
-        Toggle("Live Compilation", isOn: self.$isLive)
+        Toggle("Live Compilation", isOn: self.$viewModel.liveCompile)
       }
-      Button("Done", action: self.onDismiss)
-        .buttonStyle(DefaultButtonStyle())
+      HStack {
+        Spacer()
+        NativeButton(title: "Done", keyEquivalent: "\r", action: self.onDismiss)
+          .frame(width: 50)
+      }
     }
       .padding()
       .frame(width: 200, alignment: .leading)
+      .frame(height: 120)
   }
 }
 
 #if DEBUG
 struct PreferencesView_Preview: PreviewProvider {
   static var previews: some View {
-    PreferencesView(onDismiss: {})
+    PreferencesView(onDismiss: {}).environmentObject(ViewModel())
   }
 }
 #endif
 
 final class PreferencesWindowController: NSWindowController {
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
+  let viewModel: ViewModel
 
-  override init(window: NSWindow?) {
+  init(viewModel: ViewModel) {
+    self.viewModel = viewModel
+
     let window = NSWindow(
-        contentRect: NSRect(x: 0, y: 0, width: 800, height: 800),
-        styleMask: [.titled, .closable, .miniaturizable, .resizable],
-        backing: .buffered, defer: false)
+      contentRect: .zero,
+      styleMask: [.titled, .closable, .miniaturizable, .resizable],
+      backing: .buffered, defer: false)
     window.center()
 
     window.contentView = NSHostingView(rootView: PreferencesView(onDismiss: {
       window.sheetParent!.endSheet(window)
-    }))
+    }).environmentObject(self.viewModel))
     super.init(window: window)
     self.window = window
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError()
   }
 }
