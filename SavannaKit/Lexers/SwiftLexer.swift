@@ -9,6 +9,12 @@
 /// This project is released under the MIT license, a copy of which is
 /// available in the repository.
 
+#if os(iOS)
+import UIKit
+#else
+import AppKit
+#endif
+
 // FIXME: All the lexers need to be consolidated.
 public class SwiftLexer: Lexer {
 
@@ -22,7 +28,7 @@ public class SwiftLexer: Lexer {
         return
       }
 
-      let type: SwiftTokenType
+      let type: SwiftToken.TokenType
       if keywordSet.contains(word) {
         type = .keyword
       } else if word.starts(with: "#") {
@@ -39,18 +45,50 @@ public class SwiftLexer: Lexer {
   }
 }
 
-enum SwiftTokenType {
-  case keyword
-  case poundLiteral
-  case directive
-  case plainText
-}
 
-struct SwiftToken: Token {
-  let type: SwiftTokenType
-  let isEditorPlaceholder: Bool
-  let isPlain: Bool
-  let range: Range<String.Index>
+public struct SwiftToken: UniversalToken {
+  public enum SwiftTokenType {
+    case keyword
+    case poundLiteral
+    case directive
+    case plainText
+  }
+
+  public let type: SwiftTokenType
+  public let isEditorPlaceholder: Bool
+  public let isPlain: Bool
+  public let range: Range<String.Index>
+
+  public func foregroundColor(for type: TokenType) -> PlatformColor {
+    switch type {
+    case .keyword:
+      return PlatformColor.systemPink
+    case .poundLiteral:
+      return PlatformColor.brown
+    case .directive:
+      return PlatformColor.systemPink
+    case .plainText:
+      #if os(macOS)
+      let appearanceName = NSApp.effectiveAppearance.name
+      if appearanceName == .darkAqua {
+        return PlatformColor.white
+      } else if appearanceName == .aqua {
+        return PlatformColor.black
+      } else {
+        return PlatformColor.white
+      }
+      #else
+      switch UIScreen.main.traitCollection.userInterfaceStyle {
+      case .dark:
+        return PlatformColor.white
+      case .light:
+        return PlatformColor.black
+      default:
+        return PlatformColor.white
+      }
+      #endif
+    }
+  }
 }
 
 private let keywordSet: Set<String> = [
@@ -122,51 +160,3 @@ private let keywordSet: Set<String> = [
 
     "yield",
 ]
-
-public class SwiftTheme: SyntaxColorTheme {
-  public init() {}
-
-  private static var lineNumbersColor: PlatformColor {
-    return PlatformColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1.0)
-  }
-
-  public let lineNumbersStyle: LineNumbersStyle? = LineNumbersStyle(font: PlatformFont(name: "Menlo", size: 16)!, textColor: lineNumbersColor)
-  public let gutterStyle: GutterStyle = GutterStyle(backgroundColor: PlatformColor(red: 21/255.0, green: 22/255, blue: 31/255, alpha: 1.0), minimumWidth: 32)
-
-  public let font = PlatformFont(name: "Menlo", size: 15)!
-
-  public let backgroundColor = PlatformColor(red: 31/255.0, green: 32/255, blue: 41/255, alpha: 1.0)
-
-  public func globalAttributes() -> [NSAttributedString.Key: Any] {
-
-    var attributes = [NSAttributedString.Key: Any]()
-
-    attributes[.font] = PlatformFont(name: "Menlo", size: 15)!
-    attributes[.foregroundColor] = PlatformColor.white
-
-    return attributes
-  }
-
-  public func attributes(for token: Token) -> [NSAttributedString.Key: Any] {
-
-    guard let myToken = token as? SwiftToken else {
-      return [:]
-    }
-
-    var attributes = [NSAttributedString.Key: Any]()
-
-    switch myToken.type {
-    case .keyword:
-      attributes[.foregroundColor] = PlatformColor.systemPink
-    case .poundLiteral:
-      attributes[.foregroundColor] = PlatformColor.brown
-    case .directive:
-      attributes[.foregroundColor] = PlatformColor.systemPink
-    case .plainText:
-      attributes[.foregroundColor] = PlatformColor.white
-    }
-
-    return attributes
-  }
-
-}

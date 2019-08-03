@@ -8,9 +8,14 @@
 /// This project is released under the MIT license, a copy of which is
 /// available in the repository.
 
+#if os(iOS)
+import UIKit
+#else
+import AppKit
+#endif
+
 // FIXME: All the lexers need to be consolidated.
 public class AssemblyLexer: Lexer {
-
   public init() {}
 
   public func getSavannaTokens(input: String) -> [Token] {
@@ -21,7 +26,7 @@ public class AssemblyLexer: Lexer {
         return
       }
 
-      let type: AssemblyTokenType
+      let type: AssemblyToken.TokenType
       if commonOpcodeSet.contains(word) {
         type = .opCode
       } else if commonOperandsSet.contains(word) {
@@ -44,20 +49,56 @@ public class AssemblyLexer: Lexer {
   }
 }
 
-enum AssemblyTokenType {
-  case opCode
-  case immediate
-  case operand
-  case directive
-  case plainText
-  case llvmOperand
-}
 
-struct AssemblyToken: Token {
-  let type: AssemblyTokenType
-  let isEditorPlaceholder: Bool
-  let isPlain: Bool
-  let range: Range<String.Index>
+public struct AssemblyToken: UniversalToken {
+  public enum AssemblyTokenType {
+    case opCode
+    case immediate
+    case operand
+    case directive
+    case plainText
+    case llvmOperand
+  }
+
+  public let type: AssemblyTokenType
+  public let isEditorPlaceholder: Bool
+  public let isPlain: Bool
+  public let range: Range<String.Index>
+
+  public func foregroundColor(for type: AssemblyTokenType) -> PlatformColor {
+    switch type {
+    case .opCode:
+      return PlatformColor.blue
+    case .immediate:
+      return PlatformColor.yellow
+    case .operand:
+      return PlatformColor.green
+    case .llvmOperand:
+      return PlatformColor.red
+    case .directive:
+      return PlatformColor.lightGray
+    case .plainText:
+      #if os(macOS)
+      let appearanceName = NSApp.effectiveAppearance.name
+      if appearanceName == .darkAqua {
+        return PlatformColor.white
+      } else if appearanceName == .aqua {
+        return PlatformColor.black
+      } else {
+        return PlatformColor.white
+      }
+      #else
+      switch UIScreen.main.traitCollection.userInterfaceStyle {
+      case .dark:
+        return PlatformColor.white
+      case .light:
+        return PlatformColor.black
+      default:
+        return PlatformColor.white
+      }
+      #endif
+    }
+  }
 }
 
 private let commonOperandsSet: Set<String> = [
@@ -150,56 +191,3 @@ private let commonOpcodeSet: Set<String> = [
   "insertvalue",
   "blockaddress",
 ]
-
-public class AssemblyTheme: SyntaxColorTheme {
-  public init() {
-  }
-
-  private static var lineNumbersColor: PlatformColor {
-    return PlatformColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1.0)
-  }
-
-  public let lineNumbersStyle: LineNumbersStyle? = LineNumbersStyle(font: PlatformFont(name: "Menlo", size: 16)!, textColor: lineNumbersColor)
-  public let gutterStyle: GutterStyle = GutterStyle(backgroundColor: PlatformColor(red: 21/255.0, green: 22/255, blue: 31/255, alpha: 1.0), minimumWidth: 32)
-
-  public let font = PlatformFont(name: "Menlo", size: 15)!
-
-  public let backgroundColor = PlatformColor(red: 31/255.0, green: 32/255, blue: 41/255, alpha: 1.0)
-
-  public func globalAttributes() -> [NSAttributedString.Key: Any] {
-
-    var attributes = [NSAttributedString.Key: Any]()
-
-    attributes[.font] = PlatformFont(name: "Menlo", size: 15)!
-    attributes[.foregroundColor] = PlatformColor.white
-
-    return attributes
-  }
-
-  public func attributes(for token: Token) -> [NSAttributedString.Key: Any] {
-
-    guard let myToken = token as? AssemblyToken else {
-      return [:]
-    }
-
-    var attributes = [NSAttributedString.Key: Any]()
-
-    switch myToken.type {
-    case .opCode:
-      attributes[.foregroundColor] = PlatformColor.cyan
-    case .immediate:
-      attributes[.foregroundColor] = PlatformColor.yellow
-    case .operand:
-      attributes[.foregroundColor] = PlatformColor.green
-    case .llvmOperand:
-      attributes[.foregroundColor] = PlatformColor.red
-    case .directive:
-      attributes[.foregroundColor] = PlatformColor.lightGray
-    case .plainText:
-      attributes[.foregroundColor] = PlatformColor.white
-    }
-
-    return attributes
-  }
-
-}
