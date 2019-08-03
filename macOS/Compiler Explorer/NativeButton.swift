@@ -45,8 +45,6 @@ struct NativeButton: NSViewRepresentable {
   func updateNSView(_ sourceView: NSButton, context: NSViewRepresentableContext<NativeButton>) {
 
   }
-
-
 }
 
 #if DEBUG

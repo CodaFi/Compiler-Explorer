@@ -28,6 +28,9 @@ struct SettingsView: View {
         Section(header: Text("Compiler Flags")) {
           TextField("Flags", text: self.$viewModel.compilerOptions)
         }
+        Section(header: Text("Shortlink")) {
+          NativeCopyableTextField(string: self.$viewModel.shortlinkValue, placeholder: "Loading...")
+        }
         Section(header: Text("Asssembly Syntax")) {
           Picker(selection: self.$viewModel.syntax, label: Text("Syntax")) {
             // Yes, this is absolutely a value judgement.

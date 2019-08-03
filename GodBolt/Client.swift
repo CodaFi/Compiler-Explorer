@@ -78,15 +78,33 @@ public final class Client {
         .eraseToAnyPublisher()
   }
 
-//  public func requestShortString(using compiler: Compiler, of source: Source) -> AnyPublisher<Response, Error> {
-//    var request = URLRequest(url: endpointURL(self.defaultHost, "/shortener"))
-//    request.httpMethod = "POST"
-//    request.httpBody = try! JSONEncoder().encode(source)
-//    return self.session.dataTaskPublisher(for: request)
-//      .map({ $0.0 })
-//      .decode(type: Response.self, decoder: JSONDecoder())
-//      .eraseToAnyPublisher()
-//  }
+  public func requestShortString(using compiler: Compiler, of source: Source) -> AnyPublisher<Shortlink, Error> {
+    var request = URLRequest(url: endpointURL(self.defaultHost, "/shortener"))
+    request.httpMethod = "POST"
+    let sessionContainer = SessionContainer(sessions: [
+      SessionContainer.Session.init(id: 1,
+                                    language: compiler.language,
+                                    source: source.source,
+                                    conformanceview: false,
+                                    compilers: [
+        SessionContainer.SessionCompiler.init(id: compiler.id, options: source.options.userArguments, filters: source.options.filters, libs: [], specialoutputs: [], tools: [])
+      ])
+    ])
+    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+    request.httpBody = try! JSONEncoder().encode(sessionContainer)
+    return self.session.dataTaskPublisher(for: request)
+      .flatMap { (data, response) -> Result<Data, URLError>.Publisher in
+        guard let httpResponse = response as? HTTPURLResponse else {
+          return Result<Data, URLError>.failure(URLError(.badServerResponse)).publisher
+        }
+        guard httpResponse.statusCode == 200 else {
+          return Result<Data, URLError>.failure(URLError(.badServerResponse)).publisher
+        }
+        return Result<Data, URLError>.success(data).publisher
+      }
+      .decode(type: Shortlink.self, decoder: JSONDecoder())
+      .eraseToAnyPublisher()
+  }
 }
 
 private func endpointURL(_ base: String, _ route: String) -> URL {

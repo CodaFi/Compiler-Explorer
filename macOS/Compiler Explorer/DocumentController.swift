@@ -10,7 +10,6 @@ import AppKit
 import GodBolt
 
 final class DocumentController: NSDocumentController {
-
   override func addDocument(_ document: NSDocument) {
     guard self.documents.count == 1 else {
       return super.addDocument(document)

@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
   }
 
   @IBOutlet weak var documentController: DocumentController!
-  let shortlinksController = ShortlinkWindowController()
+  let gotoShortlinksController = GotoShortlinkWindowController()
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     NSApp.servicesProvider = self
@@ -77,9 +77,9 @@ extension AppDelegate {
     (doc as! Document).showPreferences()
   }
 
-  @IBAction func openShortlink(_ sesnder: AnyObject?) {
-    _ = NSApp.runModal(for: self.shortlinksController.window!)
-    guard let session = self.shortlinksController.takeShortlinkValue() else {
+  @IBAction func openShortlink(_ sender: AnyObject?) {
+    _ = NSApp.runModal(for: self.gotoShortlinksController.window!)
+    guard let session = self.gotoShortlinksController.takeShortlinkValue() else {
       return
     }
     guard let firstSession = session.sessions.first else {
@@ -90,5 +90,25 @@ extension AppDelegate {
       pasteboard: firstSession.source,
       type: firstSession.language,
       session: firstSession.compilers.first)
+  }
+
+  @IBAction func generateShortlink(_ sender: AnyObject?) {
+    guard let doc = self.documentController.currentDocument else {
+      return
+    }
+    (doc as! Document).generateShortlink()
+  }
+
+  @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    if menuItem.action == #selector(AppDelegate.generateShortlink(_:)) {
+      guard let topDoc = self.documentController.currentDocument else {
+        return false
+      }
+      guard let doc = topDoc as? Document else {
+        return false
+      }
+      return !doc.isTransientAndReplacable && doc.viewModel.language != nil
+    }
+    return true
   }
 }

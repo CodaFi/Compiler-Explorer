@@ -13,15 +13,17 @@ import SwiftUI
 import GodBolt
 
 final class Document: NSDocument {
-  private var viewModel = ViewModel()
+  var viewModel = ViewModel()
   private var transient: Bool = false
   private let preferences = PreferencesWindowController()
+  let shortlinksController: ShortlinkWindowController
 
   override class var autosavesInPlace: Bool {
     return true
   }
 
   override init() {
+    self.shortlinksController = ShortlinkWindowController(viewModel: self.viewModel)
     super.init()
     self.undoManager?.disableUndoRegistration()
     self.fileType = NSDocumentController.shared.defaultType
@@ -101,6 +103,10 @@ final class Document: NSDocument {
     super.save(to: url, ofType: typeName, for: saveOperation, completionHandler: completionHandler)
     self.viewModel.updateFileExtension(url.pathExtension)
   }
+
+  override func share(with sharingService: NSSharingService, completionHandler: ((Bool) -> Void)? = nil) {
+    sharingService.perform(withItems: [ self.viewModel.shortlinkValue ])
+  }
 }
 
 extension Document {
@@ -108,8 +114,14 @@ extension Document {
     guard let sheetWindow = self.windowForSheet else {
       return
     }
-    sheetWindow.beginSheet(self.preferences.window!) { (response) in
+    sheetWindow.beginSheet(self.preferences.window!) { response in }
+  }
 
+  func generateShortlink() {
+    guard let sheetWindow = self.windowForSheet else {
+      return
     }
+    self.viewModel.computeShortlinkForBuffer()
+    sheetWindow.beginSheet(self.shortlinksController.window!) { response in }
   }
 }

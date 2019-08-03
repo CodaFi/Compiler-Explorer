@@ -33,7 +33,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
         self.dismisssForLanguageChange(language: lang)
       }
     case .phone:
-      let vm = ShortlinkViewModel()
+      let vm = GotoShortlinkViewModel()
       window.rootViewController = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]).environmentObject(vm))
       self.languageCancellable = self.$selectedLanguage
         .combineLatest(vm.shortlinkValue)

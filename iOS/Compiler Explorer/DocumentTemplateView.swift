@@ -12,7 +12,7 @@ import GodBolt
 struct DocumentTemplateView: View {
   @Binding var chosen: Language?
   @State var selection: Int? = nil
-  @EnvironmentObject var shortlinkModel: ShortlinkViewModel
+  @EnvironmentObject var shortlinkModel: GotoShortlinkViewModel
 
 
   private func viewForValue(_ value: Int) -> some View {
@@ -25,7 +25,7 @@ struct DocumentTemplateView: View {
         }
       })
     } else {
-      return AnyView(NavigationLink("Go To Link...", destination: ShortlinkPanelView().environmentObject(self.shortlinkModel)))
+      return AnyView(NavigationLink("Go To Link...", destination: GotoShortlinkView().environmentObject(self.shortlinkModel)))
     }
   }
 

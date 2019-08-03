@@ -11,8 +11,8 @@ import SwiftUI
 import Combine
 import GodBolt
 
-struct ShortlinkPanelView: View {
-  @EnvironmentObject var viewModel: ShortlinkViewModel
+struct GotoShortlinkView: View {
+  @EnvironmentObject var viewModel: GotoShortlinkViewModel
   @Environment(\.presentationMode) var presentationMode
 
   var body: some View {
@@ -33,14 +33,14 @@ struct ShortlinkPanelView: View {
 }
 
 #if DEBUG
-struct ShortlinkPanelView_Preview: PreviewProvider {
+struct GotoShortlinkView_Preview: PreviewProvider {
   static var previews: some View {
-    ShortlinkPanelView().environmentObject(ShortlinkViewModel())
+    GotoShortlinkView().environmentObject(GotoShortlinkViewModel())
   }
 }
 #endif
 
-final class ShortlinkViewModel: ObservableObject, Identifiable {
+final class GotoShortlinkViewModel: ObservableObject, Identifiable {
   var shortlinkText: String = "" {
     willSet {
       self.objectWillChange.send()

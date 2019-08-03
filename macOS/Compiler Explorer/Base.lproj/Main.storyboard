@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14845" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14854.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14845"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14854.2"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -75,6 +75,11 @@
                                         <menuItem title="Open Shortlink" keyEquivalent="g" id="K3k-RM-ssD">
                                             <connections>
                                                 <action selector="openShortlink:" target="Voe-Tx-rLC" id="dXz-Ah-36G"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Generate Shortlink" keyEquivalent="G" id="ipE-b9-6lP">
+                                            <connections>
+                                                <action selector="generateShortlink:" target="Voe-Tx-rLC" id="sey-MO-kFH"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open Recent" id="tXI-mr-wws">

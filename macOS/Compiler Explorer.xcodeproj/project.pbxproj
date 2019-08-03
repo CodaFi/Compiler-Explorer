@@ -14,8 +14,13 @@
 		4EFF20C522EB553300D76638 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BB22EB553200D76638 /* DocumentController.swift */; };
 		4EFF20C622EB553300D76638 /* CompilerSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */; };
 		4EFF20C722EB553300D76638 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BD22EB553200D76638 /* Preferences.swift */; };
+		8209E23A22F56AA600C8CA49 /* ShortlinkPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E23922F56AA600C8CA49 /* ShortlinkPanelView.swift */; };
+		8209E23C22F56B3200C8CA49 /* NativeCopyableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E23B22F56B3200C8CA49 /* NativeCopyableTextField.swift */; };
+		8209E23E22F5754D00C8CA49 /* Shortlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E23D22F5754D00C8CA49 /* Shortlink.swift */; };
+		8209E24022F60AA400C8CA49 /* NativeShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E23F22F60AA400C8CA49 /* NativeShareButton.swift */; };
+		8209E24822F6154100C8CA49 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E24722F6154100C8CA49 /* Tables.swift */; };
 		8214469C22EBB31000026920 /* NativeComboBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469922EBB30F00026920 /* NativeComboBox.swift */; };
-		8214469D22EBB31000026920 /* ShortlinkPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469A22EBB31000026920 /* ShortlinkPanelView.swift */; };
+		8214469D22EBB31000026920 /* GotoShortlinkPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */; };
 		8214469E22EBB31000026920 /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469B22EBB31000026920 /* NativeButton.swift */; };
 		82219CC022EE465B0034FA46 /* CLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82219CBD22EE465B0034FA46 /* CLexer.swift */; };
 		82219CC122EE465B0034FA46 /* AssemblyLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82219CBE22EE465B0034FA46 /* AssemblyLexer.swift */; };
@@ -113,8 +118,13 @@
 		4EFF20BB22EB553200D76638 /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilerSelectorView.swift; sourceTree = "<group>"; };
 		4EFF20BD22EB553200D76638 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		8209E23922F56AA600C8CA49 /* ShortlinkPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortlinkPanelView.swift; sourceTree = "<group>"; };
+		8209E23B22F56B3200C8CA49 /* NativeCopyableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeCopyableTextField.swift; sourceTree = "<group>"; };
+		8209E23D22F5754D00C8CA49 /* Shortlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortlink.swift; sourceTree = "<group>"; };
+		8209E23F22F60AA400C8CA49 /* NativeShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeShareButton.swift; sourceTree = "<group>"; };
+		8209E24722F6154100C8CA49 /* Tables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
 		8214469922EBB30F00026920 /* NativeComboBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeComboBox.swift; sourceTree = "<group>"; };
-		8214469A22EBB31000026920 /* ShortlinkPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortlinkPanelView.swift; sourceTree = "<group>"; };
+		8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoShortlinkPanelView.swift; sourceTree = "<group>"; };
 		8214469B22EBB31000026920 /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
 		82219CBD22EE465B0034FA46 /* CLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLexer.swift; sourceTree = "<group>"; };
 		82219CBE22EE465B0034FA46 /* AssemblyLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyLexer.swift; sourceTree = "<group>"; };
@@ -234,6 +244,8 @@
 				8292AC7422ECB1B800B1A165 /* Response.swift */,
 				8292AC7522ECB1B800B1A165 /* Compiler.swift */,
 				8292AC7622ECB1B800B1A165 /* Client.swift */,
+				8209E23D22F5754D00C8CA49 /* Shortlink.swift */,
+				8209E24722F6154100C8CA49 /* Tables.swift */,
 				8292AC7722ECB1B800B1A165 /* GodBolt.h */,
 				8292AC7822ECB1B800B1A165 /* Info.plist */,
 			);
@@ -342,9 +354,12 @@
 				4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */,
 				8214469B22EBB31000026920 /* NativeButton.swift */,
 				8214469922EBB30F00026920 /* NativeComboBox.swift */,
+				8209E23B22F56B3200C8CA49 /* NativeCopyableTextField.swift */,
 				4EFF20BD22EB553200D76638 /* Preferences.swift */,
 				4EFF20B722EB553200D76638 /* ReadOnlyEditorViewWrapper.swift */,
-				8214469A22EBB31000026920 /* ShortlinkPanelView.swift */,
+				8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */,
+				8209E23922F56AA600C8CA49 /* ShortlinkPanelView.swift */,
+				8209E23F22F60AA400C8CA49 /* NativeShareButton.swift */,
 				4EFF20BA22EB553200D76638 /* ViewModel.swift */,
 				82AF548922E8D89400550E9D /* Assets.xcassets */,
 				82AF548E22E8D89400550E9D /* Main.storyboard */,
@@ -592,17 +607,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8209E23C22F56B3200C8CA49 /* NativeCopyableTextField.swift in Sources */,
+				8209E23A22F56AA600C8CA49 /* ShortlinkPanelView.swift in Sources */,
 				4EFF20C022EB553300D76638 /* CompilerToggleView.swift in Sources */,
 				4EFF20C622EB553300D76638 /* CompilerSelectorView.swift in Sources */,
 				82AF548622E8D89300550E9D /* Document.swift in Sources */,
 				82AF548422E8D89300550E9D /* AppDelegate.swift in Sources */,
 				4EFF20C722EB553300D76638 /* Preferences.swift in Sources */,
 				4EFF20C122EB553300D76638 /* ReadOnlyEditorViewWrapper.swift in Sources */,
+				8209E24022F60AA400C8CA49 /* NativeShareButton.swift in Sources */,
 				4EFF20C422EB553300D76638 /* ViewModel.swift in Sources */,
 				4EFF20C522EB553300D76638 /* DocumentController.swift in Sources */,
 				82AF548822E8D89300550E9D /* ContentView.swift in Sources */,
 				8214469C22EBB31000026920 /* NativeComboBox.swift in Sources */,
-				8214469D22EBB31000026920 /* ShortlinkPanelView.swift in Sources */,
+				8214469D22EBB31000026920 /* GotoShortlinkPanelView.swift in Sources */,
 				8214469E22EBB31000026920 /* NativeButton.swift in Sources */,
 				4EFF20C322EB553300D76638 /* EditorViewWrapper.swift in Sources */,
 			);
@@ -657,9 +675,11 @@
 			files = (
 				8292AC7C22ECB1B800B1A165 /* Response.swift in Sources */,
 				8292AC7922ECB1B800B1A165 /* Source.swift in Sources */,
+				8209E24822F6154100C8CA49 /* Tables.swift in Sources */,
 				8292AC7E22ECB1B800B1A165 /* Client.swift in Sources */,
 				8292AC7D22ECB1B800B1A165 /* Compiler.swift in Sources */,
 				8292AC7A22ECB1B800B1A165 /* Language.swift in Sources */,
+				8209E23E22F5754D00C8CA49 /* Shortlink.swift in Sources */,
 				8292AC7B22ECB1B800B1A165 /* Session.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

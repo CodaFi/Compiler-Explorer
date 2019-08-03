@@ -29,7 +29,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
 	func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
 
-    let controller = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]).environmentObject(ShortlinkViewModel()))
+    let controller = UIHostingController(rootView: DocumentTemplateView(chosen: self[\.selectedLanguage]).environmentObject(GotoShortlinkViewModel()))
     self.languageCancellable = self.$selectedLanguage.sink { value in
       guard let value = value else {
         return importHandler(nil, .none)

@@ -64,6 +64,7 @@ struct DocumentView: View {
       }
       .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
       .navigationBarItems(leading: Button(action: {
+        self.viewModel.computeShortlinkForBuffer()
         self.showSettings = true
       }) {
         Image(systemName: "slider.horizontal.3")
@@ -73,10 +74,10 @@ struct DocumentView: View {
         }) { Text("Done") })
         .sheet(isPresented: self.$showSettings) {
           SettingsView().environmentObject(self.viewModel)
-      }
+        }
     }
       .navigationViewStyle(StackNavigationViewStyle())
-      .edgesIgnoringSafeArea(.bottom)
+      .edgesIgnoringSafeArea([ .bottom, .leading, .trailing ])
   }
 }
 

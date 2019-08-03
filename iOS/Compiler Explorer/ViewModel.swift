@@ -36,6 +36,8 @@ final class ViewModel: ObservableObject, Identifiable {
     }
   }
 
+  @Published var shortlinkValue: String = ""
+
   /// The suite of compilers available to the user.  This property changes in
   /// response to the language changing.
   var availableCompilers: [Compiler] = [] {
@@ -130,6 +132,29 @@ final class ViewModel: ObservableObject, Identifiable {
 
 
 extension ViewModel {
+  private func computeFilter() -> Source.Options.Filter {
+    var set = Source.Options.Filter(rawValue: 0)
+    if syntax == 0 {
+      set.formUnion(.intel)
+    }
+    if labels {
+      set.formUnion(.labels)
+    }
+    if directives {
+      set.formUnion(.directives)
+    }
+    if comments {
+      set.formUnion(.comments)
+    }
+    if demangle {
+      set.formUnion(.demangle)
+    }
+    if trim {
+      set.formUnion(.trim)
+    }
+    return set
+  }
+
   func textDidChange(_ textView: SyntaxTextView) {
     self.documentTextValue.send(textView.text)
   }
@@ -137,7 +162,7 @@ extension ViewModel {
   func loadSession(_ session: SessionContainer.Session, compiler: SessionContainer.SessionCompiler) {
     self.objectWillChange.send()
     self.documentTextValue.send(session.source)
-    self.language = fileTypeTable[session.language]
+    self.language = ExtensionManager.language(for: session.language)
     _ = self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
@@ -155,7 +180,7 @@ extension ViewModel {
   }
 
   func updateLanguage(from url: URL) {
-    self.language = fileTypeTable[url.pathExtension]
+    self.language = ExtensionManager.language(for: url.pathExtension)
     _ = self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
@@ -163,27 +188,19 @@ extension ViewModel {
         self.availableCompilers = values
     }
   }
+
+  // FIXME: We can probably be lazier.
+  func computeShortlinkForBuffer() {
+    let compiler = self.availableCompilers[self.selectedCompiler]
+    let source = Source(source: self.documentTextValue.value,
+                        options: .init(arguments: self.compilerOptions,
+                                       filters: self.computeFilter()))
+    _ = self.client.requestShortString(using: compiler, of: source)
+    .catch({ error in Empty() })
+    .receive(on: DispatchQueue.main)
+    .sink { shortlink in
+      self.shortlinkValue = shortlink.url
+    }
+  }
 }
-
-// FIXME: Sync the many many tables in this thing somehow some way.
-private let fileTypeTable: [String: Language] = [
-  "c": Language.c, "m": Language.c,
-  "f90": Language.fortran, "f95": Language.fortran, "f03": Language.fortran,
-  "cpp": Language.cpp, "cc": Language.cpp, "cxx": Language.cpp, "h": Language.cpp, "hpp": Language.cpp, "mm": Language.cpp,
-  "asm": Language.assembly, "s": Language.assembly,
-  "cuda": Language.cuda,
-  "llvm": Language.llvm, "ll": Language.llvm, "ir": Language.llvm,
-  "d": Language.d,
-  "go": Language.go,
-  "rs": Language.rust,
-  "icl": Language.clean, "dcl": Language.clean, "abc": Language.clean,
-  "pas": Language.pascal,
-  "hs": Language.haskell,
-  "ada": Language.ada,
-  "ml": Language.ocaml, "mli": Language.ocaml,
-  "swift": Language.swift,
-  "zig": Language.zig,
-]
-
-
 
