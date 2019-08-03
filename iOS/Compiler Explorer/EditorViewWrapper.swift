@@ -28,7 +28,7 @@ final class EditorViewController: UIViewController {
   }
 
   override func loadView() {
-    let syntaxView = SyntaxTextView(frame: .zero, lexer: CLexer(), didChangeText: self.onTextChange)
+    let syntaxView = SyntaxTextView(frame: .zero, lexer: TokenizingLexer<CToken>(), didChangeText: self.onTextChange)
     syntaxView.text = self.text
     guard let language = self.language else {
       return
@@ -43,30 +43,28 @@ final class EditorViewController: UIViewController {
     syntaxView.lexer = lexer
     self.view = syntaxView
   }
-
-
 }
 
 private let lexerForLanguage: [Language: Lexer] = [
-  .c: CLexer(),
-  .fortran: CLexer(),
-  .cpp: CLexer(),
-  .cppx: CLexer(),
-  .assembly: AssemblyLexer(),
-  .cuda: CLexer(),
-  .llvm: CLexer(),
-  .d: CLexer(),
-  .ispc: CLexer(),
-  .analysis: CLexer(),
-  .go: CLexer(),
-  .rust: CLexer(),
-  .clean: CLexer(),
-  .pascal: CLexer(),
-  .haskell: CLexer(),
-  .ada: CLexer(),
-  .ocaml: CLexer(),
-  .swift: SwiftLexer(),
-  .zig: CLexer(),
+  .c: TokenizingLexer<CToken>(),
+  .fortran: TokenizingLexer<CToken>(),
+  .cpp: TokenizingLexer<CToken>(),
+  .cppx: TokenizingLexer<CToken>(),
+  .assembly: TokenizingLexer<AssemblyToken>(),
+  .cuda: TokenizingLexer<CToken>(),
+  .llvm: TokenizingLexer<CToken>(),
+  .d: TokenizingLexer<CToken>(),
+  .ispc: TokenizingLexer<CToken>(),
+  .analysis: TokenizingLexer<CToken>(),
+  .go: TokenizingLexer<CToken>(),
+  .rust: TokenizingLexer<CToken>(),
+  .clean: TokenizingLexer<CToken>(),
+  .pascal: TokenizingLexer<CToken>(),
+  .haskell: TokenizingLexer<CToken>(),
+  .ada: TokenizingLexer<CToken>(),
+  .ocaml: TokenizingLexer<CToken>(),
+  .swift: TokenizingLexer<SwiftToken>(),
+  .zig: TokenizingLexer<CToken>(),
 ]
 
 private let themeForLanguage: [Language: SyntaxColorTheme] = [

@@ -19,7 +19,7 @@ struct EditorViewWrapper: NSViewRepresentable {
   let onTextChange: (SyntaxTextView) -> Void
 
   func makeNSView(context: NSViewRepresentableContext<EditorViewWrapper>) -> SyntaxTextView {
-    let syntaxView = SyntaxTextView(frame: .zero, lexer: CLexer(), didChangeText: self.onTextChange)
+    let syntaxView = SyntaxTextView(frame: .zero, lexer: TokenizingLexer<CToken>(), didChangeText: self.onTextChange)
     syntaxView.theme = UniversalTheme<CToken>()
     syntaxView.text = self.text
     return syntaxView
@@ -44,25 +44,25 @@ struct EditorViewWrapper: NSViewRepresentable {
 }
 
 private let lexerForLanguage: [Language: Lexer] = [
-  .c: CLexer(),
-  .fortran: CLexer(),
-  .cpp: CLexer(),
-  .cppx: CLexer(),
-  .assembly: AssemblyLexer(),
-  .cuda: CLexer(),
-  .llvm: CLexer(),
-  .d: CLexer(),
-  .ispc: CLexer(),
-  .analysis: CLexer(),
-  .go: CLexer(),
-  .rust: CLexer(),
-  .clean: CLexer(),
-  .pascal: CLexer(),
-  .haskell: CLexer(),
-  .ada: CLexer(),
-  .ocaml: CLexer(),
-  .swift: SwiftLexer(),
-  .zig: CLexer(),
+  .c: TokenizingLexer<CToken>(),
+  .fortran: TokenizingLexer<CToken>(),
+  .cpp: TokenizingLexer<CToken>(),
+  .cppx: TokenizingLexer<CToken>(),
+  .assembly: TokenizingLexer<AssemblyToken>(),
+  .cuda: TokenizingLexer<CToken>(),
+  .llvm: TokenizingLexer<LLVMToken>(),
+  .d: TokenizingLexer<CToken>(),
+  .ispc: TokenizingLexer<CToken>(),
+  .analysis: TokenizingLexer<CToken>(),
+  .go: TokenizingLexer<CToken>(),
+  .rust: TokenizingLexer<CToken>(),
+  .clean: TokenizingLexer<CToken>(),
+  .pascal: TokenizingLexer<CToken>(),
+  .haskell: TokenizingLexer<CToken>(),
+  .ada: TokenizingLexer<CToken>(),
+  .ocaml: TokenizingLexer<CToken>(),
+  .swift: TokenizingLexer<SwiftToken>(),
+  .zig: TokenizingLexer<CToken>(),
 ]
 
 private let themeForLanguage: [Language: SyntaxColorTheme] = [
@@ -72,7 +72,7 @@ private let themeForLanguage: [Language: SyntaxColorTheme] = [
   .cppx: UniversalTheme<CToken>(),
   .assembly: UniversalTheme<AssemblyToken>(),
   .cuda: UniversalTheme<CToken>(),
-  .llvm: UniversalTheme<CToken>(),
+  .llvm: UniversalTheme<LLVMToken>(),
   .d: UniversalTheme<CToken>(),
   .ispc: UniversalTheme<CToken>(),
   .analysis: UniversalTheme<CToken>(),

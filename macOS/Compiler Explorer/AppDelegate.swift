@@ -29,6 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
   }
 }
 
+// MARK: System Services
+
 extension AppDelegate {
   @objc func openFile(_ pasteboard: NSPasteboard, userData data: NSString, error: UnsafeMutablePointer<NSString>) {
     guard
@@ -67,6 +69,7 @@ extension AppDelegate {
   }
 }
 
+// MARK: Menu Actions
 
 extension AppDelegate {
   @IBAction func showPreferences(_ sender: AnyObject?) {
@@ -98,17 +101,22 @@ extension AppDelegate {
     }
     (doc as! Document).generateShortlink()
   }
+}
 
+// MARK: NSMenuValidation
+
+extension AppDelegate {
   @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-    if menuItem.action == #selector(AppDelegate.generateShortlink(_:)) {
-      guard let topDoc = self.documentController.currentDocument else {
-        return false
-      }
-      guard let doc = topDoc as? Document else {
-        return false
-      }
-      return !doc.isTransientAndReplacable && doc.viewModel.language != nil
+    guard menuItem.action == #selector(AppDelegate.generateShortlink(_:)) else {
+      return true
     }
-    return true
+
+    guard let topDoc = self.documentController.currentDocument else {
+      return false
+    }
+    guard let doc = topDoc as? Document else {
+      return false
+    }
+    return !doc.isTransientAndReplacable && doc.viewModel.language != nil
   }
 }

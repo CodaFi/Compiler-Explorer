@@ -1,20 +1,28 @@
-//
-//  UniversalTheme.swift
-//  SavannaKit
-//
-//  Created by Robert Widmann on 8/3/19.
-//  Copyright © 2019 CodaFi. All rights reserved.
-//
+///
+///  UniversalTheme.swift
+///  SavannaKit
+///
+///  Created by Robert Widmann on 8/3/19.
+///  Copyright © 2019 CodaFi. All rights reserved.
+///
+/// This project is released under the MIT license, a copy of which is
+/// available in the repository.
+
 #if os(iOS)
   import UIKit
 #else
   import AppKit
 #endif
+
 public protocol UniversalToken: Token {
   associatedtype TokenType
   var type: TokenType { get }
+
+  static func formToken(_ word: String, in range: Range<String.Index>) -> Self
+  
   func foregroundColor(for type: TokenType) -> PlatformColor
 }
+
 public class UniversalTheme<TokenType: UniversalToken>: SyntaxColorTheme {
   public init() {}
   private static var lineNumbersColor: PlatformColor {

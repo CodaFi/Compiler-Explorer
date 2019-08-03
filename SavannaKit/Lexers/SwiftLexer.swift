@@ -8,31 +8,13 @@
 ///
 /// This project is released under the MIT license, a copy of which is
 /// available in the repository.
+
 #if os(iOS)
   import UIKit
 #else
   import AppKit
 #endif
-// FIXME: All the lexers need to be consolidated.
-public class SwiftLexer: Lexer {
-  public init() {}
-  public func getSavannaTokens(input: String) -> [Token] {
-    var tokens = [SwiftToken]()
-    input.enumerateSubstrings(in: input.startIndex..<input.endIndex, options: [.byWords]) {
-      (word, range, _, _) in
-      guard let word = word else { return }
-      let type: SwiftToken.TokenType
-      if keywordSet.contains(word) { type = .keyword }
-      else if word.starts(with: "#") { type = .poundLiteral }
-      else if word.starts(with: "@") { type = .directive }
-      else { type = .plainText }
-      tokens.append(
-        SwiftToken(type: type, isEditorPlaceholder: false, isPlain: false, range: range)
-      )
-    }
-    return tokens
-  }
-}
+
 public struct SwiftToken: UniversalToken {
   public enum SwiftTokenType {
     case keyword
@@ -44,6 +26,16 @@ public struct SwiftToken: UniversalToken {
   public let isEditorPlaceholder: Bool
   public let isPlain: Bool
   public let range: Range<String.Index>
+
+  public static func formToken(_ word: String, in range: Range<String.Index>) -> SwiftToken {
+    let type: SwiftToken.TokenType
+    if keywordSet.contains(word) { type = .keyword }
+    else if word.starts(with: "#") { type = .poundLiteral }
+    else if word.starts(with: "@") { type = .directive }
+    else { type = .plainText }
+    return SwiftToken(type: type, isEditorPlaceholder: false, isPlain: false, range: range)
+  }
+
   public func foregroundColor(for type: TokenType) -> PlatformColor {
     switch type {
     case .keyword: return PlatformColor.systemPink
@@ -72,13 +64,17 @@ public struct SwiftToken: UniversalToken {
     }
   }
 }
+
 private let keywordSet: Set<String> = [
-  // Decl Keywords
+  // Declaration Keywords
   "associatedtype", "class", "deinit", "enum", "extension", "func", "import", "init", "inout",
   "let", "operator", "precedencegroup", "protocol", "struct", "subscript", "typealias", "var",
-  "fileprivate", "internal", "private", "public", "static", // Statement keywords
+  "fileprivate", "internal", "private", "public", "static",
+
+  // Statement keywords
   "defer", "if", "guard", "do", "repeat", "else", "for", "in", "while", "return", "break",
   "continue", "fallthrough", "switch", "case", "default", "where", "catch", "throw",
+
   // Expression keywords
   "as", "Any", "false", "is", "nil", "rethrows", "super", "self", "Self", "true", "try", "throws",
   "__FILE__", "__LINE__", "__COLUMN__", "__FUNCTION__", "__DSO_HANDLE__", "yield",

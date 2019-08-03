@@ -37,12 +37,12 @@ struct CompilerSelectorView: View {
         }
         Spacer()
       }
-        .padding(.top, 10)
+      .padding(.top, 10)
         .frame(height: 44, alignment: .leading)
         .pickerStyle(PopUpButtonPickerStyle())
       Divider()
       CompilerToggleView()
-      .padding(.top, 2)
+        .padding(.top, 2)
     }
     .disabled(self.$viewModel.availableCompilers.isEmpty)
   }

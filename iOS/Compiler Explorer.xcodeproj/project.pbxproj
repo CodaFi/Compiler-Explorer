@@ -11,6 +11,7 @@
 		8209E24922F6161D00C8CA49 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E24122F614EA00C8CA49 /* Tables.swift */; };
 		8209E24B22F6192D00C8CA49 /* NativeCopyableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E24A22F6192D00C8CA49 /* NativeCopyableTextField.swift */; };
 		8209E24D22F629D800C8CA49 /* UniversalTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E24C22F629D800C8CA49 /* UniversalTheme.swift */; };
+		8209E25722F646AF00C8CA49 /* TokenizingLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25622F646AF00C8CA49 /* TokenizingLexer.swift */; };
 		82219CC922EE49C50034FA46 /* DocumentTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */; };
 		8264179522F3D11600DF79F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8264179422F3D11600DF79F4 /* SettingsView.swift */; };
 		82829BAE22F4DF45003B14FD /* GotoShortlinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82829BAD22F4DF45003B14FD /* GotoShortlinkView.swift */; };
@@ -96,6 +97,7 @@
 		8209E24322F6151200C8CA49 /* Shortlink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shortlink.swift; sourceTree = "<group>"; };
 		8209E24A22F6192D00C8CA49 /* NativeCopyableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeCopyableTextField.swift; sourceTree = "<group>"; };
 		8209E24C22F629D800C8CA49 /* UniversalTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalTheme.swift; sourceTree = "<group>"; };
+		8209E25622F646AF00C8CA49 /* TokenizingLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizingLexer.swift; sourceTree = "<group>"; };
 		82219CC322EE48700034FA46 /* Compiler Explorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Compiler Explorer.entitlements"; sourceTree = "<group>"; };
 		82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTemplateView.swift; sourceTree = "<group>"; };
 		8264179422F3D11600DF79F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				8292ADAA22EE3C5500B1A165 /* AssemblyLexer.swift */,
 				8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */,
 				8209E24C22F629D800C8CA49 /* UniversalTheme.swift */,
+				8209E25622F646AF00C8CA49 /* TokenizingLexer.swift */,
 			);
 			path = Lexers;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				8292AD3522ECB62500B1A165 /* NSMutableAttributedString+Tokens.swift in Sources */,
 				8292ADAE22EE3C5500B1A165 /* SwiftLexer.swift in Sources */,
 				8292AD4022ECB62500B1A165 /* LineNumberLayoutManager.swift in Sources */,
+				8209E25722F646AF00C8CA49 /* TokenizingLexer.swift in Sources */,
 				8292AD3822ECB62500B1A165 /* Paragraph.swift in Sources */,
 				8209E24D22F629D800C8CA49 /* UniversalTheme.swift in Sources */,
 				8292AD3D22ECB62500B1A165 /* SyntaxTextView+TextViewDelegate.swift in Sources */,
