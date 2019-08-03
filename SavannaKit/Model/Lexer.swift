@@ -5,11 +5,6 @@
 //  Created by Louis D'hauwe on 04/02/2018.
 //  Copyright © 2018 Silver Fox. All rights reserved.
 //
-
 import Foundation
 
-public protocol Lexer: class {
-	
-	func getSavannaTokens(input: String) -> [Token]
-	
-}
+public protocol Lexer: class { func getSavannaTokens(input: String) -> [Token] }
