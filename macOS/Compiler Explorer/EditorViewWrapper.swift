@@ -20,7 +20,7 @@ struct EditorViewWrapper: NSViewRepresentable {
 
   func makeNSView(context: NSViewRepresentableContext<EditorViewWrapper>) -> SyntaxTextView {
     let syntaxView = SyntaxTextView(frame: .zero, lexer: CLexer(), didChangeText: self.onTextChange)
-    syntaxView.theme = CTheme()
+    syntaxView.theme = UniversalTheme<CToken>()
     syntaxView.text = self.text
     return syntaxView
   }
@@ -66,25 +66,25 @@ private let lexerForLanguage: [Language: Lexer] = [
 ]
 
 private let themeForLanguage: [Language: SyntaxColorTheme] = [
-  .c: CTheme(),
-  .fortran: CTheme(),
-  .cpp: CTheme(),
-  .cppx: CTheme(),
-  .assembly: AssemblyTheme(),
-  .cuda: CTheme(),
-  .llvm: CTheme(),
-  .d: CTheme(),
-  .ispc: CTheme(),
-  .analysis: CTheme(),
-  .go: CTheme(),
-  .rust: CTheme(),
-  .clean: CTheme(),
-  .pascal: CTheme(),
-  .haskell: CTheme(),
-  .ada: CTheme(),
-  .ocaml: CTheme(),
-  .swift: SwiftTheme(),
-  .zig: CTheme(),
+  .c: UniversalTheme<CToken>(),
+  .fortran: UniversalTheme<CToken>(),
+  .cpp: UniversalTheme<CToken>(),
+  .cppx: UniversalTheme<CToken>(),
+  .assembly: UniversalTheme<AssemblyToken>(),
+  .cuda: UniversalTheme<CToken>(),
+  .llvm: UniversalTheme<CToken>(),
+  .d: UniversalTheme<CToken>(),
+  .ispc: UniversalTheme<CToken>(),
+  .analysis: UniversalTheme<CToken>(),
+  .go: UniversalTheme<CToken>(),
+  .rust: UniversalTheme<CToken>(),
+  .clean: UniversalTheme<CToken>(),
+  .pascal: UniversalTheme<CToken>(),
+  .haskell: UniversalTheme<CToken>(),
+  .ada: UniversalTheme<CToken>(),
+  .ocaml: UniversalTheme<CToken>(),
+  .swift: UniversalTheme<SwiftToken>(),
+  .zig: UniversalTheme<CToken>(),
 ]
 
 

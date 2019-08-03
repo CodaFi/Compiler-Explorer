@@ -115,7 +115,6 @@ final class DocumentViewController: UIViewController {
     view.addSubview(self.hostingController!.view)
 
     self.hostingController!.view.translatesAutoresizingMaskIntoConstraints = false
-    self.hostingController!.view.backgroundColor = UIColor.red
     NSLayoutConstraint.activate([
       self.hostingController!.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       self.hostingController!.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),

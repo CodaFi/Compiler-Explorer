@@ -30,7 +30,7 @@ final class ReadOnlyEditorViewController: UIViewController {
   override func loadView() {
     let syntaxView = SyntaxTextView(frame: .zero, lexer: AssemblyLexer()) { _ in }
     syntaxView.contentTextView.isEditable = false
-    syntaxView.theme = AssemblyTheme()
+    syntaxView.theme = UniversalTheme<AssemblyToken>()
     self.compiledTextCancellable = self.viewModel.compiledTextValue.sink { value in
       syntaxView.text = value
     }

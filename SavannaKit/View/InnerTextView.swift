@@ -85,7 +85,6 @@ class InnerTextView: PlatformTextView {
 			path.fill()
 			
 		} else {
-			
 			let components = textView.text.components(separatedBy: .newlines)
 			
 			let count = components.count

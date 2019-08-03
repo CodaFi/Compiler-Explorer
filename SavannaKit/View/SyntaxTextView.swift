@@ -82,6 +82,27 @@ open class SyntaxTextView: PlatformView {
 
   #endif
 
+  #if os(iOS)
+  open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard let theme = self.theme else {
+      return
+    }
+    textView.backgroundColor = theme.backgroundColor
+    textView.setNeedsDisplay()
+    self.didUpdateText()
+  }
+  #else
+  open override func updateConstraints() {
+    super.updateConstraints()
+    guard let theme = self.theme else {
+      return
+    }
+    textView.backgroundColor = theme.backgroundColor
+    self.didUpdateText()
+  }
+  #endif
+
   public init(
     frame: CGRect,
     lexer: Lexer,

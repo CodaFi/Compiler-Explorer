@@ -19,7 +19,7 @@ struct ReadOnlyEditorViewWrapper: NSViewRepresentable {
   func makeNSView(context: NSViewRepresentableContext<ReadOnlyEditorViewWrapper>) -> SyntaxTextView {
     let syntaxView = SyntaxTextView(frame: .zero, lexer: AssemblyLexer()) { _ in }
     syntaxView.contentTextView.isEditable = false
-    syntaxView.theme = AssemblyTheme()
+    syntaxView.theme = UniversalTheme<AssemblyToken>()
     syntaxView.text = self.text
     return syntaxView
   }
