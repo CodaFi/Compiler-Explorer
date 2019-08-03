@@ -6,14 +6,21 @@
 //  Copyright © 2019 CodaFi. All rights reserved.
 //
 
+/// Manages a probably-incomplete bidirectional mapping from known languages to
+/// file extensions.
 public enum ExtensionManager {
+  /// Returns the language associated with a particular file extension.
   public static func language(for extension: String) -> Language? {
     return fileTypeTable[`extension`]
   }
 
+  /// Returns the file extension associated with a particular language.
   public static func fileExtension(for language: Language) -> String {
     return fileExtensionTable[language] ?? ""
   }
+
+  /// Returns all known file extensions for all known languages.
+  public static var allExtensions: [String] = Array(fileTypeTable.keys)
 }
 
 

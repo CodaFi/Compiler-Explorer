@@ -12,6 +12,7 @@
 #else
   import AppKit
 #endif
+
 // FIXME: All the lexers need to be consolidated.
 public class AssemblyLexer: Lexer {
   public init() {}

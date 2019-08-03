@@ -21,24 +21,7 @@ final class DocumentController: NSDocumentController {
   override func beginOpenPanel(_ panel: NSOpenPanel, forTypes inTypes: [String]?, completionHandler: @escaping (Int) -> Void) {
     panel.allowsOtherFileTypes = false
     panel.allowsMultipleSelection = true
-    panel.allowedFileTypes = [
-      "c", "m", "mm",
-      "f90", "f95", "f03",
-      "cpp", "cc", "cxx", "h", "hpp",
-      "asm", "s",
-      "cuda",
-      "llvm", "ll", "ir",
-      "d",
-      "go",
-      "rs",
-      "icl", "dcl", "abc",
-      "pas",
-      "hs",
-      "ada",
-      "ml", "mli",
-      "swift",
-      "zig",
-    ]
+    panel.allowedFileTypes = ExtensionManager.allExtensions
     panel.delegate = self
     super.beginOpenPanel(panel, forTypes: nil, completionHandler: completionHandler)
   }
