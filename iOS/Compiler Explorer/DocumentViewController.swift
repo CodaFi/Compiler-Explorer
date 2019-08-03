@@ -64,7 +64,6 @@ struct DocumentView: View {
       }
       .navigationBarTitle(Text(self.navigationTitle), displayMode: .inline)
       .navigationBarItems(leading: Button(action: {
-        self.viewModel.computeShortlinkForBuffer()
         self.showSettings = true
       }) {
         Image(systemName: "slider.horizontal.3")

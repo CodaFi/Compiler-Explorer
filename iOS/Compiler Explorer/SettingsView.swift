@@ -29,7 +29,11 @@ struct SettingsView: View {
           TextField("Flags", text: self.$viewModel.compilerOptions)
         }
         Section(header: Text("Shortlink")) {
-          NativeCopyableTextField(string: self.$viewModel.shortlinkValue, placeholder: "Loading...")
+          if self.viewModel.shortlinkValue.isEmpty {
+            AnyView(Button(action: { self.viewModel.computeShortlinkForBuffer() }) { Text("Compute Shortlink...") })
+          } else {
+            AnyView(NativeCopyableTextField(string: self.$viewModel.shortlinkValue, placeholder: "Loading..."))
+          }
         }
         Section(header: Text("Asssembly Syntax")) {
           Picker(selection: self.$viewModel.syntax, label: Text("Syntax")) {

@@ -112,6 +112,7 @@ final class ViewModel: ObservableObject, Identifiable {
       }
       return set
     }
+    .handleEvents(receiveOutput: { _ in self.shortlinkValue = "" }) // reset the shortlink.
     .debounce(for: 0.5, scheduler: DispatchQueue.main)
     .filter({ _ in !self.availableCompilers.isEmpty })
     .flatMap { (filters) -> AnyPublisher<Response, Never> in
@@ -189,8 +190,10 @@ extension ViewModel {
     }
   }
 
-  // FIXME: We can probably be lazier.
   func computeShortlinkForBuffer() {
+    guard self.shortlinkValue.isEmpty else {
+      return
+    }
     let compiler = self.availableCompilers[self.selectedCompiler]
     let source = Source(source: self.documentTextValue.value,
                         options: .init(arguments: self.compilerOptions,
