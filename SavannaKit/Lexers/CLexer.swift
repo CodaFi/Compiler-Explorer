@@ -57,6 +57,7 @@ public struct CToken: UniversalToken {
     }
   }
 }
+
 private let keywordSet: Set<String> = [
   "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum",
   "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed",

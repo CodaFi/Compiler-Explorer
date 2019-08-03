@@ -22,6 +22,7 @@
 		8209E24F22F62C1200C8CA49 /* UniversalTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E24E22F62C1200C8CA49 /* UniversalTheme.swift */; };
 		8209E25122F6430D00C8CA49 /* LLVMLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25022F6430D00C8CA49 /* LLVMLexer.swift */; };
 		8209E25522F6468900C8CA49 /* TokenizingLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25422F6468900C8CA49 /* TokenizingLexer.swift */; };
+		8209E25D22F647F400C8CA49 /* CppLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25C22F647F400C8CA49 /* CppLexer.swift */; };
 		8214469C22EBB31000026920 /* NativeComboBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469922EBB30F00026920 /* NativeComboBox.swift */; };
 		8214469D22EBB31000026920 /* GotoShortlinkPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */; };
 		8214469E22EBB31000026920 /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469B22EBB31000026920 /* NativeButton.swift */; };
@@ -129,6 +130,7 @@
 		8209E24E22F62C1200C8CA49 /* UniversalTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalTheme.swift; sourceTree = "<group>"; };
 		8209E25022F6430D00C8CA49 /* LLVMLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLVMLexer.swift; sourceTree = "<group>"; };
 		8209E25422F6468900C8CA49 /* TokenizingLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizingLexer.swift; sourceTree = "<group>"; };
+		8209E25C22F647F400C8CA49 /* CppLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CppLexer.swift; sourceTree = "<group>"; };
 		8214469922EBB30F00026920 /* NativeComboBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeComboBox.swift; sourceTree = "<group>"; };
 		8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoShortlinkPanelView.swift; sourceTree = "<group>"; };
 		8214469B22EBB31000026920 /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				82219CBD22EE465B0034FA46 /* CLexer.swift */,
 				82219CBE22EE465B0034FA46 /* AssemblyLexer.swift */,
 				82219CBF22EE465B0034FA46 /* SwiftLexer.swift */,
+				8209E25C22F647F400C8CA49 /* CppLexer.swift */,
 				8209E25022F6430D00C8CA49 /* LLVMLexer.swift */,
 				8209E25422F6468900C8CA49 /* TokenizingLexer.swift */,
 				8209E24E22F62C1200C8CA49 /* UniversalTheme.swift */,
@@ -675,6 +678,7 @@
 				8209E24F22F62C1200C8CA49 /* UniversalTheme.swift in Sources */,
 				8292AD8E22ECB67D00B1A165 /* TextViewWrapperView.swift in Sources */,
 				8292AD8F22ECB67D00B1A165 /* LineNumberLayoutManager.swift in Sources */,
+				8209E25D22F647F400C8CA49 /* CppLexer.swift in Sources */,
 				8292AD9022ECB67D00B1A165 /* SyntaxTextViewLayoutManager.swift in Sources */,
 				8292AD9122ECB67D00B1A165 /* Paragraphs.swift in Sources */,
 				82219CC122EE465B0034FA46 /* AssemblyLexer.swift in Sources */,

@@ -71,6 +71,7 @@ public struct AssemblyToken: UniversalToken {
     }
   }
 }
+
 private let commonOperandsSet: Set<String> = [
   // Intel
   "eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "eip", "esp", "rax", "rbx", "rcx", "rdx", "rsi",

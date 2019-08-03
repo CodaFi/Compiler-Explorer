@@ -46,8 +46,8 @@ struct EditorViewWrapper: NSViewRepresentable {
 private let lexerForLanguage: [Language: Lexer] = [
   .c: TokenizingLexer<CToken>(),
   .fortran: TokenizingLexer<CToken>(),
-  .cpp: TokenizingLexer<CToken>(),
-  .cppx: TokenizingLexer<CToken>(),
+  .cpp: TokenizingLexer<CppToken>(),
+  .cppx: TokenizingLexer<CppToken>(),
   .assembly: TokenizingLexer<AssemblyToken>(),
   .cuda: TokenizingLexer<CToken>(),
   .llvm: TokenizingLexer<LLVMToken>(),
@@ -68,8 +68,8 @@ private let lexerForLanguage: [Language: Lexer] = [
 private let themeForLanguage: [Language: SyntaxColorTheme] = [
   .c: UniversalTheme<CToken>(),
   .fortran: UniversalTheme<CToken>(),
-  .cpp: UniversalTheme<CToken>(),
-  .cppx: UniversalTheme<CToken>(),
+  .cpp: UniversalTheme<CppToken>(),
+  .cppx: UniversalTheme<CppToken>(),
   .assembly: UniversalTheme<AssemblyToken>(),
   .cuda: UniversalTheme<CToken>(),
   .llvm: UniversalTheme<LLVMToken>(),
