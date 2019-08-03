@@ -225,7 +225,7 @@
 				8292AD1222ECB61500B1A165 /* Info.plist */,
 			);
 			name = GodBolt;
-			path = "../../../../../../../../../Users/cfi/Desktop/Compiler Explorer/GodBolt";
+			path = ../GodBolt;
 			sourceTree = "<group>";
 		};
 		8292AD1B22ECB62400B1A165 /* SavannaKit */ = {
@@ -240,7 +240,7 @@
 				8292AD3122ECB62400B1A165 /* Info.plist */,
 			);
 			name = SavannaKit;
-			path = "../../../../../../../../../Users/cfi/Desktop/Compiler Explorer/SavannaKit";
+			path = ../SavannaKit;
 			sourceTree = "<group>";
 		};
 		8292AD1C22ECB62400B1A165 /* Util */ = {
