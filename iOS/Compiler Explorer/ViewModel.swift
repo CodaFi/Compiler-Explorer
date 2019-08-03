@@ -86,49 +86,26 @@ final class ViewModel: ObservableObject, Identifiable {
     self.cancellable = self.documentTextValue
       .filter({ !$0.isEmpty })
       .combineLatest(self.$selectedCompiler, self.$compilerOptions) { $2 }
-      .combineLatest(self.$syntax, self.$labels, self.$directives) { (compiler, syntax, labels, directives) -> Source.Options.Filter in
-        var set = Source.Options.Filter(rawValue: 0)
-        if syntax == 0 {
-          set.formUnion(.intel)
-        }
-        if labels {
-          set.formUnion(.labels)
-        }
-        if directives {
-          set.formUnion(.directives)
-        }
-        return set
-    }
-    .combineLatest(self.$comments, self.$demangle, self.$trim) { (set, comments, demangle, trim) -> Source.Options.Filter in
-      var set = set
-      if comments {
-        set.formUnion(.comments)
+      .combineLatest(self.$syntax, self.$labels, self.$directives) { _,_,_,_ in () }
+      .combineLatest(self.$comments, self.$demangle, self.$trim) { _,_,_,_ in () }
+      .map { _ in self.computeFilter() }
+      .handleEvents(receiveOutput: { _ in self.shortlinkValue = "" }) // reset the shortlink.
+      .debounce(for: 0.5, scheduler: DispatchQueue.main)
+      .filter({ _ in !self.availableCompilers.isEmpty })
+      .flatMap { (filters) -> AnyPublisher<Response, Never> in
+        let source = Source(source: self.documentTextValue.value,
+                            options: .init(arguments: self.compilerOptions,
+                                           filters: filters))
+        return self.client.requestCompile(using: self.availableCompilers[self.selectedCompiler], of: source)
+          .catch { error in Empty<Response, Never>() } // FIXME: This is hella incorrect
+          .eraseToAnyPublisher()
       }
-      if demangle {
-        set.formUnion(.demangle)
+      .map { (values) -> String in values.asm.map({ $0.text }).joined(separator: "\n") }
+      .receive(on: DispatchQueue.main)
+      .sink { val in
+        self.compiledTextValue.send(val)
       }
-      if trim {
-        set.formUnion(.trim)
-      }
-      return set
     }
-    .handleEvents(receiveOutput: { _ in self.shortlinkValue = "" }) // reset the shortlink.
-    .debounce(for: 0.5, scheduler: DispatchQueue.main)
-    .filter({ _ in !self.availableCompilers.isEmpty })
-    .flatMap { (filters) -> AnyPublisher<Response, Never> in
-      let source = Source(source: self.documentTextValue.value,
-                          options: .init(arguments: self.compilerOptions,
-                                         filters: filters))
-      return self.client.requestCompile(using: self.availableCompilers[self.selectedCompiler], of: source)
-        .catch { error in Empty<Response, Never>() } // FIXME: This is hella incorrect
-        .eraseToAnyPublisher()
-    }
-    .map { (values) -> String in values.asm.map({ $0.text }).joined(separator: "\n") }
-    .receive(on: DispatchQueue.main)
-    .sink { val in
-      self.compiledTextValue.send(val)
-    }
-  }
 }
 
 

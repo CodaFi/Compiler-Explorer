@@ -16,10 +16,10 @@ import SavannaKit
 final class ViewModel: ObservableObject, Identifiable {
   private let client = Client.shared
 
-  /// The text value of the document.  Specifically does not call willChange
+  /// The text value of the document.  Specifically written as a subject
   /// because SavannaKit sends its "text did change" message quite frequently
   /// and we don't want to re-render more than necessary.
-  @Published var documentTextValue: String = ""
+  var documentTextValue = CurrentValueSubject<String, Never>("")
 
   /// The text of the compiled form of `documentTextValue` subject to the
   /// filters and options below.
@@ -84,6 +84,12 @@ final class ViewModel: ObservableObject, Identifiable {
   /// Whether to trim whitespace in the compiled code.
   @Published var trim: Bool = false
 
+  /// Whether or not compilation is live.
+  @Published var liveCompile: Bool = true
+
+  /// If true, ignore the "live compile" setting and force recompilation.
+  private var forceRecompile: Bool = false
+
   private var textView: SyntaxTextView?
 
   /// The spine of the live-update mechanism.
@@ -92,40 +98,18 @@ final class ViewModel: ObservableObject, Identifiable {
     /// Sink all of the live-update-relevant properties into one enormous
     /// publisher.  We debounce so we aren't overwhelming poor godbolt on every
     /// keystroke.
-    self.cancellable = self.$documentTextValue
+    self.cancellable = self.documentTextValue
+      .filter({ _ in self.liveCompile || self.forceRecompile })
       .filter({ !$0.isEmpty  })
       .combineLatest(self.$selectedCompiler, self.$compilerOptions) { $2 }
-      .combineLatest(self.$syntax, self.$labels, self.$directives) { (compiler, syntax, labels, directives) -> Source.Options.Filter in
-        var set = Source.Options.Filter(rawValue: 0)
-        if syntax == 0 {
-          set.formUnion(.intel)
-        }
-        if labels {
-          set.formUnion(.labels)
-        }
-        if directives {
-          set.formUnion(.directives)
-        }
-        return set
-      }
-      .combineLatest(self.$comments, self.$demangle, self.$trim) { (set, comments, demangle, trim) -> Source.Options.Filter in
-        var set = set
-        if comments {
-          set.formUnion(.comments)
-        }
-        if demangle {
-          set.formUnion(.demangle)
-        }
-        if trim {
-          set.formUnion(.trim)
-        }
-        return set
-      }
+      .combineLatest(self.$syntax, self.$labels, self.$directives) { _,_,_,_ in () }
+      .combineLatest(self.$comments, self.$demangle, self.$trim) { _,_,_,_ in () }
+      .map { _ in self.computeFilter() }
       .handleEvents(receiveOutput: { _ in self.shortlinkValue = "" }) // reset the shortlink.
       .debounce(for: 0.5, scheduler: DispatchQueue.main)
       .filter({ _ in !self.availableCompilers.isEmpty })
       .flatMap { (filters) -> AnyPublisher<Response, Never> in
-        let source = Source(source: self.documentTextValue,
+        let source = Source(source: self.documentTextValue.value,
                             options: .init(arguments: self.compilerOptions,
                                            filters: filters))
         return self.client.requestCompile(using: self.availableCompilers[self.selectedCompiler], of: source)
@@ -139,6 +123,13 @@ final class ViewModel: ObservableObject, Identifiable {
 }
 
 extension ViewModel {
+  func recompile() {
+    self.forceRecompile = true
+    defer { self.forceRecompile = false }
+    let value = self.documentTextValue.value
+    self.documentTextValue.send(value)
+  }
+
   private func computeFilter() -> Source.Options.Filter {
     var set = Source.Options.Filter(rawValue: 0)
     if syntax == 0 {
@@ -168,7 +159,7 @@ extension ViewModel {
       return
     }
     let compiler = self.availableCompilers[self.selectedCompiler]
-    let source = Source(source: self.documentTextValue,
+    let source = Source(source: self.documentTextValue.value,
                         options: .init(arguments: self.compilerOptions,
                                        filters: self.computeFilter()))
     _ = self.client.requestShortString(using: compiler, of: source)
@@ -198,7 +189,7 @@ extension ViewModel {
   // FIXME: Fold this method into the other one.
   func readString(_ string: String, ofType ext: String, session: SessionContainer.SessionCompiler?) {
     self.objectWillChange.send()
-    self.documentTextValue = string
+    self.documentTextValue.send(string)
     self.textView?.text = string
     self.language = ExtensionManager.language(for: ext)
     _ = self.client.requestCompilers(for: self.language)
@@ -222,6 +213,6 @@ extension ViewModel {
 
   func textDidChange(_ textView: SyntaxTextView) {
     self.textView = textView
-    self.documentTextValue = textView.text
+    self.documentTextValue.send(textView.text)
   }
 }

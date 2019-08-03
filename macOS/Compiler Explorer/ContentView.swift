@@ -20,7 +20,7 @@ struct ContentView: View {
       // FIXME: Do I really have to force this to work?
       // Even in death, NSSplitView.  Even in death.
       HSplitView {
-        EditorViewWrapper(text: self.$viewModel.documentTextValue,
+        EditorViewWrapper(text: self.$viewModel.documentTextValue[\.value],
                           language: self.$viewModel.language,
                           onTextChange: self.viewModel.textDidChange)
           .frame(minWidth: 400, idealWidth: 400, maxWidth: .infinity)

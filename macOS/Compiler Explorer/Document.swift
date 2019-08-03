@@ -15,7 +15,7 @@ import GodBolt
 final class Document: NSDocument {
   var viewModel = ViewModel()
   private var transient: Bool = false
-  private let preferences = PreferencesWindowController()
+  private let preferences: PreferencesWindowController
   let shortlinksController: ShortlinkWindowController
 
   override class var autosavesInPlace: Bool {
@@ -23,6 +23,7 @@ final class Document: NSDocument {
   }
 
   override init() {
+    self.preferences = PreferencesWindowController(viewModel: self.viewModel)
     self.shortlinksController = ShortlinkWindowController(viewModel: self.viewModel)
     super.init()
     self.undoManager?.disableUndoRegistration()
@@ -66,7 +67,7 @@ final class Document: NSDocument {
   }
 
   override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
-    guard let data = self.viewModel.documentTextValue.data(using: .utf8) else {
+    guard let data = self.viewModel.documentTextValue.value.data(using: .utf8) else {
       return FileWrapper()
     }
     return FileWrapper(regularFileWithContents: data)
