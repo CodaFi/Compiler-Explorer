@@ -67,6 +67,7 @@ struct DocumentView: View {
         self.showSettings = true
       }) {
         Image(systemName: "slider.horizontal.3")
+          .frame(width: 40, height: 40)
         }, trailing: Button(action: {
           self.onDismiss()
         }) { Text("Done") })
