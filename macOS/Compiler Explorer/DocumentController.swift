@@ -10,7 +10,7 @@ import AppKit
 import GodBolt
 
 final class DocumentController: NSDocumentController {
-  var cascadePoint: NSPoint = .zero
+  private var cascadePoint: NSPoint = .zero
 
   override func addDocument(_ document: NSDocument) {
     guard self.documents.count == 1 else {
@@ -86,14 +86,18 @@ final class DocumentController: NSDocumentController {
     if let transientDoc = transientDoc {
       transientDoc.markTransient(false)
     }
-    super.openDocument(withContentsOf: url, display: displayDocument) { doc, val, err in
-      if let transientDoc = transientDoc, let doc = doc as? Document {
+    super.openDocument(withContentsOf: url, display: false) { doc, val, err in
+      guard let doc = doc as? Document else {
+        fatalError("Invalid document created?")
+      }
+
+      if let transientDoc = transientDoc {
         try! doc.read(from: url, ofType: url.pathExtension)
-        if displayDocument {
-          doc.makeWindowControllers()
-          self.cascadePoint = doc.showWindows(at: self.cascadePoint)
-        }
         transientDoc.close()
+      }
+      if displayDocument {
+        doc.makeWindowControllers()
+        self.cascadePoint = doc.showWindows(at: self.cascadePoint)
       }
       completionHandler(doc, val, err)
     }
