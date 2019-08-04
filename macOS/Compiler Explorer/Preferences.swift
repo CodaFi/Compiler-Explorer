@@ -11,6 +11,7 @@
 import AppKit
 import SwiftUI
 import Combine
+import CompilerExplorerKit
 
 struct PreferencesView: View {
   @EnvironmentObject var viewModel: ViewModel

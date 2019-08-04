@@ -14,8 +14,7 @@ import Combine
 import GodBolt
 
 struct GotoShortlinkPanelView: View {
-  @EnvironmentObject var viewModel: GotoShortlinkWindowController
-  let action: (NSApplication.ModalResponse) -> Void
+  @EnvironmentObject var viewModel: GotoShortlinkWindowController.ViewModel
 
   // N.B. Padding in this view is a little strange. Because these "Native"
   // controls are unknown to SwiftUI, if the padding is placed directly onto
@@ -36,11 +35,11 @@ struct GotoShortlinkPanelView: View {
             .font(.system(size: 11))
           Spacer()
           NativeButton(title: "Cancel", keyEquivalent: "", action: {
-            self.action(NSApplication.ModalResponse.cancel)
+            self.viewModel.shortlinkPanelAction(.cancel)
           })
             .frame(width: 80.0)
           NativeButton(title: "Go", keyEquivalent: "\r", action: {
-            self.action(NSApplication.ModalResponse.OK)
+            self.viewModel.shortlinkPanelAction(.OK)
           })
             .frame(width: 80.0)
             .disabled(self.viewModel.shortlinkText.isEmpty || self.viewModel.isValidatingShortlink)
@@ -56,49 +55,32 @@ struct GotoShortlinkPanelView: View {
 #if DEBUG
 struct ShortlinkPanelView_Preview: PreviewProvider {
   static var previews: some View {
-    GotoShortlinkPanelView(action: { _ in })
+    GotoShortlinkPanelView().environmentObject(GotoShortlinkWindowController.ViewModel())
   }
 }
 #endif
 
-final class GotoShortlinkWindowController: NSWindowController, ObservableObject, Identifiable {
-  var shortlinkText: String = "" {
-    willSet {
-      self.objectWillChange.send()
-      self.errorText = " "
-    }
-  }
-  var errorText: String = " " {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
-  var previousShortlinks: [String] = [] {
-    willSet {
-      self.objectWillChange.send()
-    }
-  }
-  var isValidatingShortlink: Bool = false {
-    willSet {
-      self.objectWillChange.send()
+final class GotoShortlinkWindowController: NSWindowController {
+  final class ViewModel: ObservableObject, Identifiable {
+    @Published var errorText: String = ""
+    @Published var shortlinkText: String = ""
+    @Published var previousShortlinks: [String] = []
+    @Published var isValidatingShortlink: Bool = false
+    var shortlinkValue = CurrentValueSubject<SessionContainer?, Never>(nil)
+    fileprivate var validationCancellable: AnyCancellable? = nil
+
+    init() {
+      self.previousShortlinks = UserDefaults.standard.array(forKey: "PreviousShortlinks") as! [String]
     }
   }
 
-  private var shortlinkValue: SessionContainer? = nil
-  func takeShortlinkValue() -> SessionContainer? {
-    defer { self.shortlinkValue = nil }
-    return self.shortlinkValue
-  }
-
-  private var validationCancellable: AnyCancellable? = nil
+  let viewModel = ViewModel()
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
 
   override init(window: NSWindow?) {
-    self.previousShortlinks = UserDefaults.standard.array(forKey: "PreviousShortlinks") as! [String]
-
     let window = NSWindow(
         contentRect: .zero,
         styleMask: [.titled],
@@ -108,24 +90,27 @@ final class GotoShortlinkWindowController: NSWindowController, ObservableObject,
     window.title = "Go to shortlink"
     super.init(window: window)
     self.window = window
-    window.contentView = NSHostingView(rootView: GotoShortlinkPanelView() { response in
-      switch response {
-      case .OK:
-        guard self.validateShortlinkText() else {
-          NSSound.beep()
-          self.errorText = "Not a valid shortlink."
-          return
-        }
-        self.writeShortLinkToDefaults()
-        self.resetAndClose(response)
-      case .cancel:
-        self.validationCancellable?.cancel()
-        self.resetAndClose(response)
-      default:
-        fatalError()
+    window.contentView = NSHostingView(rootView: GotoShortlinkPanelView().environmentObject(self.viewModel))
+  }
+}
+
+extension GotoShortlinkWindowController.ViewModel {
+  func shortlinkPanelAction(_ response: NSApplication.ModalResponse) {
+    switch response {
+    case .OK:
+      guard self.validateShortlinkText() else {
+        NSSound.beep()
+        self.errorText = "Not a valid shortlink."
+        return
       }
+      self.writeShortLinkToDefaults()
+      self.resetAndClose(response)
+    case .cancel:
+      self.validationCancellable?.cancel()
+      self.resetAndClose(response)
+    default:
+      fatalError()
     }
-      .environmentObject(self))
   }
 
   // FIXME: We definitely want some kind of indeterminate progress bar here
@@ -147,12 +132,12 @@ final class GotoShortlinkWindowController: NSWindowController, ObservableObject,
       .sink(receiveCompletion: { _ in
         group.leave()
       }) { value in
-        self.shortlinkValue = value
+        self.shortlinkValue.send(value)
       }
 
     switch group.wait(timeout: DispatchTime.now().advanced(by: .seconds(10))) {
     case .success:
-      return self.shortlinkValue != nil
+      return self.shortlinkValue.value != nil
     case .timedOut:
       return false
     }
@@ -172,7 +157,8 @@ final class GotoShortlinkWindowController: NSWindowController, ObservableObject,
     self.validationCancellable?.cancel()
     self.shortlinkText = ""
     self.errorText = ""
+    self.shortlinkValue.send(nil)
+    NSApp.modalWindow!.close()
     NSApp.stopModal(withCode: response)
-    self.window!.close()
   }
 }

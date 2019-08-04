@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import CompilerExplorerKit
 
 struct CompilerToggleView: View {
   @EnvironmentObject var viewModel: ViewModel

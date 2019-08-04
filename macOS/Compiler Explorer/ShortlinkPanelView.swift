@@ -8,6 +8,7 @@
 
 import SwiftUI
 import GodBolt
+import CompilerExplorerKit
 
 struct ShortlinkPanelView: View {
   @EnvironmentObject var viewModel: ViewModel

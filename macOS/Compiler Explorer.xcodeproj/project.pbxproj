@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		4EFF20C022EB553300D76638 /* CompilerToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B622EB553100D76638 /* CompilerToggleView.swift */; };
 		4EFF20C122EB553300D76638 /* ReadOnlyEditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B722EB553200D76638 /* ReadOnlyEditorViewWrapper.swift */; };
-		4EFF20C322EB553300D76638 /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */; };
-		4EFF20C422EB553300D76638 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BA22EB553200D76638 /* ViewModel.swift */; };
 		4EFF20C522EB553300D76638 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BB22EB553200D76638 /* DocumentController.swift */; };
 		4EFF20C622EB553300D76638 /* CompilerSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */; };
 		4EFF20C722EB553300D76638 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF20BD22EB553200D76638 /* Preferences.swift */; };
@@ -23,6 +21,12 @@
 		8209E25122F6430D00C8CA49 /* LLVMLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25022F6430D00C8CA49 /* LLVMLexer.swift */; };
 		8209E25522F6468900C8CA49 /* TokenizingLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25422F6468900C8CA49 /* TokenizingLexer.swift */; };
 		8209E25D22F647F400C8CA49 /* CppLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25C22F647F400C8CA49 /* CppLexer.swift */; };
+		8209E26A22F648B400C8CA49 /* CompilerExplorerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8209E26322F648B400C8CA49 /* CompilerExplorerKit.framework */; };
+		8209E26B22F648B400C8CA49 /* CompilerExplorerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8209E26322F648B400C8CA49 /* CompilerExplorerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8209E27222F648D700C8CA49 /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E27022F648D700C8CA49 /* EditorViewWrapper.swift */; };
+		8209E27322F648D700C8CA49 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E27122F648D700C8CA49 /* ViewModel.swift */; };
+		8209E27822F648F400C8CA49 /* GodBolt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AF54F022E8D8E300550E9D /* GodBolt.framework */; };
+		8209E27922F648F400C8CA49 /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AF54B922E8D8C100550E9D /* SavannaKit.framework */; };
 		8214469C22EBB31000026920 /* NativeComboBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469922EBB30F00026920 /* NativeComboBox.swift */; };
 		8214469D22EBB31000026920 /* GotoShortlinkPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */; };
 		8214469E22EBB31000026920 /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214469B22EBB31000026920 /* NativeButton.swift */; };
@@ -69,6 +73,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8209E26822F648B400C8CA49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82AF547822E8D89300550E9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8209E26222F648B400C8CA49;
+			remoteInfo = CompilerExplorerKit;
+		};
+		8209E27422F648EF00C8CA49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82AF547822E8D89300550E9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82AF54EF22E8D8E300550E9D;
+			remoteInfo = GodBolt;
+		};
+		8209E27622F648EF00C8CA49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82AF547822E8D89300550E9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82AF54B822E8D8C100550E9D;
+			remoteInfo = SavannaKit;
+		};
 		82AF549822E8D89500550E9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 82AF547822E8D89300550E9D /* Project object */;
@@ -107,6 +132,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				82AF54F822E8D8E300550E9D /* GodBolt.framework in Embed Frameworks */,
+				8209E26B22F648B400C8CA49 /* CompilerExplorerKit.framework in Embed Frameworks */,
 				82AF54C122E8D8C100550E9D /* SavannaKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -117,8 +143,6 @@
 /* Begin PBXFileReference section */
 		4EFF20B622EB553100D76638 /* CompilerToggleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilerToggleView.swift; sourceTree = "<group>"; };
 		4EFF20B722EB553200D76638 /* ReadOnlyEditorViewWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadOnlyEditorViewWrapper.swift; sourceTree = "<group>"; };
-		4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewWrapper.swift; sourceTree = "<group>"; };
-		4EFF20BA22EB553200D76638 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		4EFF20BB22EB553200D76638 /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		4EFF20BC22EB553200D76638 /* CompilerSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilerSelectorView.swift; sourceTree = "<group>"; };
 		4EFF20BD22EB553200D76638 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -131,6 +155,10 @@
 		8209E25022F6430D00C8CA49 /* LLVMLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLVMLexer.swift; sourceTree = "<group>"; };
 		8209E25422F6468900C8CA49 /* TokenizingLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizingLexer.swift; sourceTree = "<group>"; };
 		8209E25C22F647F400C8CA49 /* CppLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CppLexer.swift; sourceTree = "<group>"; };
+		8209E26322F648B400C8CA49 /* CompilerExplorerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CompilerExplorerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8209E27022F648D700C8CA49 /* EditorViewWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewWrapper.swift; sourceTree = "<group>"; };
+		8209E27122F648D700C8CA49 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		8209E29F22F64B9D00C8CA49 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8214469922EBB30F00026920 /* NativeComboBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeComboBox.swift; sourceTree = "<group>"; };
 		8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoShortlinkPanelView.swift; sourceTree = "<group>"; };
 		8214469B22EBB31000026920 /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
@@ -164,8 +192,6 @@
 		8292AD5922ECB63300B1A165 /* Paragraphs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paragraphs.swift; sourceTree = "<group>"; };
 		8292AD5A22ECB63300B1A165 /* SavannaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavannaKit.h; sourceTree = "<group>"; };
 		8292AD5B22ECB63300B1A165 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8292AD9C22ECB77D00B1A165 /* asodifjoiasdm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = asodifjoiasdm.h; sourceTree = "<group>"; };
-		8292AD9D22ECB77D00B1A165 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82AF548022E8D89300550E9D /* Compiler Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Compiler Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AF548322E8D89300550E9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82AF548522E8D89300550E9D /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -186,11 +212,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8209E26022F648B400C8CA49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8209E27822F648F400C8CA49 /* GodBolt.framework in Frameworks */,
+				8209E27922F648F400C8CA49 /* SavannaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82AF547D22E8D89300550E9D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				82AF54F722E8D8E300550E9D /* GodBolt.framework in Frameworks */,
+				8209E26A22F648B400C8CA49 /* CompilerExplorerKit.framework in Frameworks */,
 				82AF54C022E8D8C100550E9D /* SavannaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +267,17 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8209E26F22F648D700C8CA49 /* CompilerExplorerKit */ = {
+			isa = PBXGroup;
+			children = (
+				8209E27022F648D700C8CA49 /* EditorViewWrapper.swift */,
+				8209E27122F648D700C8CA49 /* ViewModel.swift */,
+				8209E29F22F64B9D00C8CA49 /* Info.plist */,
+			);
+			name = CompilerExplorerKit;
+			path = ../CompilerExplorerKit;
 			sourceTree = "<group>";
 		};
 		82219CBC22EE465B0034FA46 /* Lexers */ = {
@@ -317,15 +364,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8292AD9B22ECB77D00B1A165 /* asodifjoiasdm */ = {
-			isa = PBXGroup;
-			children = (
-				8292AD9C22ECB77D00B1A165 /* asodifjoiasdm.h */,
-				8292AD9D22ECB77D00B1A165 /* Info.plist */,
-			);
-			path = asodifjoiasdm;
-			sourceTree = "<group>";
-		};
 		82AF547722E8D89300550E9D = {
 			isa = PBXGroup;
 			children = (
@@ -334,7 +372,7 @@
 				82AF54A522E8D89500550E9D /* Compiler ExplorerUITests */,
 				8292AC7022ECB1B700B1A165 /* GodBolt */,
 				8292AD4522ECB63300B1A165 /* SavannaKit */,
-				8292AD9B22ECB77D00B1A165 /* asodifjoiasdm */,
+				8209E26F22F648D700C8CA49 /* CompilerExplorerKit */,
 				82AF548122E8D89300550E9D /* Products */,
 				82032BC522E938E6008A3233 /* Frameworks */,
 			);
@@ -348,6 +386,7 @@
 				82AF54A222E8D89500550E9D /* Compiler ExplorerUITests.xctest */,
 				82AF54B922E8D8C100550E9D /* SavannaKit.framework */,
 				82AF54F022E8D8E300550E9D /* GodBolt.framework */,
+				8209E26322F648B400C8CA49 /* CompilerExplorerKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -363,7 +402,6 @@
 				82AF548722E8D89300550E9D /* ContentView.swift */,
 				82AF548522E8D89300550E9D /* Document.swift */,
 				4EFF20BB22EB553200D76638 /* DocumentController.swift */,
-				4EFF20B922EB553200D76638 /* EditorViewWrapper.swift */,
 				8214469B22EBB31000026920 /* NativeButton.swift */,
 				8214469922EBB30F00026920 /* NativeComboBox.swift */,
 				8209E23B22F56B3200C8CA49 /* NativeCopyableTextField.swift */,
@@ -372,7 +410,6 @@
 				8214469A22EBB31000026920 /* GotoShortlinkPanelView.swift */,
 				8209E23922F56AA600C8CA49 /* ShortlinkPanelView.swift */,
 				8209E23F22F60AA400C8CA49 /* NativeShareButton.swift */,
-				4EFF20BA22EB553200D76638 /* ViewModel.swift */,
 				82AF548922E8D89400550E9D /* Assets.xcassets */,
 				82AF548E22E8D89400550E9D /* Main.storyboard */,
 				82AF548B22E8D89400550E9D /* Preview Content */,
@@ -409,6 +446,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		8209E25E22F648B400C8CA49 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82AF54B422E8D8C100550E9D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,6 +472,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8209E26222F648B400C8CA49 /* CompilerExplorerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8209E26C22F648B400C8CA49 /* Build configuration list for PBXNativeTarget "CompilerExplorerKit" */;
+			buildPhases = (
+				8209E25E22F648B400C8CA49 /* Headers */,
+				8209E25F22F648B400C8CA49 /* Sources */,
+				8209E26022F648B400C8CA49 /* Frameworks */,
+				8209E26122F648B400C8CA49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8209E27522F648EF00C8CA49 /* PBXTargetDependency */,
+				8209E27722F648EF00C8CA49 /* PBXTargetDependency */,
+			);
+			name = CompilerExplorerKit;
+			productName = CompilerExplorerKit;
+			productReference = 8209E26322F648B400C8CA49 /* CompilerExplorerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		82AF547F22E8D89300550E9D /* Compiler Explorer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82AF54AB22E8D89500550E9D /* Build configuration list for PBXNativeTarget "Compiler Explorer" */;
@@ -442,6 +506,7 @@
 			dependencies = (
 				82AF54BF22E8D8C100550E9D /* PBXTargetDependency */,
 				82AF54F622E8D8E300550E9D /* PBXTargetDependency */,
+				8209E26922F648B400C8CA49 /* PBXTargetDependency */,
 			);
 			name = "Compiler Explorer";
 			productName = "Compiler Explorer";
@@ -530,6 +595,9 @@
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = CodaFi;
 				TargetAttributes = {
+					8209E26222F648B400C8CA49 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					82AF547F22E8D89300550E9D = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -569,11 +637,19 @@
 				82AF54A122E8D89500550E9D /* Compiler ExplorerUITests */,
 				82AF54B822E8D8C100550E9D /* SavannaKit */,
 				82AF54EF22E8D8E300550E9D /* GodBolt */,
+				8209E26222F648B400C8CA49 /* CompilerExplorerKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8209E26122F648B400C8CA49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82AF547E22E8D89300550E9D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -615,6 +691,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8209E25F22F648B400C8CA49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8209E27322F648D700C8CA49 /* ViewModel.swift in Sources */,
+				8209E27222F648D700C8CA49 /* EditorViewWrapper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82AF547C22E8D89300550E9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -628,13 +713,11 @@
 				4EFF20C722EB553300D76638 /* Preferences.swift in Sources */,
 				4EFF20C122EB553300D76638 /* ReadOnlyEditorViewWrapper.swift in Sources */,
 				8209E24022F60AA400C8CA49 /* NativeShareButton.swift in Sources */,
-				4EFF20C422EB553300D76638 /* ViewModel.swift in Sources */,
 				4EFF20C522EB553300D76638 /* DocumentController.swift in Sources */,
 				82AF548822E8D89300550E9D /* ContentView.swift in Sources */,
 				8214469C22EBB31000026920 /* NativeComboBox.swift in Sources */,
 				8214469D22EBB31000026920 /* GotoShortlinkPanelView.swift in Sources */,
 				8214469E22EBB31000026920 /* NativeButton.swift in Sources */,
-				4EFF20C322EB553300D76638 /* EditorViewWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +786,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8209E26922F648B400C8CA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8209E26222F648B400C8CA49 /* CompilerExplorerKit */;
+			targetProxy = 8209E26822F648B400C8CA49 /* PBXContainerItemProxy */;
+		};
+		8209E27522F648EF00C8CA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82AF54EF22E8D8E300550E9D /* GodBolt */;
+			targetProxy = 8209E27422F648EF00C8CA49 /* PBXContainerItemProxy */;
+		};
+		8209E27722F648EF00C8CA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82AF54B822E8D8C100550E9D /* SavannaKit */;
+			targetProxy = 8209E27622F648EF00C8CA49 /* PBXContainerItemProxy */;
+		};
 		82AF549922E8D89500550E9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 82AF547F22E8D89300550E9D /* Compiler Explorer */;
@@ -737,6 +835,60 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8209E26D22F648B400C8CA49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = D33M56YTC8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ../CompilerExplorerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.codafi.CompilerExplorerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8209E26E22F648B400C8CA49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = D33M56YTC8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ../CompilerExplorerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.codafi.CompilerExplorerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		82AF54A922E8D89500550E9D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1095,6 +1247,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8209E26C22F648B400C8CA49 /* Build configuration list for PBXNativeTarget "CompilerExplorerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8209E26D22F648B400C8CA49 /* Debug */,
+				8209E26E22F648B400C8CA49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		82AF547B22E8D89300550E9D /* Build configuration list for PBXProject "Compiler Explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

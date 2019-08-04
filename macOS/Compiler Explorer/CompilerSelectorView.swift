@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import GodBolt
+import CompilerExplorerKit
 
 struct CompilerSelectorView: View {
   @EnvironmentObject var viewModel: ViewModel

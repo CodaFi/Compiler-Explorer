@@ -11,6 +11,7 @@
 import Cocoa
 import SwiftUI
 import GodBolt
+import CompilerExplorerKit
 
 final class Document: NSDocument {
   var viewModel = ViewModel()

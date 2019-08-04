@@ -21,13 +21,11 @@ struct NativeComboBox: NSViewRepresentable {
   }
 
   @objc final class Coordinator: NSObject, NSComboBoxDelegate, NSComboBoxDataSource {
-    @Binding var comboTextBinding: String
-    @Binding var previousShortlinkBinding: [String]
+    let parent: NativeComboBox
     var hasBeenMadeFirstResponder = false
 
-    init(_ comboText: Binding<String>, _ shortLinks: Binding<[String]>) {
-      self._comboTextBinding = comboText
-      self._previousShortlinkBinding = shortLinks
+    init(_ parent: NativeComboBox) {
+      self.parent = parent
     }
 
     func controlTextDidChange(_ notification: Notification) {
@@ -39,7 +37,8 @@ struct NativeComboBox: NSViewRepresentable {
         return
       }
 
-      self.comboTextBinding = box.stringValue
+      self.parent.comboTextBinding = box.stringValue
+      box.reloadData()
     }
 
     func comboBoxSelectionDidChange(_ notification: Notification) {
@@ -51,15 +50,16 @@ struct NativeComboBox: NSViewRepresentable {
         return
       }
 
-      self.comboTextBinding = self.previousShortlinkBinding[box.indexOfSelectedItem]
+      self.parent.comboTextBinding = self.parent.previousShortlinkBinding[box.indexOfSelectedItem]
+      box.reloadData()
     }
 
     func numberOfItems(in comboBox: NSComboBox) -> Int {
-      return self.previousShortlinkBinding.count
+      return self.parent.previousShortlinkBinding.count
     }
 
     func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
-      return self.previousShortlinkBinding[index]
+      return self.parent.previousShortlinkBinding[index]
     }
   }
 
@@ -113,7 +113,7 @@ struct NativeComboBox: NSViewRepresentable {
   }
 
   func makeCoordinator() -> Coordinator {
-    return Coordinator(self._comboTextBinding, self._previousShortlinkBinding)
+    return Coordinator(self)
   }
 
   func makeNSView(context: NSViewRepresentableContext<NativeComboBox>) -> NSComboBox {

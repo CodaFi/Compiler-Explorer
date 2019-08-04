@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CompilerExplorerKit
 
 struct SettingsView: View {
   @EnvironmentObject var viewModel: ViewModel

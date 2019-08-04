@@ -14,6 +14,12 @@
 		8209E25722F646AF00C8CA49 /* TokenizingLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25622F646AF00C8CA49 /* TokenizingLexer.swift */; };
 		8209E25922F6473400C8CA49 /* CppLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25822F6473400C8CA49 /* CppLexer.swift */; };
 		8209E25B22F647E800C8CA49 /* LLVMLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E25A22F647E800C8CA49 /* LLVMLexer.swift */; };
+		8209E28622F6490200C8CA49 /* CompilerExplorerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8209E27F22F6490200C8CA49 /* CompilerExplorerKit.framework */; };
+		8209E28722F6490200C8CA49 /* CompilerExplorerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8209E27F22F6490200C8CA49 /* CompilerExplorerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8209E29522F6492300C8CA49 /* GodBolt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8292ACEC22ECB5EB00B1A165 /* GodBolt.framework */; };
+		8209E29622F6492300C8CA49 /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */; };
+		8209E29C22F649CC00C8CA49 /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E29922F649CC00C8CA49 /* EditorViewWrapper.swift */; };
+		8209E29D22F649CC00C8CA49 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209E29A22F649CC00C8CA49 /* ViewModel.swift */; };
 		82219CC922EE49C50034FA46 /* DocumentTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */; };
 		8264179522F3D11600DF79F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8264179422F3D11600DF79F4 /* SettingsView.swift */; };
 		82829BAE22F4DF45003B14FD /* GotoShortlinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82829BAD22F4DF45003B14FD /* GotoShortlinkView.swift */; };
@@ -23,8 +29,6 @@
 		8292ACBE22ECB20800B1A165 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACBD22ECB20800B1A165 /* Document.swift */; };
 		8292ACC322ECB20800B1A165 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8292ACC222ECB20800B1A165 /* Assets.xcassets */; };
 		8292ACC622ECB20800B1A165 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8292ACC422ECB20800B1A165 /* LaunchScreen.storyboard */; };
-		8292ACD222ECB44000B1A165 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACD122ECB44000B1A165 /* ViewModel.swift */; };
-		8292ACD422ECB5AA00B1A165 /* EditorViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ACD322ECB5AA00B1A165 /* EditorViewWrapper.swift */; };
 		8292ACE122ECB5E100B1A165 /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */; };
 		8292ACE222ECB5E100B1A165 /* SavannaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8292ACF322ECB5EB00B1A165 /* GodBolt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8292ACEC22ECB5EB00B1A165 /* GodBolt.framework */; };
@@ -63,6 +67,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8209E28422F6490200C8CA49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8292ACAC22ECB20800B1A165 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8209E27E22F6490200C8CA49;
+			remoteInfo = CompilerExplorerKit;
+		};
+		8209E29022F6492000C8CA49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8292ACAC22ECB20800B1A165 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8292ACEB22ECB5EB00B1A165;
+			remoteInfo = GodBolt;
+		};
+		8209E29222F6492000C8CA49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8292ACAC22ECB20800B1A165 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8292ACD922ECB5E100B1A165;
+			remoteInfo = SavannaKit;
+		};
 		8292ACDF22ECB5E100B1A165 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8292ACAC22ECB20800B1A165 /* Project object */;
@@ -87,6 +112,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				8292ACF422ECB5EB00B1A165 /* GodBolt.framework in Embed Frameworks */,
+				8209E28722F6490200C8CA49 /* CompilerExplorerKit.framework in Embed Frameworks */,
 				8292ACE222ECB5E100B1A165 /* SavannaKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -102,6 +128,10 @@
 		8209E25622F646AF00C8CA49 /* TokenizingLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizingLexer.swift; sourceTree = "<group>"; };
 		8209E25822F6473400C8CA49 /* CppLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CppLexer.swift; sourceTree = "<group>"; };
 		8209E25A22F647E800C8CA49 /* LLVMLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLVMLexer.swift; sourceTree = "<group>"; };
+		8209E27F22F6490200C8CA49 /* CompilerExplorerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CompilerExplorerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8209E29922F649CC00C8CA49 /* EditorViewWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewWrapper.swift; sourceTree = "<group>"; };
+		8209E29A22F649CC00C8CA49 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		8209E29B22F649CC00C8CA49 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82219CC322EE48700034FA46 /* Compiler Explorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Compiler Explorer.entitlements"; sourceTree = "<group>"; };
 		82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTemplateView.swift; sourceTree = "<group>"; };
 		8264179422F3D11600DF79F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -114,8 +144,6 @@
 		8292ACC222ECB20800B1A165 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8292ACC522ECB20800B1A165 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8292ACC722ECB20800B1A165 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8292ACD122ECB44000B1A165 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		8292ACD322ECB5AA00B1A165 /* EditorViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewWrapper.swift; sourceTree = "<group>"; };
 		8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SavannaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292ACEC22ECB5EB00B1A165 /* GodBolt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GodBolt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292AD0B22ECB61500B1A165 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
@@ -154,11 +182,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8209E27C22F6490200C8CA49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8209E29522F6492300C8CA49 /* GodBolt.framework in Frameworks */,
+				8209E29622F6492300C8CA49 /* SavannaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8292ACB122ECB20800B1A165 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8292ACF322ECB5EB00B1A165 /* GodBolt.framework in Frameworks */,
+				8209E28622F6490200C8CA49 /* CompilerExplorerKit.framework in Frameworks */,
 				8292ACE122ECB5E100B1A165 /* SavannaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,13 +218,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8209E29422F6492300C8CA49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8209E29822F649CC00C8CA49 /* CompilerExplorerKit */ = {
+			isa = PBXGroup;
+			children = (
+				8209E29922F649CC00C8CA49 /* EditorViewWrapper.swift */,
+				8209E29A22F649CC00C8CA49 /* ViewModel.swift */,
+				8209E29B22F649CC00C8CA49 /* Info.plist */,
+			);
+			name = CompilerExplorerKit;
+			path = ../CompilerExplorerKit;
+			sourceTree = "<group>";
+		};
 		8292ACAB22ECB20800B1A165 = {
 			isa = PBXGroup;
 			children = (
 				8292ACB622ECB20800B1A165 /* Compiler Explorer */,
 				8292AD0A22ECB61500B1A165 /* GodBolt */,
 				8292AD1B22ECB62400B1A165 /* SavannaKit */,
+				8209E29822F649CC00C8CA49 /* CompilerExplorerKit */,
 				8292ACB522ECB20800B1A165 /* Products */,
+				8209E29422F6492300C8CA49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -196,6 +254,7 @@
 				8292ACB422ECB20800B1A165 /* Compiler Explorer.app */,
 				8292ACDA22ECB5E100B1A165 /* SavannaKit.framework */,
 				8292ACEC22ECB5EB00B1A165 /* GodBolt.framework */,
+				8209E27F22F6490200C8CA49 /* CompilerExplorerKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,8 +271,6 @@
 				8292ACBD22ECB20800B1A165 /* Document.swift */,
 				82AE1FAE22F4A21100FFD730 /* PageControl.swift */,
 				82D6596822F4A55E0059963C /* PageViewController.swift */,
-				8292ACD122ECB44000B1A165 /* ViewModel.swift */,
-				8292ACD322ECB5AA00B1A165 /* EditorViewWrapper.swift */,
 				8292ADA622EE39F500B1A165 /* ReadOnlyEditorViewWrapper.swift */,
 				82829BAD22F4DF45003B14FD /* GotoShortlinkView.swift */,
 				8209E24A22F6192D00C8CA49 /* NativeCopyableTextField.swift */,
@@ -311,6 +368,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		8209E27A22F6490200C8CA49 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8292ACD522ECB5E100B1A165 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,6 +394,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8209E27E22F6490200C8CA49 /* CompilerExplorerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8209E28822F6490200C8CA49 /* Build configuration list for PBXNativeTarget "CompilerExplorerKit" */;
+			buildPhases = (
+				8209E27A22F6490200C8CA49 /* Headers */,
+				8209E27B22F6490200C8CA49 /* Sources */,
+				8209E27C22F6490200C8CA49 /* Frameworks */,
+				8209E27D22F6490200C8CA49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8209E29122F6492000C8CA49 /* PBXTargetDependency */,
+				8209E29322F6492000C8CA49 /* PBXTargetDependency */,
+			);
+			name = CompilerExplorerKit;
+			productName = CompilerExplorerKit;
+			productReference = 8209E27F22F6490200C8CA49 /* CompilerExplorerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8292ACB322ECB20800B1A165 /* Compiler Explorer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8292ACCA22ECB20800B1A165 /* Build configuration list for PBXNativeTarget "Compiler Explorer" */;
@@ -344,6 +428,7 @@
 			dependencies = (
 				8292ACE022ECB5E100B1A165 /* PBXTargetDependency */,
 				8292ACF222ECB5EB00B1A165 /* PBXTargetDependency */,
+				8209E28522F6490200C8CA49 /* PBXTargetDependency */,
 			);
 			name = "Compiler Explorer";
 			productName = "Compiler Explorer";
@@ -396,6 +481,9 @@
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = CodaFi;
 				TargetAttributes = {
+					8209E27E22F6490200C8CA49 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					8292ACB322ECB20800B1A165 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -423,11 +511,19 @@
 				8292ACB322ECB20800B1A165 /* Compiler Explorer */,
 				8292ACD922ECB5E100B1A165 /* SavannaKit */,
 				8292ACEB22ECB5EB00B1A165 /* GodBolt */,
+				8209E27E22F6490200C8CA49 /* CompilerExplorerKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8209E27D22F6490200C8CA49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8292ACB222ECB20800B1A165 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -454,6 +550,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8209E27B22F6490200C8CA49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8209E29D22F649CC00C8CA49 /* ViewModel.swift in Sources */,
+				8209E29C22F649CC00C8CA49 /* EditorViewWrapper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8292ACB022ECB20800B1A165 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -465,12 +570,10 @@
 				82829BAE22F4DF45003B14FD /* GotoShortlinkView.swift in Sources */,
 				8292ACBA22ECB20800B1A165 /* DocumentBrowserViewController.swift in Sources */,
 				8292ADA722EE39F500B1A165 /* ReadOnlyEditorViewWrapper.swift in Sources */,
-				8292ACD422ECB5AA00B1A165 /* EditorViewWrapper.swift in Sources */,
 				8264179522F3D11600DF79F4 /* SettingsView.swift in Sources */,
 				82AE1FAF22F4A21100FFD730 /* PageControl.swift in Sources */,
 				8292ACB822ECB20800B1A165 /* AppDelegate.swift in Sources */,
 				8209E24B22F6192D00C8CA49 /* NativeCopyableTextField.swift in Sources */,
-				8292ACD222ECB44000B1A165 /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +626,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8209E28522F6490200C8CA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8209E27E22F6490200C8CA49 /* CompilerExplorerKit */;
+			targetProxy = 8209E28422F6490200C8CA49 /* PBXContainerItemProxy */;
+		};
+		8209E29122F6492000C8CA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8292ACEB22ECB5EB00B1A165 /* GodBolt */;
+			targetProxy = 8209E29022F6492000C8CA49 /* PBXContainerItemProxy */;
+		};
+		8209E29322F6492000C8CA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8292ACD922ECB5E100B1A165 /* SavannaKit */;
+			targetProxy = 8209E29222F6492000C8CA49 /* PBXContainerItemProxy */;
+		};
 		8292ACE022ECB5E100B1A165 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8292ACD922ECB5E100B1A165 /* SavannaKit */;
@@ -547,6 +665,60 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8209E28922F6490200C8CA49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = D33M56YTC8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ../CompilerExplorerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.codafi.CompilerExplorerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8209E28A22F6490200C8CA49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = D33M56YTC8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ../CompilerExplorerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.codafi.CompilerExplorerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		8292ACC822ECB20800B1A165 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -816,6 +988,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8209E28822F6490200C8CA49 /* Build configuration list for PBXNativeTarget "CompilerExplorerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8209E28922F6490200C8CA49 /* Debug */,
+				8209E28A22F6490200C8CA49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8292ACAF22ECB20800B1A165 /* Build configuration list for PBXProject "Compiler Explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

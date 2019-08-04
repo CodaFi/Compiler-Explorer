@@ -12,6 +12,7 @@
 import SwiftUI
 import Combine
 import SavannaKit
+import CompilerExplorerKit
 
 final class ReadOnlyEditorViewController: UIViewController {
   let viewModel: ViewModel

@@ -10,6 +10,7 @@
 import SwiftUI
 import SavannaKit
 import Combine
+import CompilerExplorerKit
 
 struct ContentView: View {
   @EnvironmentObject var viewModel: ViewModel
@@ -24,7 +25,7 @@ struct ContentView: View {
                           language: self.$viewModel.language,
                           onTextChange: self.viewModel.textDidChange)
           .frame(minWidth: 400, idealWidth: 400, maxWidth: .infinity)
-        ReadOnlyEditorViewWrapper(text: self.$viewModel.compiledTextValue)
+        ReadOnlyEditorViewWrapper(text: self.$viewModel.compiledTextValue[\.value])
           .frame(minWidth: 400, idealWidth: 400, maxWidth: .infinity)
       }
     }

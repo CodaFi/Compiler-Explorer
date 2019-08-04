@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
 
   @IBOutlet weak var documentController: DocumentController!
   let gotoShortlinksController = GotoShortlinkWindowController()
+  var shortlinkCancellable: AnyCancellable? = nil
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     NSApp.servicesProvider = self
@@ -81,18 +82,21 @@ extension AppDelegate {
   }
 
   @IBAction func openShortlink(_ sender: AnyObject?) {
-    _ = NSApp.runModal(for: self.gotoShortlinksController.window!)
-    guard let session = self.gotoShortlinksController.takeShortlinkValue() else {
-      return
-    }
-    guard let firstSession = session.sessions.first else {
-      return
-    }
+    self.shortlinkCancellable?.cancel()
+    self.shortlinkCancellable = self.gotoShortlinksController.viewModel.shortlinkValue
+      .compactMap({ $0 })
+      .receive(on: DispatchQueue.main)
+      .sink { session in
+      guard let firstSession = session.sessions.first else {
+        return
+      }
 
-    self.documentController.openDocument(
-      pasteboard: firstSession.source,
-      type: firstSession.language,
-      session: firstSession.compilers.first)
+      self.documentController.openDocument(
+        pasteboard: firstSession.source,
+        type: firstSession.language,
+        session: firstSession.compilers.first)
+    }
+    _ = NSApp.runModal(for: self.gotoShortlinksController.window!)
   }
 
   @IBAction func generateShortlink(_ sender: AnyObject?) {

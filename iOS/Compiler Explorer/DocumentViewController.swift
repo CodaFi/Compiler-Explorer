@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import GodBolt
 import SavannaKit
+import CompilerExplorerKit
 
 struct DocumentView: View {
   var viewModel: ViewModel
@@ -24,7 +25,7 @@ struct DocumentView: View {
     self.onDismiss = onDismiss
 
     self.controllers = [
-      EditorViewController(text: self.viewModel.documentTextValue.value,
+      EditorViewWrapper(text: self.viewModel.documentTextValue.value,
                            language: self.viewModel.language,
                            onTextChange: self.viewModel.textDidChange),
       ReadOnlyEditorViewController(vm: self.viewModel),
