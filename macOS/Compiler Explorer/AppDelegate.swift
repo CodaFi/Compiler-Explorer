@@ -87,14 +87,12 @@ extension AppDelegate {
       .compactMap({ $0 })
       .receive(on: DispatchQueue.main)
       .sink { session in
-      guard let firstSession = session.sessions.first else {
-        return
+      for session in session.sessions {
+        self.documentController.openDocument(
+          pasteboard: session.source,
+          type: session.language,
+          session: session.compilers.first)
       }
-
-      self.documentController.openDocument(
-        pasteboard: firstSession.source,
-        type: firstSession.language,
-        session: firstSession.compilers.first)
     }
     _ = NSApp.runModal(for: self.gotoShortlinksController.window!)
   }
