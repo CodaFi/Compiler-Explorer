@@ -53,8 +53,7 @@ final class PreferencesWindowController: NSWindowController {
       contentRect: .zero,
       styleMask: [.titled, .closable, .miniaturizable, .resizable],
       backing: .buffered, defer: false)
-    window.center()
-
+    
     window.contentView = NSHostingView(rootView: PreferencesView(onDismiss: {
       window.sheetParent!.endSheet(window)
     }).environmentObject(self.viewModel))

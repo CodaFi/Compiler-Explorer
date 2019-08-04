@@ -50,17 +50,41 @@ final class Document: NSDocument {
     return true
   }
 
+  @available(*, deprecated, message: "Use the cascade-point-aware API instead")
+  override func showWindows() {
+    fatalError("Cannot show windows!  Use the cascade-point-aware API instead")
+  }
+  
+  func showWindows(at cascadePoint: NSPoint) -> NSPoint {
+    guard let controller = self.windowControllers.first else {
+      fatalError("Must call makeWindowControllers() first")
+    }
+
+    guard let window = controller.window else {
+      fatalError("Must call makeWindowControllers() first")
+    }
+
+
+    var point = window.cascadeTopLeft(from: cascadePoint)
+    // If the cascade point is zero, we're trying to display the first window.
+    // Cascading again will give us a great starting point.
+    if cascadePoint == .zero {
+      point = window.cascadeTopLeft(from: point)
+    }
+    self.windowControllers[0].window?.setFrameTopLeftPoint(point)
+    super.showWindows()
+    return point
+  }
+
   override func makeWindowControllers() {
     guard self.windowControllers.count == 0 else {
       return
     }
 
     let window = NSWindow(
-        contentRect: NSRect(x: 0, y: 0, width: 800, height: 750),
-        styleMask: [.titled, .closable, .miniaturizable, .resizable],
-        backing: .buffered, defer: false)
-    window.center()
-
+      contentRect: .zero,
+      styleMask: [.titled, .closable, .miniaturizable, .resizable],
+      backing: .buffered, defer: false)
     window.contentView = NSHostingView(rootView: ContentView().environmentObject(self.viewModel))
 
     let windowController = NSWindowController(window: window)

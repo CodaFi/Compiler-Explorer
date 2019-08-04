@@ -10,6 +10,8 @@ import AppKit
 import GodBolt
 
 final class DocumentController: NSDocumentController {
+  var cascadePoint: NSPoint = .zero
+
   override func addDocument(_ document: NSDocument) {
     guard self.documents.count == 1 else {
       return super.addDocument(document)
@@ -27,7 +29,9 @@ final class DocumentController: NSDocumentController {
   }
 
   override func openUntitledDocumentAndDisplay(_ displayDocument: Bool) throws -> NSDocument {
-    let doc = try super.openUntitledDocumentAndDisplay(displayDocument) as! Document
+    let doc = try super.openUntitledDocumentAndDisplay(false) as! Document
+    doc.makeWindowControllers()
+    self.cascadePoint = doc.showWindows(at: self.cascadePoint)
     guard self.documents.count == 1 else {
       return doc
     }
@@ -66,14 +70,14 @@ final class DocumentController: NSDocumentController {
       doc.markTransient(false)
       doc.read(from: pasteboard, ofType: type, session: session)
       doc.updateChangeCount(.changeReadOtherContents)
-      doc.showWindows()
+      self.cascadePoint = doc.showWindows(at: self.cascadePoint)
     } else {
       let doc = Document()
       doc.read(from: pasteboard, ofType: type, session: session)
       doc.updateChangeCount(.changeReadOtherContents)
       self.addDocument(doc)
       doc.makeWindowControllers()
-      doc.showWindows()
+      self.cascadePoint = doc.showWindows(at: self.cascadePoint)
     }
   }
   
@@ -83,11 +87,11 @@ final class DocumentController: NSDocumentController {
       transientDoc.markTransient(false)
     }
     super.openDocument(withContentsOf: url, display: displayDocument) { doc, val, err in
-      if let transientDoc = transientDoc, let doc = doc {
+      if let transientDoc = transientDoc, let doc = doc as? Document {
         try! doc.read(from: url, ofType: url.pathExtension)
         if displayDocument {
           doc.makeWindowControllers()
-          doc.showWindows()
+          self.cascadePoint = doc.showWindows(at: self.cascadePoint)
         }
         transientDoc.close()
       }

@@ -54,7 +54,6 @@ final class ShortlinkWindowController: NSWindowController, ObservableObject, Ide
       contentRect: .zero,
       styleMask: [.titled],
       backing: .buffered, defer: false)
-    window.center()
 
     window.title = "Go to shortlink"
     super.init(window: window)
@@ -64,7 +63,7 @@ final class ShortlinkWindowController: NSWindowController, ObservableObject, Ide
       window.sheetParent!.endSheet(window)
     }.environmentObject(self.viewModel))
   }
-
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
