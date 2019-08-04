@@ -1,10 +1,12 @@
-//
-//  NativeButton.swift
-//  Compiler Explorer
-//
-//  Created by Robert Widmann on 7/26/19.
-//  Copyright © 2019 CodaFi. All rights reserved.
-//
+///
+///  NativeButton.swift
+///  Compiler Explorer
+///
+///  Created by Robert Widmann on 7/26/19.
+///  Copyright © 2019 CodaFi. All rights reserved.
+///
+/// This project is released under the MIT license, a copy of which is
+/// available in the repository.
 
 import SwiftUI
 import Combine

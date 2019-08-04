@@ -1,11 +1,13 @@
-//
-//  Tables.swift
-//  Compiler Explorer
-//
-//  Created by Robert Widmann on 8/3/19.
-//  Copyright © 2019 CodaFi. All rights reserved.
-//
-
+///
+///  Tables.swift
+///  GodBolt
+///
+///  Created by Robert Widmann on 8/3/19.
+///  Copyright © 2019 CodaFi. All rights reserved.
+///
+/// This project is released under the MIT license, a copy of which is
+/// available in the repository.
+///
 /// Manages a probably-incomplete bidirectional mapping from known languages to
 /// file extensions.
 public enum ExtensionManager {
