@@ -118,13 +118,46 @@ public final class ViewModel: ObservableObject, Identifiable {
   }
 }
 
-#if os(macOS)
 extension ViewModel {
   public func recompile() {
     self.forceRecompile = true
     defer { self.forceRecompile = false }
     let value = self.documentTextValue.value
     self.documentTextValue.send(value)
+  }
+
+  public func textDidChange(_ textView: SyntaxTextView) {
+    #if os(macOS)
+    self.textView = textView
+    #endif
+    self.documentTextValue.send(textView.text)
+  }
+
+  // FIXME: We can probably be lazier.
+  public func computeShortlinkForBuffer() {
+    guard self.shortlinkValue.isEmpty else {
+      return
+    }
+    let compiler = self.availableCompilers[self.selectedCompiler]
+    let source = Source(source: self.documentTextValue.value,
+                        options: .init(arguments: self.compilerOptions,
+                                       filters: self.computeFilter()))
+    _ = self.client.requestShortString(using: compiler, of: source)
+    .catch({ error in Empty() })
+    .receive(on: DispatchQueue.main)
+    .sink { shortlink in
+      self.shortlinkValue = shortlink.url
+    }
+  }
+
+  public func updateLanguage(from url: URL) {
+    self.language = ExtensionManager.language(for: url.pathExtension)
+    _ = self.client.requestCompilers(for: self.language)
+      .catch { error in Empty() }
+      .receive(on: DispatchQueue.main)
+      .sink { values in
+        self.availableCompilers = values
+    }
   }
 
   private func computeFilter() -> Source.Options.Filter {
@@ -149,35 +182,10 @@ extension ViewModel {
     }
     return set
   }
+}
 
-  // FIXME: We can probably be lazier.
-  public func computeShortlinkForBuffer() {
-    guard self.shortlinkValue.isEmpty else {
-      return
-    }
-    let compiler = self.availableCompilers[self.selectedCompiler]
-    let source = Source(source: self.documentTextValue.value,
-                        options: .init(arguments: self.compilerOptions,
-                                       filters: self.computeFilter()))
-    _ = self.client.requestShortString(using: compiler, of: source)
-    .catch({ error in Empty() })
-    .receive(on: DispatchQueue.main)      
-    .sink { shortlink in
-      self.shortlinkValue = shortlink.url
-    }
-  }
-
-  public func updateFileExtension(_ ext: String) {
-    self.objectWillChange.send()
-    self.language = ExtensionManager.language(for: ext)
-    _ = self.client.requestCompilers(for: self.language)
-      .catch { error in Empty() }
-      .receive(on: DispatchQueue.main)
-      .sink { values in
-        self.availableCompilers = values
-      }
-  }
-
+#if os(macOS)
+extension ViewModel {
   public func readData(_ data: Data, ofType typeName: String) {
     let str = String(data: data, encoding: .utf8) ?? ""
     return self.readString(str, ofType: typeName, session: nil)
@@ -207,41 +215,9 @@ extension ViewModel {
         }
       }
   }
-
-  public func textDidChange(_ textView: SyntaxTextView) {
-    self.textView = textView
-    self.documentTextValue.send(textView.text)
-  }
 }
 #elseif os(iOS)
 extension ViewModel {
-  private func computeFilter() -> Source.Options.Filter {
-    var set = Source.Options.Filter(rawValue: 0)
-    if syntax == 0 {
-      set.formUnion(.intel)
-    }
-    if labels {
-      set.formUnion(.labels)
-    }
-    if directives {
-      set.formUnion(.directives)
-    }
-    if comments {
-      set.formUnion(.comments)
-    }
-    if demangle {
-      set.formUnion(.demangle)
-    }
-    if trim {
-      set.formUnion(.trim)
-    }
-    return set
-  }
-
-  public func textDidChange(_ textView: SyntaxTextView) {
-    self.documentTextValue.send(textView.text)
-  }
-
   public func loadSession(_ session: SessionContainer.Session, compiler: SessionContainer.SessionCompiler) {
     self.objectWillChange.send()
     self.documentTextValue.send(session.source)
@@ -260,32 +236,6 @@ extension ViewModel {
         self.demangle = compiler.filters.contains(.demangle)
         self.trim = compiler.filters.contains(.trim)
       }
-  }
-
-  public func updateLanguage(from url: URL) {
-    self.language = ExtensionManager.language(for: url.pathExtension)
-    _ = self.client.requestCompilers(for: self.language)
-      .catch { error in Empty() }
-      .receive(on: DispatchQueue.main)
-      .sink { values in
-        self.availableCompilers = values
-    }
-  }
-
-  public func computeShortlinkForBuffer() {
-    guard self.shortlinkValue.isEmpty else {
-      return
-    }
-    let compiler = self.availableCompilers[self.selectedCompiler]
-    let source = Source(source: self.documentTextValue.value,
-                        options: .init(arguments: self.compilerOptions,
-                                       filters: self.computeFilter()))
-    _ = self.client.requestShortString(using: compiler, of: source)
-    .catch({ error in Empty() })
-    .receive(on: DispatchQueue.main)
-    .sink { shortlink in
-      self.shortlinkValue = shortlink.url
-    }
   }
 }
 #else

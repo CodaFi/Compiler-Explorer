@@ -127,7 +127,7 @@ final class Document: NSDocument {
 
   override func save(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, completionHandler: @escaping (Error?) -> Void) {
     super.save(to: url, ofType: typeName, for: saveOperation, completionHandler: completionHandler)
-    self.viewModel.updateFileExtension(url.pathExtension)
+    self.viewModel.updateLanguage(from: url)
   }
 
   override func share(with sharingService: NSSharingService, completionHandler: ((Bool) -> Void)? = nil) {
