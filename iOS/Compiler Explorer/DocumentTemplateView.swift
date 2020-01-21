@@ -31,7 +31,7 @@ struct DocumentTemplateView: View {
 
   var body: some View {
     NavigationView {
-      List(0..<availableLanguages.count+1) { value in
+      List(0..<availableLanguages.count+1, id: \.self) { value in
         self.viewForValue(value)
       }
         .navigationBarTitle("New Workspace")

@@ -25,7 +25,7 @@ struct GotoShortlinkView: View {
         .textContentType(.URL)
         .keyboardType(.URL)
         .padding()
-        Text(self.$viewModel.errorText.value)
+        Text(self.viewModel.errorText)
         Spacer()
       }
       .navigationBarTitle("Shortlink", displayMode: .large)
@@ -94,8 +94,10 @@ final class GotoShortlinkViewModel: ObservableObject, Identifiable {
     group.enter()
     self.validationCancellable = Client.shared
       .requestShortlinkInfo(for: url.lastPathComponent)
-      .catch { err -> Empty<SessionContainer, Never> in print(err); return Empty<SessionContainer, Never>() }
-      .sink(receiveCompletion: { _ in
+      .catch { err -> Empty<SessionContainer, Never> in
+        print(err)
+        return Empty<SessionContainer, Never>()
+      }.sink(receiveCompletion: { _ in
         group.leave()
       }) { value in
         self.shortlinkValue.send(value)
@@ -114,7 +116,7 @@ final class GotoShortlinkViewModel: ObservableObject, Identifiable {
     self.shortlinkText = ""
     self.errorText = ""
     self.shortlinkValue.send(nil)
-    dismiss.value.dismiss()
+    dismiss.wrappedValue.dismiss()
   }
 }
 

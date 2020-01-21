@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -324,7 +324,7 @@
 				8292AD5B22ECB63300B1A165 /* Info.plist */,
 			);
 			name = SavannaKit;
-			path = "../../../../../../../../Users/cfi/Desktop/Compiler Explorer/SavannaKit";
+			path = ../SavannaKit;
 			sourceTree = "<group>";
 		};
 		8292AD4622ECB63300B1A165 /* Util */ = {
@@ -620,7 +620,7 @@
 				};
 			};
 			buildConfigurationList = 82AF547B22E8D89300550E9D /* Build configuration list for PBXProject "Compiler Explorer" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
