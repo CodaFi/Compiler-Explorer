@@ -34,7 +34,7 @@ struct CompilerToggleView: View {
       }
       .padding([ .leading, .trailing ], 22.0)
     }
-      .disabled(self.$viewModel.availableCompilers.isEmpty)
+      .disabled(self.viewModel.availableCompilers.isEmpty)
       .toggleStyle(DefaultToggleStyle())
   }
 }

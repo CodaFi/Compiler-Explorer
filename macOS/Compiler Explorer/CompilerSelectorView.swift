@@ -22,7 +22,7 @@ struct CompilerSelectorView: View {
       HStack {
         Spacer()
         Picker(selection: self.$viewModel.selectedCompiler, label: Text("Compiler")) {
-          if self.$viewModel.availableCompilers.isEmpty {
+          if self.viewModel.availableCompilers.isEmpty {
             Text("(No Compilers Available)").tag(0)
           } else {
             ForEach(0..<self.viewModel.availableCompilers.count) {
@@ -48,7 +48,7 @@ struct CompilerSelectorView: View {
       CompilerToggleView()
         .padding(.top, 2)
     }
-    .disabled(self.$viewModel.availableCompilers.isEmpty)
+    .disabled(self.viewModel.availableCompilers.isEmpty)
   }
 }
 

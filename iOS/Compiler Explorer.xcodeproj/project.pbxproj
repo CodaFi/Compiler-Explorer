@@ -133,7 +133,7 @@
 		8209E29A22F649CC00C8CA49 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		8209E29B22F649CC00C8CA49 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82219CC322EE48700034FA46 /* Compiler Explorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Compiler Explorer.entitlements"; sourceTree = "<group>"; };
-		82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTemplateView.swift; sourceTree = "<group>"; };
+		82219CC822EE49C50034FA46 /* DocumentTemplateView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DocumentTemplateView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		8264179422F3D11600DF79F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		82829BAD22F4DF45003B14FD /* GotoShortlinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoShortlinkView.swift; sourceTree = "<group>"; };
 		8292ACB422ECB20800B1A165 /* Compiler Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Compiler Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,7 +246,9 @@
 				8292ACB522ECB20800B1A165 /* Products */,
 				8209E29422F6492300C8CA49 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		8292ACB522ECB20800B1A165 /* Products */ = {
 			isa = PBXGroup;

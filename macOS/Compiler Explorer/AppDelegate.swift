@@ -19,10 +19,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
     UserDefaults.standard.register(defaults: [
       "PreviousShortlinks": [String]()
     ])
+    gotoShortlinksController = GotoShortlinkWindowController()
   }
 
   @IBOutlet weak var documentController: DocumentController!
-  let gotoShortlinksController = GotoShortlinkWindowController()
+  let gotoShortlinksController: GotoShortlinkWindowController
   var shortlinkCancellable: AnyCancellable? = nil
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
