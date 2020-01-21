@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -64,6 +64,13 @@
 		8292ADAE22EE3C5500B1A165 /* SwiftLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */; };
 		82AE1FAF22F4A21100FFD730 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE1FAE22F4A21100FFD730 /* PageControl.swift */; };
 		82D6596922F4A55E0059963C /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6596822F4A55E0059963C /* PageViewController.swift */; };
+		8737156D23D7933900D581B4 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 8737156C23D7933900D581B4 /* Logging */; };
+		8737157023D7934F00D581B4 /* Hammond in Frameworks */ = {isa = PBXBuildFile; productRef = 8737156F23D7934F00D581B4 /* Hammond */; };
+		8737157423D7938200D581B4 /* Publishers.Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157323D7938200D581B4 /* Publishers.Log.swift */; };
+		8737157923D7938800D581B4 /* GodBoltRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157523D7938800D581B4 /* GodBoltRequest.swift */; };
+		8737157A23D7938800D581B4 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157623D7938800D581B4 /* Endpoints.swift */; };
+		8737157B23D7938800D581B4 /* RawResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157723D7938800D581B4 /* RawResponse.swift */; };
+		8737157C23D7938800D581B4 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157823D7938800D581B4 /* ServerError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +186,11 @@
 		8292ADAB22EE3C5500B1A165 /* SwiftLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLexer.swift; sourceTree = "<group>"; };
 		82AE1FAE22F4A21100FFD730 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		82D6596822F4A55E0059963C /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		8737157323D7938200D581B4 /* Publishers.Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publishers.Log.swift; sourceTree = "<group>"; };
+		8737157523D7938800D581B4 /* GodBoltRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GodBoltRequest.swift; sourceTree = "<group>"; };
+		8737157623D7938800D581B4 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		8737157723D7938800D581B4 /* RawResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawResponse.swift; sourceTree = "<group>"; };
+		8737157823D7938800D581B4 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +224,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8737156D23D7933900D581B4 /* Logging in Frameworks */,
+				8737157023D7934F00D581B4 /* Hammond in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,12 +300,13 @@
 		8292AD0A22ECB61500B1A165 /* GodBolt */ = {
 			isa = PBXGroup;
 			children = (
+				8737157223D7936900D581B4 /* Logging */,
+				87B7A2E123D7625D0069DBD8 /* Client */,
 				8292AD0B22ECB61500B1A165 /* Source.swift */,
 				8292AD0C22ECB61500B1A165 /* Language.swift */,
 				8292AD0D22ECB61500B1A165 /* Session.swift */,
 				8292AD0E22ECB61500B1A165 /* Response.swift */,
 				8292AD0F22ECB61500B1A165 /* Compiler.swift */,
-				8292AD1022ECB61500B1A165 /* Client.swift */,
 				8209E24322F6151200C8CA49 /* Shortlink.swift */,
 				8209E24122F614EA00C8CA49 /* Tables.swift */,
 				8292AD1122ECB61500B1A165 /* GodBolt.h */,
@@ -365,6 +380,26 @@
 				8209E25622F646AF00C8CA49 /* TokenizingLexer.swift */,
 			);
 			path = Lexers;
+			sourceTree = "<group>";
+		};
+		8737157223D7936900D581B4 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				8737157323D7938200D581B4 /* Publishers.Log.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		87B7A2E123D7625D0069DBD8 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				8737157623D7938800D581B4 /* Endpoints.swift */,
+				8737157523D7938800D581B4 /* GodBoltRequest.swift */,
+				8737157723D7938800D581B4 /* RawResponse.swift */,
+				8737157823D7938800D581B4 /* ServerError.swift */,
+				8292AD1022ECB61500B1A165 /* Client.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -469,6 +504,10 @@
 			dependencies = (
 			);
 			name = GodBolt;
+			packageProductDependencies = (
+				8737156C23D7933900D581B4 /* Logging */,
+				8737156F23D7934F00D581B4 /* Hammond */,
+			);
 			productName = GodBolt;
 			productReference = 8292ACEC22ECB5EB00B1A165 /* GodBolt.framework */;
 			productType = "com.apple.product-type.framework";
@@ -506,6 +545,10 @@
 				Base,
 			);
 			mainGroup = 8292ACAB22ECB20800B1A165;
+			packageReferences = (
+				8737156B23D7933900D581B4 /* XCRemoteSwiftPackageReference "swift-log" */,
+				8737156E23D7934F00D581B4 /* XCRemoteSwiftPackageReference "Hammond" */,
+			);
 			productRefGroup = 8292ACB522ECB20800B1A165 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -615,13 +658,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				8292AD1622ECB61500B1A165 /* Response.swift in Sources */,
+				8737157B23D7938800D581B4 /* RawResponse.swift in Sources */,
 				8292AD1322ECB61500B1A165 /* Source.swift in Sources */,
 				8209E24922F6161D00C8CA49 /* Tables.swift in Sources */,
+				8737157923D7938800D581B4 /* GodBoltRequest.swift in Sources */,
 				8292AD1822ECB61500B1A165 /* Client.swift in Sources */,
 				8292AD1722ECB61500B1A165 /* Compiler.swift in Sources */,
 				8292AD1422ECB61500B1A165 /* Language.swift in Sources */,
 				8209E24522F6151D00C8CA49 /* Shortlink.swift in Sources */,
+				8737157C23D7938800D581B4 /* ServerError.swift in Sources */,
 				8292AD1522ECB61500B1A165 /* Session.swift in Sources */,
+				8737157423D7938200D581B4 /* Publishers.Log.swift in Sources */,
+				8737157A23D7938800D581B4 /* Endpoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1036,6 +1084,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8737156B23D7933900D581B4 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		8737156E23D7934F00D581B4 /* XCRemoteSwiftPackageReference "Hammond" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/broadwaylamb/Hammond";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8737156C23D7933900D581B4 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8737156B23D7933900D581B4 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		8737156F23D7934F00D581B4 /* Hammond */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8737156E23D7934F00D581B4 /* XCRemoteSwiftPackageReference "Hammond" */;
+			productName = Hammond;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8292ACAC22ECB20800B1A165 /* Project object */;
 }

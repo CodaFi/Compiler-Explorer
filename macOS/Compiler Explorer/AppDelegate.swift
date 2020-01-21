@@ -12,10 +12,12 @@ import Cocoa
 import SwiftUI
 import Combine
 import GodBolt
+import Logging
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
   override init() {
+    LoggingSystem.bootstrap(StreamLogHandler.standardOutput)
     UserDefaults.standard.register(defaults: [
       "PreviousShortlinks": [String]()
     ])
