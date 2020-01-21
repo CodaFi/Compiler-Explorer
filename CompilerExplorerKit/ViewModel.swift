@@ -46,6 +46,8 @@ public final class ViewModel: ObservableObject, Identifiable {
     }
   }
 
+  private var cancellables = [AnyCancellable]()
+
   @Published public var shortlinkValue: String = ""
 
   /// An index into the `availableCompilers` array describing the currently
@@ -142,22 +144,22 @@ extension ViewModel {
     let source = Source(source: self.documentTextValue.value,
                         options: .init(arguments: self.compilerOptions,
                                        filters: self.computeFilter()))
-    _ = self.client.requestShortString(using: compiler, of: source)
-    .catch({ error in Empty() })
-    .receive(on: DispatchQueue.main)
-    .sink { shortlink in
-      self.shortlinkValue = shortlink.url
-    }
+    self.client.requestShortString(using: compiler, of: source)
+      .catch({ error in Empty() })
+      .receive(on: DispatchQueue.main)
+      .sink { shortlink in
+        self.shortlinkValue = shortlink.url
+      }.store(in: &cancellables)
   }
 
   public func updateLanguage(from url: URL) {
     self.language = ExtensionManager.language(for: url.pathExtension)
-    _ = self.client.requestCompilers(for: self.language)
+    self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
       .sink { values in
         self.availableCompilers = values
-    }
+      }.store(in: &cancellables)
   }
 
   private func computeFilter() -> Source.Options.Filter {
@@ -197,7 +199,7 @@ extension ViewModel {
     self.documentTextValue.send(string)
     self.textView?.text = string
     self.language = ExtensionManager.language(for: ext)
-    _ = self.client.requestCompilers(for: self.language)
+    self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
       .sink { values in
@@ -213,7 +215,7 @@ extension ViewModel {
           self.demangle = session.filters.contains(.demangle)
           self.trim = session.filters.contains(.trim)
         }
-      }
+      }.store(in: &cancellables)
   }
 }
 #elseif os(iOS)
@@ -222,7 +224,7 @@ extension ViewModel {
     self.objectWillChange.send()
     self.documentTextValue.send(session.source)
     self.language = ExtensionManager.language(for: session.language)
-    _ = self.client.requestCompilers(for: self.language)
+    self.client.requestCompilers(for: self.language)
       .catch { error in Empty() }
       .receive(on: DispatchQueue.main)
       .sink { values in
@@ -235,7 +237,7 @@ extension ViewModel {
         self.comments = compiler.filters.contains(.comments)
         self.demangle = compiler.filters.contains(.demangle)
         self.trim = compiler.filters.contains(.trim)
-      }
+      }.store(in: &cancellables)
   }
 }
 #else
