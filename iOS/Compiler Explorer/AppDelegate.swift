@@ -19,7 +19,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
   var languageCancellable: AnyCancellable? = nil
   @Published var selectedLanguage: Language? = nil
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
     let window = UIWindow(frame: UIScreen.main.bounds)
     self.window = window
     window.makeKeyAndVisible()
@@ -34,22 +37,27 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
       }
     case .phone:
       let vm = GotoShortlinkViewModel()
-      window.rootViewController = UIHostingController(rootView: DocumentTemplateView(chosen: Binding(get: { self.selectedLanguage }, set: { self.selectedLanguage = $0 })).environmentObject(vm))
+      window.rootViewController = UIHostingController(
+        rootView: DocumentTemplateView(
+          chosen: Binding(get: { self.selectedLanguage },
+                          set: { self.selectedLanguage = $0 }
+        )
+      ).environmentObject(vm))
       self.languageCancellable = self.$selectedLanguage
         .combineLatest(vm.shortlinkValue)
         .receive(on: DispatchQueue.main)
         .sink { values in
-        switch values {
-        case (.none, .none):
-          return
-        case let (.none, .some(session)):
-          self.dismisssForSessionChange(session: session)
-        case let (.some(lang), .none):
-          self.dismisssForLanguageChange(language: lang)
-        case (.some(_), .some(_)):
-          fatalError("Wat?")
+          switch values {
+          case (nil, nil):
+            return
+          case let (nil, session?):
+            self.dismisssForSessionChange(session: session)
+          case let (lang?, nil):
+            self.dismisssForLanguageChange(language: lang)
+          case (_?, _?):
+            fatalError("Wat?")
+          }
         }
-      }
     default:
       fatalError()
     }
