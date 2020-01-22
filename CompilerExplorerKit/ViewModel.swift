@@ -14,7 +14,8 @@ import SwiftUI
 import SavannaKit
 
 public final class ViewModel: ObservableObject, Identifiable {
-  private let client = Client.shared
+
+  private let client: ClientProtocol
 
   /// The text value of the document.  Specifically written as a subject
   /// because SavannaKit sends its "text did change" message quite frequently
@@ -92,7 +93,9 @@ public final class ViewModel: ObservableObject, Identifiable {
 
   /// The spine of the live-update mechanism.
   private var cancellable: AnyCancellable? = nil
-  public init() {
+
+  public init(client: ClientProtocol) {
+    self.client = client
     /// Sink all of the live-update-relevant properties into one enormous
     /// publisher.  We debounce so we aren't overwhelming poor godbolt on every
     /// keystroke.
@@ -106,12 +109,12 @@ public final class ViewModel: ObservableObject, Identifiable {
       .handleEvents(receiveOutput: { _ in self.shortlinkValue = "" }) // reset the shortlink.
       .debounce(for: 0.5, scheduler: DispatchQueue.main)
       .filter({ _ in !self.availableCompilers.isEmpty })
-      .flatMap { (filters) -> AnyPublisher<Response, Never> in
+      .flatMap { (filters) -> AnyPublisher<CompilationResult, Never> in
         let source = Source(source: self.documentTextValue.value,
                             options: .init(arguments: self.compilerOptions,
                                            filters: filters))
         return self.client.requestCompile(using: self.availableCompilers[self.selectedCompiler], of: source)
-          .catch { error in Empty<Response, Never>() } // FIXME: This is hella incorrect
+          .catch { error in Empty<CompilationResult, Never>() } // FIXME: This is hella incorrect
           .eraseToAnyPublisher()
       }
       .map { (values) -> String in values.asm.map({ $0.text }).joined(separator: "\n") }

@@ -43,7 +43,7 @@ struct ShortlinkPanelView: View {
 #if DEBUG
 struct ShortlinkPanelView_Previews: PreviewProvider {
   static var previews: some View {
-    ShortlinkPanelView(onDismiss: {}).environmentObject(ViewModel())
+    ShortlinkPanelView(onDismiss: {}).environmentObject(ViewModel(client: TestClient()))
   }
 }
 #endif

@@ -11,9 +11,16 @@ import SwiftUI
 import Combine
 import GodBolt
 
-class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, ObservableObject, Identifiable {
+final class DocumentBrowserViewController
+  : UIDocumentBrowserViewController,
+    UIDocumentBrowserViewControllerDelegate,
+    ObservableObject,
+    Identifiable
+{
   var languageCancellable: AnyCancellable? = nil
   @Published var selectedLanguage: Language? = nil
+
+  private let client: ClientProtocol
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,12 +31,20 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     self.allowsPickingMultipleItems = false
   }
 
+  init(client: ClientProtocol) {
+    self.client = client
+    super.init(forOpeningFilesWithContentTypes: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   // MARK: UIDocumentBrowserViewControllerDelegate
 
 	func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
 
-    let controller = UIHostingController(rootView: DocumentTemplateView(chosen: Binding(get: { self.selectedLanguage }, set: { self.selectedLanguage = $0 })).environmentObject(GotoShortlinkViewModel()))
+    let controller = UIHostingController(rootView: DocumentTemplateView(chosen: Binding(get: { self.selectedLanguage }, set: { self.selectedLanguage = $0 })).environmentObject(GotoShortlinkViewModel(client: client)))
     self.languageCancellable = self.$selectedLanguage.sink { value in
       guard let value = value else {
         return importHandler(nil, .none)
@@ -83,7 +98,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
   // MARK: Document Presentation
 
   func presentDocument(at documentURL: URL, language: Language) {
-    let documentViewController = DocumentViewController(document: Document(fileURL: documentURL))
+    let documentViewController = DocumentViewController(document: Document(fileURL: documentURL),
+                                                        client: client)
     switch UIDevice.current.userInterfaceIdiom {
     case .pad:
       documentViewController.modalPresentationStyle = .fullScreen

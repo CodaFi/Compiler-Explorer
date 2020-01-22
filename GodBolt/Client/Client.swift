@@ -11,11 +11,55 @@ import Foundation
 import Hammond
 import Logging
 
-public final class Client {
+private let defaultHost = URL(string: "https://godbolt.org")!
 
-  public static let shared = Client()
+/// A protocol that abstracts away the networking implementation.
+public protocol ClientProtocol: AnyObject {
 
-  private let defaultHost = URL(string: "https://godbolt.org")!
+  var networkActivityIndicator: NetworkActivityIndicatorPublisher { get }
+
+  func performHTTPRequest<Request: GodBoltRequest>(
+    _ request: Request
+  ) -> AnyPublisher<Request.Result, Error>
+
+  func requestLanguages() -> AnyPublisher<[Language], Error>
+
+  func requestCompilers(for language: Language?) -> AnyPublisher<[Compiler], Error>
+
+  func requestCompile(using compiler: Compiler,
+                      of source: Source) -> AnyPublisher<CompilationResult, Error>
+
+  func requestShortlinkInfo(for linkID: String) -> AnyPublisher<SessionContainer, Error>
+
+  func requestShortString(using compiler: Compiler,
+                          of source: Source) -> AnyPublisher<Shortlink, Error>
+}
+
+extension ClientProtocol {
+  public func requestLanguages() -> AnyPublisher<[Language], Error> {
+    performHTTPRequest(LanguagesRequest())
+  }
+
+  public func requestCompilers(for language: Language? = nil) -> AnyPublisher<[Compiler], Error> {
+    performHTTPRequest(CompilersRequest(language: language))
+  }
+
+  public func requestCompile(using compiler: Compiler,
+                             of source: Source) -> AnyPublisher<CompilationResult, Error> {
+    performHTTPRequest(CompileSourceRequest(compiler: compiler, source: source))
+  }
+
+  public func requestShortlinkInfo(for linkID: String) -> AnyPublisher<SessionContainer, Error> {
+    performHTTPRequest(ShortlinkInfoRequest(linkID: linkID))
+  }
+
+  public func requestShortString(using compiler: Compiler,
+                                 of source: Source) -> AnyPublisher<Shortlink, Error> {
+    performHTTPRequest(ShortStringRequest(compiler: compiler, source: source))
+  }
+}
+
+public final class Client: ClientProtocol {
 
   private let logger: Logger = {
     var logger = Logger(label: "com.codafi.GodBolt.client")
@@ -25,7 +69,7 @@ public final class Client {
 
   public let networkActivityIndicator = NetworkActivityIndicatorPublisher()
 
-  private var session: URLSession = {
+  private let session: URLSession = {
     let configuration = URLSessionConfiguration.default
     configuration.httpAdditionalHeaders = [
       "ACCEPT": "application/json",
@@ -34,9 +78,7 @@ public final class Client {
     return URLSession(configuration: configuration)
   }()
 
-  private init() {
-
-  }
+  public init() {}
 
   private func urlRequest<Request: GodBoltRequest>(for request: Request) throws -> URLRequest {
     var urlRequest = URLRequest(url: defaultHost.appendingPathComponent(request.path))
@@ -46,7 +88,7 @@ public final class Client {
     return urlRequest
   }
 
-  private func performHTTPRequest<Request: GodBoltRequest>(
+  public func performHTTPRequest<Request: GodBoltRequest>(
     _ request: Request
   ) -> AnyPublisher<Request.Result, Error> {
     let urlRequest: URLRequest
@@ -81,26 +123,21 @@ public final class Client {
       }.tryMap(Request.extractResult)
       .eraseToAnyPublisher()
   }
+}
 
-  public func requestLanguages() -> AnyPublisher<[Language], Error> {
-    performHTTPRequest(LanguagesRequest())
-  }
+public final class TestClient: ClientProtocol {
 
-  public func requestCompilers(for language: Language? = nil) -> AnyPublisher<[Compiler], Error> {
-    performHTTPRequest(CompilersRequest(language: language))
-  }
+  public let networkActivityIndicator = NetworkActivityIndicatorPublisher()
 
-  public func requestCompile(using compiler: Compiler,
-                             of source: Source) -> AnyPublisher<Response, Error> {
-    performHTTPRequest(CompileSourceRequest(compiler: compiler, source: source))
-  }
+  public init() {}
 
-  public func requestShortlinkInfo(for linkID: String) -> AnyPublisher<SessionContainer, Error> {
-    performHTTPRequest(ShortlinkInfoRequest(linkID: linkID))
-  }
-
-  public func requestShortString(using compiler: Compiler,
-                                 of source: Source) -> AnyPublisher<Shortlink, Error> {
-    performHTTPRequest(ShortStringRequest(compiler: compiler, source: source))
+  public func performHTTPRequest<Request: GodBoltRequest>(
+    _ request: Request
+  ) -> AnyPublisher<Request.Result, Error> {
+    let (statusCode, testData) = request.testData
+    let rawResponse = RawResponse(body: testData, statusCode: statusCode)
+    return Result {
+      try Request.extractResult(from: rawResponse)
+    }.publisher.eraseToAnyPublisher()
   }
 }

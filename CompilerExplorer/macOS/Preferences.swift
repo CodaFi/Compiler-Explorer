@@ -12,6 +12,7 @@ import AppKit
 import SwiftUI
 import Combine
 import CompilerExplorerKit
+import GodBolt
 
 struct PreferencesView: View {
   @EnvironmentObject var viewModel: ViewModel
@@ -38,7 +39,7 @@ struct PreferencesView: View {
 #if DEBUG
 struct PreferencesView_Preview: PreviewProvider {
   static var previews: some View {
-    PreferencesView(onDismiss: {}).environmentObject(ViewModel())
+    PreferencesView(onDismiss: {}).environmentObject(ViewModel(client: TestClient()))
   }
 }
 #endif

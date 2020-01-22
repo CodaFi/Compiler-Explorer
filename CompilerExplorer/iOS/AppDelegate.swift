@@ -19,6 +19,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
   var languageCancellable: AnyCancellable? = nil
   @Published var selectedLanguage: Language? = nil
 
+  private let client = Client()
+
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -28,7 +30,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
     window.makeKeyAndVisible()
     switch UIDevice.current.userInterfaceIdiom {
     case .pad:
-      window.rootViewController = DocumentBrowserViewController()
+      window.rootViewController = DocumentBrowserViewController(client: client)
       self.languageCancellable = self.$selectedLanguage.sink { lang in
         guard let lang = lang else {
           return
@@ -36,7 +38,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
         self.dismisssForLanguageChange(language: lang)
       }
     case .phone:
-      let vm = GotoShortlinkViewModel()
+      let vm = GotoShortlinkViewModel(client: client)
       window.rootViewController = UIHostingController(
         rootView: DocumentTemplateView(
           chosen: Binding(get: { self.selectedLanguage },
@@ -75,7 +77,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
       })
     }
 
-    let documentViewController = DocumentViewController(document: doc)
+    let documentViewController = DocumentViewController(document: doc, client: client)
     window?.rootViewController?.present(documentViewController, animated: true, completion: nil)
   }
 
@@ -98,7 +100,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
       })
     }
 
-    let documentViewController = DocumentViewController(document: doc)
+    let documentViewController = DocumentViewController(document: doc, client: client)
     window?.rootViewController?.present(documentViewController, animated: true, completion: nil)
     documentViewController.loadSession(session, compiler: compiler)
   }

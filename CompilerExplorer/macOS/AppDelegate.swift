@@ -15,13 +15,16 @@ import GodBolt
 import Logging
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSOpenSavePanelDelegate {
+
+  private let client = Client()
+
   override init() {
     LoggingSystem.bootstrap(StreamLogHandler.standardOutput)
     UserDefaults.standard.register(defaults: [
       "PreviousShortlinks": [String]()
     ])
-    gotoShortlinksController = GotoShortlinkWindowController()
+    gotoShortlinksController = GotoShortlinkWindowController(client: client)
   }
 
   @IBOutlet weak var documentController: DocumentController!

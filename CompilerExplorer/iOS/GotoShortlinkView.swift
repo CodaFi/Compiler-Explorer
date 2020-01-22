@@ -35,7 +35,7 @@ struct GotoShortlinkView: View {
 #if DEBUG
 struct GotoShortlinkView_Preview: PreviewProvider {
   static var previews: some View {
-    GotoShortlinkView().environmentObject(GotoShortlinkViewModel())
+    GotoShortlinkView().environmentObject(GotoShortlinkViewModel(client: TestClient()))
   }
 }
 #endif
@@ -67,8 +67,10 @@ final class GotoShortlinkViewModel: ObservableObject, Identifiable {
 
   private var validationCancellable: AnyCancellable? = nil
 
-  init() {
+  private let client: ClientProtocol
 
+  init(client: ClientProtocol) {
+    self.client = client
   }
 
   func react(_ dismiss: Binding<PresentationMode>) {
@@ -92,7 +94,7 @@ final class GotoShortlinkViewModel: ObservableObject, Identifiable {
 
     let group = DispatchGroup()
     group.enter()
-    self.validationCancellable = Client.shared
+    self.validationCancellable = client
       .requestShortlinkInfo(for: url.lastPathComponent)
       .catch { err -> Empty<SessionContainer, Never> in
         print(err)

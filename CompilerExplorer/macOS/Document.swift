@@ -14,7 +14,7 @@ import GodBolt
 import CompilerExplorerKit
 
 final class Document: NSDocument {
-  var viewModel = ViewModel()
+  let viewModel: ViewModel
   private var transient: Bool = false
   private let preferences: PreferencesWindowController
   let shortlinksController: ShortlinkWindowController
@@ -24,6 +24,7 @@ final class Document: NSDocument {
   }
 
   override init() {
+    self.viewModel = ViewModel(client: Client())
     self.preferences = PreferencesWindowController(viewModel: self.viewModel)
     self.shortlinksController = ShortlinkWindowController(viewModel: self.viewModel)
     super.init()

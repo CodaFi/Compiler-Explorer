@@ -55,12 +55,14 @@ struct GotoShortlinkPanelView: View {
 #if DEBUG
 struct ShortlinkPanelView_Preview: PreviewProvider {
   static var previews: some View {
-    GotoShortlinkPanelView().environmentObject(GotoShortlinkWindowController.ViewModel())
+    GotoShortlinkPanelView()
+      .environmentObject(GotoShortlinkWindowController.ViewModel(client: TestClient()))
   }
 }
 #endif
 
 final class GotoShortlinkWindowController: NSWindowController {
+
   final class ViewModel: ObservableObject, Identifiable {
     @Published var errorText: String = ""
     @Published var shortlinkText: String = ""
@@ -69,18 +71,18 @@ final class GotoShortlinkWindowController: NSWindowController {
     var shortlinkValue = CurrentValueSubject<SessionContainer?, Never>(nil)
     fileprivate var validationCancellable: AnyCancellable? = nil
 
-    init() {
+    private let client: ClientProtocol
+
+    init(client: ClientProtocol) {
+      self.client = client
       self.previousShortlinks = UserDefaults.standard.array(forKey: "PreviousShortlinks") as! [String]
     }
   }
 
-  let viewModel = ViewModel()
+  let viewModel: ViewModel
 
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-
-  override init(window: NSWindow?) {
+  init(client: ClientProtocol) {
+    self.viewModel = ViewModel(client: client)
     let window = NSWindow(
         contentRect: .zero,
         styleMask: [.titled],
@@ -91,6 +93,10 @@ final class GotoShortlinkWindowController: NSWindowController {
     super.init(window: window)
     self.window = window
     window.contentView = NSHostingView(rootView: GotoShortlinkPanelView().environmentObject(self.viewModel))
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }
 
@@ -126,9 +132,12 @@ extension GotoShortlinkWindowController.ViewModel {
 
     let group = DispatchGroup()
     group.enter()
-    self.validationCancellable = Client.shared
+    self.validationCancellable = client
       .requestShortlinkInfo(for: url.lastPathComponent)
-      .catch { err -> Empty<SessionContainer, Never> in print(err); return Empty<SessionContainer, Never>() }
+      .catch { err -> Empty<SessionContainer, Never> in
+        print(err) // FIXME: Properly handle the error
+        return Empty<SessionContainer, Never>()
+      }
       .sink(receiveCompletion: { _ in
         group.leave()
       }) { value in

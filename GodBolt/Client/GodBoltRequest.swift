@@ -9,10 +9,12 @@
 import Foundation
 import Hammond
 
-protocol GodBoltRequest: DecodableRequestProtocol
+public protocol GodBoltRequest: DecodableRequestProtocol
   where ServerError == GodBolt.ServerError, ResponseBody == Data
 {
   associatedtype RequestBody = Void
+
+  var testData: (HTTPStatusCode, Data) { get }
 
   var body: RequestBody { get }
 

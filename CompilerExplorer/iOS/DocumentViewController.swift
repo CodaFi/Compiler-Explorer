@@ -84,18 +84,18 @@ struct DocumentView: View {
 #if DEBUG
 struct DocumentView_Previews: PreviewProvider {
   static var previews: some View {
-    DocumentView(viewModel: ViewModel(), onDismiss: {})
+    DocumentView(viewModel: ViewModel(client: TestClient()), onDismiss: {})
   }
 }
 #endif
 
 final class DocumentViewController: UIViewController {
-  @ObservedObject var viewModel = ViewModel()
+  @ObservedObject var viewModel: ViewModel
   let document: Document
   var hostingController: UIHostingController<AnyView>?
 
-  init(document: Document) {
-    self.viewModel = ViewModel()
+  init(document: Document, client: ClientProtocol) {
+    self.viewModel = ViewModel(client: client)
     self.document = document
     super.init(nibName: nil, bundle: nil)
     self.viewModel.updateLanguage(from: self.document.fileURL)

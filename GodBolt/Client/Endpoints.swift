@@ -6,6 +6,7 @@
 //  Copyright © 2020 CodaFi. All rights reserved.
 //
 
+import Foundation
 import Hammond
 
 struct LanguagesRequest: GodBoltRequest {
@@ -15,6 +16,10 @@ struct LanguagesRequest: GodBoltRequest {
   var path: String { "/api/languages" }
 
   static var method: HTTPMethod { .get }
+
+  var testData: (HTTPStatusCode, Data) {
+    (.ok, Data())
+  }
 }
 
 struct CompilersRequest: GodBoltRequest {
@@ -26,11 +31,15 @@ struct CompilersRequest: GodBoltRequest {
   var path: String { "/api/compilers/\(language?.id ?? "")" }
 
   static var method: HTTPMethod { .get }
+
+  var testData: (HTTPStatusCode, Data) {
+    (.ok, Data())
+  }
 }
 
 struct CompileSourceRequest: GodBoltRequest {
 
-  typealias Result = Response
+  typealias Result = CompilationResult
 
   var compiler: Compiler
 
@@ -41,6 +50,10 @@ struct CompileSourceRequest: GodBoltRequest {
   static var method: HTTPMethod { .post }
 
   var body: Source { source }
+
+  var testData: (HTTPStatusCode, Data) {
+    (.ok, Data())
+  }
 }
 
 struct ShortlinkInfoRequest: GodBoltRequest {
@@ -52,6 +65,10 @@ struct ShortlinkInfoRequest: GodBoltRequest {
   var path: String { "/api/shortlinkinfo/\(linkID)" }
 
   static var method: HTTPMethod { .get }
+
+  var testData: (HTTPStatusCode, Data) {
+    (.ok, Data())
+  }
 }
 
 struct ShortStringRequest: GodBoltRequest {
@@ -79,5 +96,9 @@ struct ShortStringRequest: GodBoltRequest {
                                            conformanceview: false,
                                            compilers: [sessionCompiler])
     return SessionContainer(sessions: [session])
+  }
+
+  var testData: (HTTPStatusCode, Data) {
+    (.ok, Data())
   }
 }
