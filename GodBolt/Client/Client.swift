@@ -38,25 +38,39 @@ public final class Client {
 
   }
 
-  private func urlRequest<Request: GodBoltRequest>(for request: Request) -> URLRequest {
+  private func urlRequest<Request: GodBoltRequest>(for request: Request) throws -> URLRequest {
     var urlRequest = URLRequest(url: defaultHost.appendingPathComponent(request.path))
     urlRequest.httpMethod = Request.method.rawValue
     urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+    urlRequest.httpBody = try request.encodeBody()
     return urlRequest
   }
 
   private func performHTTPRequest<Request: GodBoltRequest>(
     _ request: Request
   ) -> AnyPublisher<Request.Result, Error> {
-    logger.trace("Performing HTTP request:\n\(urlRequest(for: request))")
+    let urlRequest: URLRequest
+    do {
+       urlRequest = try self.urlRequest(for: request)
+    } catch {
+      logger.error("Could not encode request \(request)")
+      return Result.failure(error).publisher.eraseToAnyPublisher()
+    }
+    logger.trace("Performing HTTP request:\n\(urlRequest.rawDescription)")
     networkActivityIndicator.startActivity()
     return session
-      .dataTaskPublisher(for: urlRequest(for: request))
+      .dataTaskPublisher(for: urlRequest)
       .handleEvents(receiveCompletion: { _ in self.networkActivityIndicator.stopActivity() },
                     receiveCancel: { self.networkActivityIndicator.stopActivity() })
       .log(logger,
            level: .trace,
-           formatOutput: { "\n\(prettyPrintJSON($0.data))" },
+           formatOutput: { data, response in
+             """
+             Received response:
+             \(response.rawDescription)
+             \(data.prettyPrintedJSON())
+             """
+           },
            formatFailure: { "Request failed: \($0.localizedDescription)" })
       .mapError { $0 as Error }
       .tryMap { data, response -> RawResponse in
@@ -89,15 +103,4 @@ public final class Client {
                                  of source: Source) -> AnyPublisher<Shortlink, Error> {
     performHTTPRequest(ShortStringRequest(compiler: compiler, source: source))
   }
-}
-
-private func prettyPrintJSON(_ data: Data) -> String {
-  let result: Data
-  do {
-    let json = try JSONSerialization.jsonObject(with: data)
-    result = try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])
-  } catch {
-    result = data
-  }
-  return String(decoding: result, as: UTF8.self)
 }

@@ -10,7 +10,25 @@ import Foundation
 import Hammond
 
 protocol GodBoltRequest: DecodableRequestProtocol
-  where ServerError == GodBolt.ServerError, ResponseBody == Data {}
+  where ServerError == GodBolt.ServerError, ResponseBody == Data
+{
+  associatedtype RequestBody = Void
+
+  var body: RequestBody { get }
+
+  func encodeBody() throws -> Data?
+}
+
+extension GodBoltRequest where RequestBody == Void {
+  var body: Void { () }
+  func encodeBody() -> Data? { nil }
+}
+
+extension GodBoltRequest where RequestBody: Encodable {
+  func encodeBody() throws -> Data? {
+    try JSONEncoder().encode(body)
+  }
+}
 
 extension GodBoltRequest {
   static func deserializeError(from body: Data) throws -> GodBolt.ServerError {
