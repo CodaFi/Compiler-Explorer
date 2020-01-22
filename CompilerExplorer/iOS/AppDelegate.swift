@@ -42,8 +42,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject, I
       window.rootViewController = UIHostingController(
         rootView: DocumentTemplateView(
           chosen: Binding(get: { self.selectedLanguage },
-                          set: { self.selectedLanguage = $0 }
-        )
+                          set: { self.selectedLanguage = $0 }),
+          viewModel: .init(client: client)
       ).environmentObject(vm))
       self.languageCancellable = self.$selectedLanguage
         .combineLatest(vm.shortlinkValue)

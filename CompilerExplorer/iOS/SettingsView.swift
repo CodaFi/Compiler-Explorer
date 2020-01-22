@@ -23,6 +23,7 @@ struct SettingsView: View {
   private var compilerSection: some View {
     Section(header: Text("Compiler")) {
       Picker(selection: self.$viewModel.selectedCompiler, label: Text("Compiler")) {
+        TextField("asd", text: .constant("text"))
         ForEach(0..<self.viewModel.availableCompilers.count) { idx in
           Text(self.viewModel.availableCompilers[idx].name).tag(idx)
         }
@@ -97,7 +98,8 @@ struct SettingsView: View {
 #if DEBUG
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    SettingsView().environmentObject(ViewModel(client: TestClient()))
+    SettingsView()
+      .environmentObject(ViewModel(client: TestClient()))
   }
 }
 #endif
