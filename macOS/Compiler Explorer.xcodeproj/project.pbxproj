@@ -78,6 +78,7 @@
 		8737156423D791F200D581B4 /* GodBoltRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737155F23D791F200D581B4 /* GodBoltRequest.swift */; };
 		8737156723D792FB00D581B4 /* Hammond in Frameworks */ = {isa = PBXBuildFile; productRef = 8737156623D792FB00D581B4 /* Hammond */; };
 		8737156A23D7930B00D581B4 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 8737156923D7930B00D581B4 /* Logging */; };
+		8737158023D8745A00D581B4 /* NetworkActivityIndicatorPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157F23D8745A00D581B4 /* NetworkActivityIndicatorPublisher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 		8737155D23D791F200D581B4 /* RawResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawResponse.swift; sourceTree = "<group>"; };
 		8737155E23D791F200D581B4 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		8737155F23D791F200D581B4 /* GodBoltRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GodBoltRequest.swift; sourceTree = "<group>"; };
+		8737157F23D8745A00D581B4 /* NetworkActivityIndicatorPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorPublisher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -463,6 +465,7 @@
 		8737155423D791BF00D581B4 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				8737157F23D8745A00D581B4 /* NetworkActivityIndicatorPublisher.swift */,
 				8737155C23D791F200D581B4 /* Client.swift */,
 				8737155E23D791F200D581B4 /* Endpoints.swift */,
 				8737155F23D791F200D581B4 /* GodBoltRequest.swift */,
@@ -819,6 +822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8737156223D791F200D581B4 /* RawResponse.swift in Sources */,
+				8737158023D8745A00D581B4 /* NetworkActivityIndicatorPublisher.swift in Sources */,
 				8737155A23D791EA00D581B4 /* Publishers.OSLog.swift in Sources */,
 				8292AC7C22ECB1B800B1A165 /* Response.swift in Sources */,
 				8737156123D791F200D581B4 /* Client.swift in Sources */,

@@ -71,6 +71,7 @@
 		8737157A23D7938800D581B4 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157623D7938800D581B4 /* Endpoints.swift */; };
 		8737157B23D7938800D581B4 /* RawResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157723D7938800D581B4 /* RawResponse.swift */; };
 		8737157C23D7938800D581B4 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157823D7938800D581B4 /* ServerError.swift */; };
+		8737157E23D86E4100D581B4 /* NetworkActivityIndicatorPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737157D23D86E4100D581B4 /* NetworkActivityIndicatorPublisher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,7 @@
 		8737157623D7938800D581B4 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		8737157723D7938800D581B4 /* RawResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawResponse.swift; sourceTree = "<group>"; };
 		8737157823D7938800D581B4 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		8737157D23D86E4100D581B4 /* NetworkActivityIndicatorPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorPublisher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				8737157623D7938800D581B4 /* Endpoints.swift */,
+				8737157D23D86E4100D581B4 /* NetworkActivityIndicatorPublisher.swift */,
 				8737157523D7938800D581B4 /* GodBoltRequest.swift */,
 				8737157723D7938800D581B4 /* RawResponse.swift */,
 				8737157823D7938800D581B4 /* ServerError.swift */,
@@ -669,6 +672,7 @@
 				8737157C23D7938800D581B4 /* ServerError.swift in Sources */,
 				8292AD1522ECB61500B1A165 /* Session.swift in Sources */,
 				8737157423D7938200D581B4 /* Publishers.Log.swift in Sources */,
+				8737157E23D86E4100D581B4 /* NetworkActivityIndicatorPublisher.swift in Sources */,
 				8737157A23D7938800D581B4 /* Endpoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

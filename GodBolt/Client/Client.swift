@@ -23,11 +23,7 @@ public final class Client {
     return logger
   }()
 
-  private let confinementQueue: OperationQueue = {
-    let queue = OperationQueue()
-    queue.name = "com.codafi.GodBolt.client"
-    return queue
-  }()
+  public let networkActivityIndicator = NetworkActivityIndicatorPublisher()
 
   private var session: URLSession = {
     let configuration = URLSessionConfiguration.default
@@ -52,9 +48,12 @@ public final class Client {
   private func performHTTPRequest<Request: GodBoltRequest>(
     _ request: Request
   ) -> AnyPublisher<Request.Result, Error> {
-    logger.trace("Performing HTTP request \(request)")
+    logger.trace("Performing HTTP request:\n\(urlRequest(for: request))")
+    networkActivityIndicator.startActivity()
     return session
       .dataTaskPublisher(for: urlRequest(for: request))
+      .handleEvents(receiveCompletion: { _ in self.networkActivityIndicator.stopActivity() },
+                    receiveCancel: { self.networkActivityIndicator.stopActivity() })
       .log(logger,
            level: .trace,
            formatOutput: { "\n\(prettyPrintJSON($0.data))" },
