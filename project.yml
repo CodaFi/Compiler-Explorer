@@ -1,0 +1,51 @@
+name: Compiler-Explorer
+options:
+  minimumXcodeGenVersion: 2.11.0
+  xcodeVersion: 11.0
+  indentWidth: 2
+  tabWidth: 2
+  deploymentTarget:
+    iOS: 13.0
+    macOS: 10.15
+
+packages:
+  swift-log:
+    url: https://github.com/apple/swift-log.git
+    from: 1.2.0
+  Hammond:
+    url: https://github.com/broadwaylamb/Hammond.git
+    from: 0.1.0
+
+targets:
+  GodBolt:
+    platform: [iOS, macOS]
+    sources: GodBolt
+    type: library.static
+    dependencies:
+      - package: swift-log
+        product: Logging
+      - package: Hammond
+  SavannaKit:
+    platform: [iOS, macOS]
+    sources: SavannaKit
+    type: library.static
+  CompilerExplorerKit:
+    platform: [iOS, macOS]
+    sources: CompilerExplorerKit
+    type: library.static
+    dependencies:
+      - target: SavannaKit_${platform}
+      - target: GodBolt_${platform}
+  CompilerExplorer:
+    platform: [iOS, macOS]
+    sources: 
+      - path: CompilerExplorer/${platform}
+        createIntermediateGroups: true
+    type: application
+    transitivelyLinkDependencies: true
+    dependencies:
+      - target: CompilerExplorerKit_${platform}
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.codafi.CompilerExplorer
+      CODE_SIGN_ENTITLEMENTS: CompilerExplorer/${platform}/CompilerExplorer.entitlements
+  

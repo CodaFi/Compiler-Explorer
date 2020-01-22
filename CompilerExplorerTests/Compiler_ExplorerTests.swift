@@ -9,7 +9,7 @@
 /// available in the repository.
 
 import XCTest
-@testable import Compiler_Explorer
+//@testable import CompilerExplorer
 
 class Compiler_ExplorerTests: XCTestCase {
 
