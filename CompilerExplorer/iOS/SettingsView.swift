@@ -39,9 +39,11 @@ struct SettingsView: View {
   private var shortLinkSection: some View {
     Section(header: Text("Shortlink")) {
       if self.viewModel.shortlinkValue.isEmpty {
-        AnyView(Button(action: { self.viewModel.computeShortlinkForBuffer() }) { Text("Compute Shortlink...") })
+        Button(action: { self.viewModel.computeShortlinkForBuffer() }) {
+          Text("Compute Shortlink...")
+        }
       } else {
-        AnyView(NativeCopyableTextField(string: self.$viewModel.shortlinkValue, placeholder: "Loading..."))
+        NativeCopyableTextField(string: self.$viewModel.shortlinkValue, placeholder: "Loading...")
       }
     }
   }

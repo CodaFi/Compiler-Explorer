@@ -15,6 +15,9 @@ packages:
   Hammond:
     url: https://github.com/broadwaylamb/Hammond.git
     from: 0.1.0
+  StringSearch:
+    url: https://github.com/broadwaylamb/StringSearch.git
+    from: 0.2.1
 
 targets:
   GodBolt:
@@ -45,6 +48,7 @@ targets:
     transitivelyLinkDependencies: true
     dependencies:
       - target: CompilerExplorerKit_${platform}
+      - package: StringSearch
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.codafi.CompilerExplorer
       CODE_SIGN_ENTITLEMENTS: CompilerExplorer/${platform}/CompilerExplorer.entitlements
